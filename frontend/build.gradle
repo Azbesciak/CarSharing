@@ -1,0 +1,48 @@
+plugins {
+  id "com.moowork.node" version "1.2.0"
+}
+
+apply plugin: 'java'
+
+// configure gradle-node-plugin
+node {
+  version = '6.11.0'
+  npmVersion = '3.10.10'
+  // If true, it will download node using above parameters.
+  // If false, it will try to use globally installed node.
+  download = true
+  workDir = file("${project.projectDir}/node")
+}
+task compileTypeScript(type: NpmTask) {
+  // install the express package only
+  args = ['run-script', "tsc"]
+}
+
+// clean node/node_modules/dist
+task npmClean(type: Delete, group: 'node') {
+  final def webDir = "${project.projectDir}"
+  //delete "${webDir}/node"
+  //delete "${webDir}/node_modules"
+  delete "${webDir}/dist"
+}
+
+clean.dependsOn(npmClean)
+
+task npmStart(type: NpmTask) {
+  args = ['start']
+  group = "node"
+  dependsOn("npmInstall")
+}
+
+task npmBuild(type: NpmTask) {
+  args = ['run', 'build']
+  group = "node"
+  dependsOn("npmInstall")
+}
+
+jar {
+  dependsOn("npmBuild")
+  from(fileTree("dist")) {
+    into "META-INF/resources"
+  }
+}

@@ -1,0 +1,4 @@
+rootProject.name = 'CarSharing'
+include 'frontend'
+include 'spring-boot-server'
+
