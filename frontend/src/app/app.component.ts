@@ -14,8 +14,8 @@ export class AppComponent {
   heroes = [];
 
   getData() {
-    this.data.getHeroes().then(resp => {
-      this.heroes = resp.heroes
+    this.data.getRoles().then(resp => {
+      console.log(resp)
     });
   }
 }
