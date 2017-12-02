@@ -13,4 +13,5 @@ class AuthorizationController(private val userRepository: UserRepository) {
   @GetMapping("/roles")
   fun getUsers() = userRepository.findAll()
 
+
 }

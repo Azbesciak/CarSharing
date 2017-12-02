@@ -8,14 +8,17 @@ import javax.validation.constraints.NotNull
 @Table(name = "users")
 data class User(
   @Id
-  @GeneratedValue(strategy= GenerationType.AUTO)
-  var userId: Int? = null,
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(name = "user_id")
+  var userId: Long? = null,
 
-  @Enumerated(EnumType.STRING)
-  @ElementCollection(targetClass = UserRole::class)
-  @Column(name = "role", nullable = false)
-  @CollectionTable(name = "user_roles")
-  val roles: Collection<UserRole> = setOf(),
+  @ManyToMany(cascade = arrayOf(CascadeType.ALL))
+  @JoinTable(
+    name = "user_role",
+    joinColumns = arrayOf(JoinColumn(name = "user_id")),
+    inverseJoinColumns = arrayOf(JoinColumn(name = "role_id"))
+  )
+  val roles: Set<Role> = mutableSetOf(),
 
   @Column(unique = true, nullable = false)
   var login: String? = null,

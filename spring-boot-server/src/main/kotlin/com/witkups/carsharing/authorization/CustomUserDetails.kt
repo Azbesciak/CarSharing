@@ -4,7 +4,7 @@ import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.AuthorityUtils
 import org.springframework.security.core.userdetails.UserDetails
 
-data class CustomUserDetails(private val user: User) : UserDetails {
+class CustomUserDetails(private val user: User) : UserDetails {
   override fun getAuthorities(): MutableCollection<out GrantedAuthority> =
     AuthorityUtils.commaSeparatedStringToAuthorityList(user.roles.joinToString(","))
 

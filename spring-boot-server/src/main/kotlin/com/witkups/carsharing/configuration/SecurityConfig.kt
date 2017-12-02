@@ -1,41 +1,39 @@
-package com.witkups.carsharing
+package com.witkups.carsharing.configuration
 
-import com.witkups.carsharing.authorization.CustomUserDetailsService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.security.SecurityProperties
 import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.annotation.Order
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
+import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
-import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.web.servlet.config.annotation.CorsRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
+import org.springframework.security.config.annotation.web.builders.WebSecurity
 
 
 @Configuration
 @EnableWebSecurity
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
-//@ComponentScan(basePackageClasses = arrayOf(CustomUserDetailsService::class))
-internal class SecurityConfig(
+class SecurityConfig(
 //  private val corsFilter: CorsFilter,
-  private val customUserDetailsService: CustomUserDetailsService
+  private val userDetailsService: UserDetailsService
 ) : WebSecurityConfigurerAdapter() {
 
   @Autowired
   @Throws(Exception::class)
   fun configAuthentication(auth: AuthenticationManagerBuilder) {
-    auth.userDetailsService(customUserDetailsService)
+    auth.userDetailsService(userDetailsService)
         .passwordEncoder(passwordEncoder())
   }
 
   @Bean
-  fun passwordEncoder(): PasswordEncoder {
+  fun passwordEncoder(): BCryptPasswordEncoder {
     return BCryptPasswordEncoder()
   }
 
@@ -59,6 +57,13 @@ internal class SecurityConfig(
 //      .and().formLogin().loginPage("/login").permitAll()
 
 //    http.addFilterBefore(frontEndCorsFilter, ChannelProcessingFilter::class.java)
+  }
+
+  @Throws(Exception::class)
+  override fun configure(web: WebSecurity?) {
+    web!!
+      .ignoring()
+      .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**")
   }
 
   @Bean
