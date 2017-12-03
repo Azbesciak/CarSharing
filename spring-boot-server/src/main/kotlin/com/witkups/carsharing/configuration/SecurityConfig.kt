@@ -47,7 +47,7 @@ class SecurityConfig(
       .anyRequest().permitAll()
       .and()
       .formLogin().loginPage("/login")
-      .usernameParameter("username").passwordParameter("password")
+      .usernameParameter("login").passwordParameter("password")
       .and()
       .logout().logoutSuccessUrl("/login?logout")
       .and()

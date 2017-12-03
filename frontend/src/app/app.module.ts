@@ -6,16 +6,22 @@ import { HttpClientModule } from "@angular/common/http";
 import { DataService } from "./data/data.service";
 import { RegistrationComponent } from './authorization/registration/registration.component';
 import { LoginComponent } from './authorization/login/login.component';
+import {FormsModule} from "@angular/forms";
+import {MaterialModule} from "./material/material.module";
+import {RoutingModule} from "./routing/routing.module";
 
 @NgModule({
   declarations: [
     AppComponent,
     RegistrationComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    MaterialModule,
+    RoutingModule
   ],
   providers: [DataService],
   bootstrap: [AppComponent]

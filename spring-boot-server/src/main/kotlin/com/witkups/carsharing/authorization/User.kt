@@ -1,6 +1,10 @@
 package com.witkups.carsharing.authorization
 
+import org.hibernate.annotations.CreationTimestamp
 import java.io.Serializable
+import java.time.Instant
+import java.time.LocalDate
+import java.time.LocalDateTime
 import javax.persistence.*
 import javax.validation.constraints.NotNull
 
@@ -12,11 +16,11 @@ data class User(
   @Column(name = "user_id")
   var userId: Long? = null,
 
-  @ManyToMany(cascade = arrayOf(CascadeType.ALL))
+  @ManyToMany(cascade = [(CascadeType.ALL)])
   @JoinTable(
     name = "user_role",
-    joinColumns = arrayOf(JoinColumn(name = "user_id")),
-    inverseJoinColumns = arrayOf(JoinColumn(name = "role_id"))
+    joinColumns = [(JoinColumn(name = "user_id"))],
+    inverseJoinColumns = [(JoinColumn(name = "role_id"))]
   )
   val roles: Set<Role> = mutableSetOf(),
 
@@ -31,5 +35,10 @@ data class User(
 
   @NotNull
   @Enumerated(EnumType.STRING)
-  var status: UserStatus = UserStatus.OFFLINE
+  var status: UserStatus = UserStatus.OFFLINE,
+
+  @NotNull
+  var lastLogin: LocalDateTime? = null,
+  @CreationTimestamp
+  var registered: LocalDateTime? = LocalDateTime.now()
 ): Serializable
