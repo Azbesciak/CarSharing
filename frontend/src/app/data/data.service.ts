@@ -9,11 +9,16 @@ export class DataService {
   constructor(private http: HttpClient) { }
 
   loginUser(user: User) {
-    return this.http.post(this.toApi("login"), user).toPromise()
+    return this.http.post(DataService.toApi("login"), user).toPromise()
+  }
+
+  registerUser(user: User) {
+    return this.http.post(DataService.toApi("register"), user).toPromise()
+      .catch(e => console.log(e))
   }
 
   getRoles() : Promise<any> {
-    return this.http.get(this.toApi("roles"))
+    return this.http.get(DataService.toApi("roles"))
       .toPromise()
   }
 
@@ -22,7 +27,7 @@ export class DataService {
       .toPromise()
   }
 
-  toApi(url: string): string {
+  static toApi(url: string): string {
     return `${env.apiRoot}/${url}`
   }
 

@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.security.SecurityProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.annotation.Order
+import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
@@ -15,6 +16,9 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.security.config.annotation.web.builders.WebSecurity
+import org.springframework.security.config.http.SessionCreationPolicy
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler
+
 
 
 @Configuration
@@ -23,6 +27,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity
 class SecurityConfig(
 //  private val corsFilter: CorsFilter,
   private val userDetailsService: UserDetailsService
+//  private val restaut
 ) : WebSecurityConfigurerAdapter() {
 
   @Autowired
@@ -37,26 +42,33 @@ class SecurityConfig(
     return BCryptPasswordEncoder()
   }
 
+  @Bean
+  fun getBasicAuthEntryPoint(): CustomBasicAuthenticationEntryPoint {
+    return CustomBasicAuthenticationEntryPoint()
+  }
+
   @Throws(Exception::class)
   override fun configure(http: HttpSecurity) {
+
     http
       .csrf().disable()
       .cors().disable()
       .authorizeRequests()
       .antMatchers("/hello").access("hasRole('ADMIN')")
-      .anyRequest().permitAll()
+      .antMatchers("/users").authenticated()
+      .antMatchers(HttpMethod.POST, "/register").permitAll()
+      .anyRequest().authenticated()
       .and()
       .formLogin().loginPage("/login")
       .usernameParameter("login").passwordParameter("password")
+      .successHandler(MySavedRequestAwareAuthenticationSuccessHandler())
+      .failureHandler(SimpleUrlAuthenticationFailureHandler())
       .and()
       .logout().logoutSuccessUrl("/login?logout")
       .and()
-      .exceptionHandling().accessDeniedPage("/403")
-      .and()
-      .csrf()
-//      .and().formLogin().loginPage("/login").permitAll()
-
-//    http.addFilterBefore(frontEndCorsFilter, ChannelProcessingFilter::class.java)
+      .exceptionHandling()
+      .authenticationEntryPoint(RestAuthenticationEntryPoint())
+      .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
   }
 
   @Throws(Exception::class)
@@ -70,7 +82,7 @@ class SecurityConfig(
   fun corsConfigurer(): WebMvcConfigurer {
     return object : WebMvcConfigurerAdapter() {
       override fun addCorsMappings(registry: CorsRegistry?) {
-        registry!!.addMapping("/login").allowedOrigins("http://localhost:4200")
+        registry!!.addMapping("/**").allowedOrigins("*")
       }
     }
   }

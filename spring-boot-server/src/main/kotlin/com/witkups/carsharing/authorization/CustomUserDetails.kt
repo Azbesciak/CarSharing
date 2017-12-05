@@ -8,7 +8,7 @@ class CustomUserDetails(private val user: User) : UserDetails {
   override fun getAuthorities(): MutableCollection<out GrantedAuthority> =
     AuthorityUtils.commaSeparatedStringToAuthorityList(user.roles.joinToString(","))
 
-  override fun isEnabled(): Boolean = user.status == UserStatus.ONLINE
+  override fun isEnabled(): Boolean = true
 
   override fun getUsername(): String = user.login!!
 

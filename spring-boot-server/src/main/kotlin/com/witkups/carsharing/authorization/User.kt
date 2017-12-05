@@ -1,6 +1,8 @@
 package com.witkups.carsharing.authorization
 
 import org.hibernate.annotations.CreationTimestamp
+import org.hibernate.annotations.Fetch
+import org.springframework.data.repository.cdi.Eager
 import java.io.Serializable
 import java.time.Instant
 import java.time.LocalDate
@@ -16,7 +18,7 @@ data class User(
   @Column(name = "user_id")
   var userId: Long? = null,
 
-  @ManyToMany(cascade = [(CascadeType.ALL)])
+  @ManyToMany(cascade = [(CascadeType.ALL)], fetch = FetchType.EAGER)
   @JoinTable(
     name = "user_role",
     joinColumns = [(JoinColumn(name = "user_id"))],
@@ -41,4 +43,9 @@ data class User(
   var lastLogin: LocalDateTime? = null,
   @CreationTimestamp
   var registered: LocalDateTime? = LocalDateTime.now()
-): Serializable
+): Serializable {
+  operator fun invoke(function: User.() -> Unit): User {
+    function()
+    return this
+  }
+}
