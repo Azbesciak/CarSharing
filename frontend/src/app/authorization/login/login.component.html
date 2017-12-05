@@ -13,4 +13,14 @@
 </mat-card>
 <div class="register-link">
   Do not have an account? <a routerLink="/register">Create</a>
+
+  <button mat-raised-button color="primary" (click)="getUsers()">
+    getUsers
+  </button>
+  <div *ngIf="users">
+    <div *ngFor="let user of users">
+      {{user.login}} {{user.password}}
+    </div>
+  </div>
+
 </div>

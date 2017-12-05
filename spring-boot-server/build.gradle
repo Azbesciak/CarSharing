@@ -55,13 +55,10 @@ dependencies {
   compile("org.jetbrains.kotlin:kotlin-stdlib-jre8:${kotlinVersion}")
   compile("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
   runtime('org.springframework.boot:spring-boot-devtools')
-  // https://mvnrepository.com/artifact/com.fasterxml.jackson.module/jackson-module-kotlin
   compile group: 'com.fasterxml.jackson.module', name: 'jackson-module-kotlin', version: '2.9.2'
 
-//  compile group: 'org.springframework.data', name: 'spring-data-jpa', version: '1.0.0.RELEASE'
-// https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc
   runtime group: 'com.microsoft.sqlserver', name: 'mssql-jdbc', version: '6.3.5.jre8-preview'
-//  compile("io.jsonwebtoken:jjwt:0.7.0")
+  compile("io.jsonwebtoken:jjwt:0.7.0")
 //  runtime('com.h2database:h2')
   testCompile('org.springframework.boot:spring-boot-starter-test')
   testCompile('org.springframework.security:spring-security-test')

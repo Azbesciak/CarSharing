@@ -9,7 +9,8 @@ export class DataService {
   constructor(private http: HttpClient) { }
 
   loginUser(user: User) {
-    return this.http.post(DataService.toApi("login"), user).toPromise()
+    let objectObservable = this.http.post(DataService.toApi("login"), user);
+    return objectObservable.toPromise()
   }
 
   registerUser(user: User) {
@@ -17,14 +18,8 @@ export class DataService {
       .catch(e => console.log(e))
   }
 
-  getRoles() : Promise<any> {
-    return this.http.get(DataService.toApi("roles"))
-      .toPromise()
-  }
-
-  blabla(): Promise<any> {
-    return this.http.get("http://localhost:8080/login")
-      .toPromise()
+  getUsers() {
+    return this.http.get(DataService.toApi("users")).toPromise()
   }
 
   static toApi(url: string): string {

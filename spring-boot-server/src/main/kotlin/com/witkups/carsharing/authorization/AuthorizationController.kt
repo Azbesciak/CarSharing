@@ -1,6 +1,5 @@
 package com.witkups.carsharing.authorization
 
-import org.springframework.security.access.annotation.Secured
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.web.bind.annotation.*
 
@@ -9,9 +8,6 @@ import org.springframework.web.bind.annotation.*
 class AuthorizationController(private val userRepository: UserRepository,
                               private val bCryptPasswordEncoder: BCryptPasswordEncoder)
 {
-
-//  @PostMapping("/login")
-//  fun login() = "ok"
 
   @GetMapping("/users")
   fun getUsers() = userRepository.findAll()
