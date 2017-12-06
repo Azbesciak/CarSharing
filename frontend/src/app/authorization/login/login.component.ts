@@ -2,7 +2,6 @@ import {Component, Input, OnInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {DataService} from "../../data/data.service";
 import {User} from "../user";
-import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-login',
@@ -29,18 +28,11 @@ export class LoginComponent implements OnInit {
   }
 
   loginUser() {
-    this.data
-      .loginUser(new User(this.login, this.password))
-      // .then(r => console.log(r))
-      // .catch((e: HttpErrorResponse) => {
-      //   debugger;
-      // console.log(e.headers);}
-      // )
+    this.data.loginUser(new User(this.login, this.password))
   }
 
   getUsers() {
     this.data.getUsers()
       .then((users: User[]) => this.users = users)
-      .catch(e => console.log(e));
   }
 }

@@ -34,7 +34,7 @@ class JWTAuthenticationFilter(private val authenticationManager: AuthenticationM
                                        res: HttpServletResponse?): Authentication {
         try {
             val creds = ObjectMapper()
-                    .readValue(req.inputStream, com.witkups.carsharing.authorization.User::class.java)
+                    .readValue(req.inputStream, User::class.java)
 
             return authenticationManager.authenticate(
                     UsernamePasswordAuthenticationToken(
@@ -60,5 +60,6 @@ class JWTAuthenticationFilter(private val authenticationManager: AuthenticationM
                 .signWith(SignatureAlgorithm.HS512, SECRET.toByteArray())
                 .compact()
         res.addHeader(HEADER_STRING, "$TOKEN_PREFIX$token")
+        res.addHeader("access-control-expose-headers", HEADER_STRING)
     }
 }
