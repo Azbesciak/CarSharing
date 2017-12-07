@@ -6,17 +6,17 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping
 class AuthorizationController(private val userRepository: UserRepository,
-                              private val bCryptPasswordEncoder: BCryptPasswordEncoder)
-{
+                              private val bCryptPasswordEncoder: BCryptPasswordEncoder
+) : UserRepository by userRepository {
 
   @GetMapping("/users")
-  fun getUsers() = userRepository.findAll()
+  fun getUsers() = findAll()
 
 
   @PostMapping("/register")
-  fun register(@RequestBody user: User) = user {
+  fun register(@RequestBody user: User) = save(user {
       password = bCryptPasswordEncoder.encode(password)
-      userRepository.save(this)
-    }
+      roles += Role.USER
+    })
 
 }

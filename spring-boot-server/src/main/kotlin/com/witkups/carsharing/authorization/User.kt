@@ -1,14 +1,9 @@
 package com.witkups.carsharing.authorization
 
 import org.hibernate.annotations.CreationTimestamp
-import org.hibernate.annotations.Fetch
-import org.springframework.data.repository.cdi.Eager
 import java.io.Serializable
 import java.time.Instant
-import java.time.LocalDate
-import java.time.LocalDateTime
 import javax.persistence.*
-import javax.validation.constraints.NotNull
 
 @Entity
 @Table(name = "users")
@@ -18,32 +13,30 @@ data class User(
   @Column(name = "user_id")
   var userId: Long? = null,
 
-  @ManyToMany(cascade = [(CascadeType.ALL)], fetch = FetchType.EAGER)
-  @JoinTable(
-    name = "user_role",
-    joinColumns = [(JoinColumn(name = "user_id"))],
-    inverseJoinColumns = [(JoinColumn(name = "role_id"))]
-  )
-  val roles: Set<Role> = mutableSetOf(),
+  @JoinTable(name = "roles", joinColumns = [(JoinColumn(name = "user_id"))])
+  @Column(name = "role", nullable = false)
+  @Enumerated(EnumType.STRING)
+  @ElementCollection(targetClass = Role::class, fetch = FetchType.EAGER)
+  val roles: MutableSet<Role> = hashSetOf(),
 
   @Column(unique = true, nullable = false)
   var login: String? = null,
 
-  @NotNull
+  @Column(nullable = false)
   var password: String? = null,
 
-  @NotNull
+  @Column(nullable = false, unique = true)
   var email: String? = null,
 
-  @NotNull
   @Enumerated(EnumType.STRING)
+  @Column(nullable = false)
   var status: UserStatus = UserStatus.OFFLINE,
 
-  @NotNull
-  var lastLogin: LocalDateTime? = null,
+  var lastLogin: Instant? = null,
   @CreationTimestamp
-  var registered: LocalDateTime? = LocalDateTime.now()
-): Serializable {
+  @Column(nullable = false)
+  var registered: Instant? = Instant.now()
+) : Serializable {
   operator fun invoke(function: User.() -> Unit): User {
     function()
     return this
