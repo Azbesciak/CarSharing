@@ -1,4 +1,4 @@
-package com.witkups.carsharing.authorization
+package com.witkups.carsharing.users.authorization
 
 import org.hibernate.annotations.CreationTimestamp
 import java.io.Serializable

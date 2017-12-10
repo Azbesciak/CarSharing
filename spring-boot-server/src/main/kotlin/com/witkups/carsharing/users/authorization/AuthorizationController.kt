@@ -1,4 +1,4 @@
-package com.witkups.carsharing.authorization
+package com.witkups.carsharing.users.authorization
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.web.bind.annotation.*

@@ -1,4 +1,4 @@
-package com.witkups.carsharing.authorization
+package com.witkups.carsharing.users.authorization
 
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.AuthorityUtils

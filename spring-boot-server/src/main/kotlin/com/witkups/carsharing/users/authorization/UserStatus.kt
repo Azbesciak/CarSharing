@@ -1,4 +1,4 @@
-package com.witkups.carsharing.authorization
+package com.witkups.carsharing.users.authorization
 
 enum class UserStatus {
   ONLINE, OFFLINE, BANNED

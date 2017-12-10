@@ -1,8 +1,8 @@
 package com.witkups.carsharing.security
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.witkups.carsharing.authorization.CustomUserDetails
-import com.witkups.carsharing.authorization.User
+import com.witkups.carsharing.users.authorization.CustomUserDetails
+import com.witkups.carsharing.users.authorization.User
 import com.witkups.carsharing.security.SecurityConstants.EXPIRATION_TIME
 import com.witkups.carsharing.security.SecurityConstants.HEADER_STRING
 import com.witkups.carsharing.security.SecurityConstants.SECRET
