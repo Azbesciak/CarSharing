@@ -16,13 +16,15 @@ class CustomUserDetailsService(
   @Transactional
   override fun loadUserByUsername(username: String): UserDetails {
     return fetchUser(username)
-      .map { it {
-        lastLogin = Instant.now()
-        status = UserStatus.ONLINE
-      } }
       .map { CustomUserDetails(it) }
       .orElseThrow { UsernameNotFoundException("No user present with username or email: $username") }
   }
+
+  @Transactional
+  fun updateUserLogin(user: UserDetails) {
+    userRepository.updateLastLoginDate(user.username!!)
+  }
+
 
   fun fetchUser(username: String) = findByLogin(username) or { findByEmail(username) }
 }

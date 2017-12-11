@@ -18,6 +18,10 @@ export class DataService {
       .then(r => this.auth.saveAuthorization(r))
   }
 
+  logoutUser() {
+    this.auth.clearAuthorization()
+  }
+
   registerUser(user: User) {
     return this.http.post(DataService.toApi("register"), user).toPromise()
       .catch(e => console.log(e))

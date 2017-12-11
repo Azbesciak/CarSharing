@@ -17,6 +17,9 @@
   <button mat-raised-button color="primary" (click)="getUsers()">
     getUsers
   </button>
+  <button mat-raised-button color="secondary" (click)="logoutUser()">
+    logout
+  </button>
   <div *ngIf="users">
     <div *ngFor="let user of users">
       {{user.login}} {{user.password}}

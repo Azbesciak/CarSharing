@@ -1,6 +1,7 @@
 package com.witkups.carsharing.security
 
 import com.witkups.carsharing.security.SecurityConstants.SIGN_UP_URL
+import com.witkups.carsharing.users.authorization.CustomUserDetailsService
 import org.springframework.context.annotation.Bean
 import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
@@ -17,7 +18,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
 @EnableWebSecurity
 class WebSecurity(
-  private val userDetailsService: UserDetailsService,
+  private val userDetailsService: CustomUserDetailsService,
   private val bCryptPasswordEncoder: BCryptPasswordEncoder
 ) : WebSecurityConfigurerAdapter() {
 
@@ -28,8 +29,8 @@ class WebSecurity(
       .antMatchers("/actuator/**").permitAll()
       .anyRequest().authenticated()
       .and()
-      .addFilter(JWTAuthorizationFilter(authenticationManager()))
-      .addFilter(JWTAuthenticationFilter(authenticationManager()))
+      .addFilter(JWTAuthorizationFilter(authenticationManager(), userDetailsService))
+      .addFilter(JWTAuthenticationFilter(authenticationManager(), userDetailsService))
       // this disables session creation on Spring Security
       .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
   }

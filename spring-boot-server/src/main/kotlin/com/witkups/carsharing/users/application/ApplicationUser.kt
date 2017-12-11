@@ -29,8 +29,11 @@ data class ApplicationUser(
   @OneToMany(mappedBy = "reviewer", fetch = FetchType.LAZY)
   var givenOpinions: MutableSet<Opinion> = mutableSetOf(),
 
-
   @OneToMany(mappedBy = "reviewed", fetch = FetchType.LAZY)
-  var receivedOpinions: MutableSet<Opinion> = mutableSetOf()
+  var receivedOpinions: MutableSet<Opinion> = mutableSetOf(),
+
+  @OneToMany(fetch = FetchType.LAZY)
+  @JoinColumn(name = "car_id")
+  var cars: MutableSet<Car> = mutableSetOf()
 
 ): Serializable

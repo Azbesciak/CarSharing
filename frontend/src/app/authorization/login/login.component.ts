@@ -31,6 +31,10 @@ export class LoginComponent implements OnInit {
     this.data.loginUser(new User(this.login, this.password))
   }
 
+  logoutUser() {
+    this.data.logoutUser();
+  }
+
   getUsers() {
     this.data.getUsers()
       .then((users: User[]) => this.users = users)

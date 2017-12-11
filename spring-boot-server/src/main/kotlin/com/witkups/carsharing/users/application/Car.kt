@@ -14,6 +14,7 @@ import javax.validation.constraints.Past
 data class Car(
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(name = "car_id")
   var id: Long? = null,
 
   @Column(nullable = false)
@@ -23,7 +24,7 @@ data class Car(
   var model: String? = null,
 
   @Column(nullable = false)
-  var type: CarType? = null,
+  var type: Type? = null,
 
   @Column(nullable = false)
   @Min(1)
@@ -33,9 +34,10 @@ data class Car(
   @DateTimeFormat(style = "YYYY")
   @Past
   var yearOfProduction: LocalDate
-): Serializable
-
-enum class CarType {
-  HATCHBACK, SEDAN, MINIBUS, MINIVAN, SUV,
-  COUPE, OFF_ROAD, CABRIO, COMBI, PICKUP
+): Serializable {
+	enum class Type {
+		HATCHBACK, SEDAN, MINIBUS, MINIVAN, SUV,
+		COUPE, OFF_ROAD, CABRIO, COMBI, PICKUP
+	}
 }
+
