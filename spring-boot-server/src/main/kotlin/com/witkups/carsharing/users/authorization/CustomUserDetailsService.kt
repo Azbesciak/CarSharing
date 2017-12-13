@@ -1,5 +1,6 @@
 package com.witkups.carsharing.users.authorization
 
+import com.witkups.carsharing.map
 import com.witkups.carsharing.or
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
@@ -21,10 +22,7 @@ class CustomUserDetailsService(
   }
 
   @Transactional
-  fun updateUserLogin(user: UserDetails) {
-    userRepository.updateLastLoginDate(user.username!!)
-  }
+  fun updateUserLogin(user: UserDetails) = updateLastLoginDate(user.username!!)
 
-
-  fun fetchUser(username: String) = findByLogin(username) or { findByEmail(username) }
+  private fun fetchUser(username: String) = findByLoginOrEmail(username)
 }

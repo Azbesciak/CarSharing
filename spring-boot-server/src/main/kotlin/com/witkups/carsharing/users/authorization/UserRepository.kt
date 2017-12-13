@@ -10,6 +10,7 @@ import java.util.*
 interface UserRepository: JpaRepository<User, Long> {
   fun findByLogin(login: String): Optional<User>
   fun findByEmail(email: String): Optional<User>
+  fun findByLoginOrEmail(login: String, email: String = login): Optional<User>
   @Modifying
   @Async
   @Query("update User u set u.lastLogin = ?2 where u.login = ?1")

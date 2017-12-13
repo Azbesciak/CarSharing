@@ -5,7 +5,6 @@ import org.hibernate.annotations.CreationTimestamp
 import java.time.Instant
 import javax.persistence.*
 import javax.validation.constraints.Size
-import kotlin.math.min
 
 @Entity
 @Table(name = "opinions")
