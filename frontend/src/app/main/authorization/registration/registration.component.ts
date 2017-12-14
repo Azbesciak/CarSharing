@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Form, NgForm} from "@angular/forms";
-import {DataService} from "../../data/data.service";
+import {DataService} from "../../../functional/data/data.service";
 import {User} from "../user";
 
 @Component({

@@ -3,11 +3,13 @@ import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {HttpClientModule} from "@angular/common/http";
-import {DataService} from "./data/data.service";
+import {DataService} from "./functional/data/data.service";
 import {FormsModule} from "@angular/forms";
-import {MaterialModule} from "./material/material.module";
-import {RoutingModule} from "./routing/routing.module";
-import {AuthorizationModule} from "./authorization/authorization.module";
+import {MaterialModule} from "./functional/ui/material/material.module";
+import {RoutingModule} from "./functional/routing/routing.module";
+import {AuthorizationModule} from "./main/authorization/authorization.module";
+import {FunctionalModule} from "./functional/functional.module";
+import {MainModule} from "./main/main.module";
 
 @NgModule({
   declarations: [
@@ -17,9 +19,9 @@ import {AuthorizationModule} from "./authorization/authorization.module";
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    MaterialModule,
+    FunctionalModule,
     RoutingModule,
-    AuthorizationModule,
+    MainModule,
   ],
   providers: [DataService],
   bootstrap: [AppComponent]

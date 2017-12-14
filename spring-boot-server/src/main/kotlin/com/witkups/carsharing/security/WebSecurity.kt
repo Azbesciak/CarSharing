@@ -35,6 +35,9 @@ class WebSecurity(
       .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
   }
 
+  @Bean
+  override fun authenticationManager() = super.authenticationManager()
+
   @Throws(Exception::class)
   public override fun configure(auth: AuthenticationManagerBuilder?) {
     auth!!.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder)

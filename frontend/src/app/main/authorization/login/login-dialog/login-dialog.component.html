@@ -1,0 +1,7 @@
+<h1 mat-dialog-title>
+  Sign in
+  <mat-icon mat-dialog-action mat-dialog-close (click)="closeDialog()" class="close-button">clear</mat-icon>
+</h1>
+<div  mat-dialog-content>
+<app-login-form (authResp)="onAuthResult($event)"></app-login-form>
+</div>

@@ -34,7 +34,8 @@ class JWTAuthenticationFilter(
     try {
       val creds = ObjectMapper().readValue(req.inputStream, User::class.java)
       if (creds?.login != null) {
-        val auth = UsernamePasswordAuthenticationToken(creds.login, creds.password, Collections.emptyList())
+        val auth = UsernamePasswordAuthenticationToken(creds.login, creds.password)
+        auth.details = creds
         return authenticationManager.authenticate(auth)
       }
       return null

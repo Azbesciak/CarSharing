@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { DataService } from "./data/data.service";
 
 @Component({
   selector: 'app-root',
@@ -8,14 +7,5 @@ import { DataService } from "./data/data.service";
 })
 export class AppComponent {
 
-  constructor(private data: DataService) {}
-
-  title = 'app';
-  heroes = [];
-
-  getData() {
-    this.data.getUsers().then(resp => {
-      console.log(resp)
-    });
-  }
+  constructor() {}
 }

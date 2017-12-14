@@ -9,14 +9,14 @@ export class AuthService {
   @SessionStorage()
   private tokenValue?: string;
 
-  addToken(req: HttpRequest<any>) : HttpHeaders{
+  addToken(req: HttpRequest<any>): HttpHeaders {
     if (this.tokenValue)
       return req.headers.set(AuthService.TOKEN_NAME, this.tokenValue);
     else
       return req.headers;
   }
 
-  saveAuthorization(res: HttpResponse<any>) {
+ saveAuthorization(res: HttpResponse<any>) {
     this.tokenValue = res.headers.get(AuthService.TOKEN_NAME)
   }
 

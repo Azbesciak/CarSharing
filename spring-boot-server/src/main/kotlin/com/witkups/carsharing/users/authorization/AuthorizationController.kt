@@ -9,14 +9,9 @@ class AuthorizationController(private val userRepository: UserRepository,
                               private val bCryptPasswordEncoder: BCryptPasswordEncoder
 ) : UserRepository by userRepository {
 
-  @GetMapping("/users")
-  fun getUsers() = findAll()
-
-
   @PostMapping("/register")
   fun register(@RequestBody user: User) = save(user {
       password = bCryptPasswordEncoder.encode(password)
       roles += Role.USER
     })
-
 }

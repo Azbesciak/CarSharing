@@ -11,7 +11,7 @@ data class ApplicationUser(
   @Id
   @JoinColumn(name = "user_id")
   @OneToOne(fetch = FetchType.LAZY, targetEntity = User::class)
-  var user: User,
+  var user: User? = null,
 
   @Column(nullable = false)
   var lastName: String? = null,
