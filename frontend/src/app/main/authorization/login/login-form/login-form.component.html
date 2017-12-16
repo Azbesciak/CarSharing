@@ -1,11 +1,11 @@
-<div *ngIf="error" class="mat-error">{{error}}</div>
-<form class="example-form" #form="ngForm" (submit)="loginUser()" name="login-form">
-  <mat-form-field class="example-full-width">
-    <input matInput placeholder="Login" [(ngModel)]="login" name="login">
+<form class="example-form" (submit)="loginUser(creds)" novalidate [formGroup]="creds">
+  <mat-form-field class="example-full-width" [class.onError]="error">
+    <input matInput placeholder="Login" formControlName="login" [errorStateMatcher]="matcher">
+    <mat-error *ngIf="error">{{error}}</mat-error>
   </mat-form-field>
 
   <mat-form-field class="example-full-width">
-    <input matInput placeholder="Password" type="password" [(ngModel)]="password" name="password">
+    <input matInput placeholder="Password" type="password" formControlName="password">
   </mat-form-field>
-  <button mat-raised-button color="primary">Sign in</button>
+  <button mat-raised-button color="primary" [disabled]="creds.invalid">Sign in</button>
 </form>
