@@ -1,7 +1,15 @@
 <mat-toolbar>
-  <a mat-button> <mat-icon>directions_car</mat-icon><span>Car Sharing</span></a>
+  <a mat-button>
+    <mat-icon>directions_car</mat-icon>
+    <span>Car Sharing</span></a>
   <app-spacer></app-spacer>
-  <a mat-button (click)="openLoginDialog()">Sign in</a>
-  <a mat-button (click)="register()">Sign up</a>
-  <a mat-button (click)="logout()">Logout</a>
+  <span *ngIf="user; else notAuthorized">
+    <a mat-button (click)="logout()">Logout</a>
+  </span>
+  <ng-template #notAuthorized>
+    <a mat-button (click)="openLoginDialog()">Sign in</a>
+    <a mat-button (click)="register()">Sign up</a>
+  </ng-template>
+
+  <a mat-button (click)="logout()">wywal to g</a>
 </mat-toolbar>

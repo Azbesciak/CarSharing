@@ -1,7 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {User} from "../../user";
+import {AppUser, User} from "../../user";
 import {NgForm} from "@angular/forms";
-import {LoginService} from "../../login.service";
+import {UserService} from "../../user.service";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-login-form',
@@ -14,22 +15,24 @@ export class LoginFormComponent implements OnInit {
   form: NgForm;
 
   @Input()
-  login: string;
+  login: string = "lama";
 
   @Input()
-  password: string;
+  password: string = "123";
+
+  error: string;
 
   @Output()
-  authResp = new EventEmitter<any>();
+  authResp = new EventEmitter<AppUser | HttpErrorResponse>();
 
-  constructor(private auth: LoginService) { }
+  constructor(private auth: UserService) { }
 
   ngOnInit() {
   }
 
   loginUser() {
     this.auth.login(new User(this.login, this.password))
-      .then(res => this.authResp.emit(res))
-      .catch(e => this.authResp.emit(e))
+      .then((res: AppUser) => this.authResp.emit(res))
+      .catch(() => this.error = `Invalid login or password`)
   }
 }

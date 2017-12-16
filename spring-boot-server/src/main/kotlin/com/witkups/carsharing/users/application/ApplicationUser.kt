@@ -7,10 +7,15 @@ import javax.persistence.*
 import javax.validation.constraints.Pattern
 
 @Entity
+@Table(name = "application_users")
 data class ApplicationUser(
   @Id
-  @JoinColumn(name = "user_id")
-  @OneToOne(fetch = FetchType.LAZY, targetEntity = User::class)
+  @Column(name = "user_id")
+  var id: Long? = null,
+
+  @MapsId
+  @JoinColumn(name = "user_id", foreignKey = ForeignKey(name = "FK_APP_USER_USER_ID"), nullable = false)
+  @OneToOne(fetch = FetchType.LAZY, targetEntity = User::class, orphanRemoval = true, optional = false)
   var user: User? = null,
 
   @Column(nullable = false)
@@ -20,8 +25,12 @@ data class ApplicationUser(
   var dateOfBirth: LocalDate? = null,
 
   @OneToMany(orphanRemoval = true, fetch = FetchType.LAZY)
-  @JoinColumn(name = "img_id")
+  @JoinColumn(name = "img_id", foreignKey = ForeignKey(name = "FK_IMAGES_USER_PHOTOS"))
   var photos: MutableSet<Image> = mutableSetOf(),
+
+  @JoinColumn(name = "img_id", foreignKey = ForeignKey(name = "FK_APP_USER_MAIN_PHOTO"))
+  @OneToOne(orphanRemoval = true, fetch = FetchType.LAZY, optional = true)
+  var userPhoto: Image? = null,
 
   @Pattern(regexp = "\\d{9}")
   var phoneNumber: String? = null,
@@ -33,7 +42,12 @@ data class ApplicationUser(
   var receivedOpinions: MutableSet<Opinion> = mutableSetOf(),
 
   @OneToMany(fetch = FetchType.LAZY)
-  @JoinColumn(name = "car_id")
+  @JoinColumn(name = "car_id", foreignKey = ForeignKey(name = "FK_APP_USER_CARS"))
   var cars: MutableSet<Car> = mutableSetOf()
 
-): Serializable
+): Serializable {
+  operator fun invoke(function: ApplicationUser.() -> Unit): ApplicationUser {
+    function()
+    return this
+  }
+}

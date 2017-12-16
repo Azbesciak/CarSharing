@@ -8,10 +8,10 @@ import javax.servlet.http.HttpServletResponse
 
 inline infix fun <T> Optional<T>.or(supplier: ()-> Optional<T>) = if (isPresent) this else supplier()
 
-operator fun <T> T.invoke(op: T.() -> Unit): T {
-  op()
-  return this
-}
+//operator fun <T> T.invoke(op: T.() -> Unit): T {
+//  op()
+//  return this
+//}
 
 inline infix fun <S, T> S.mapTo(f: S.() -> T): T = f()
 inline infix fun <S, T> S.map(f: S.() -> T): T? = if (this != null) f(this) else null

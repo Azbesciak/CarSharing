@@ -14,7 +14,7 @@ export class RegistrationComponent implements OnInit {
   form: NgForm;
 
   @Input()
-  user: User = new User();
+  user: User = new User("lama", "123", "123");
 
   constructor(private data: DataService) { }
 

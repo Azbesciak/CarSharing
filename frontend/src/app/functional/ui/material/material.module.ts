@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {
   MatToolbarModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule,
-  MatIconModule, MatDialogModule
+  MatIconModule, MatDialogModule, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher
 } from "@angular/material";
+import {ReactiveFormsModule} from "@angular/forms";
 
 const MATERIAL_MODULES = [
   BrowserAnimationsModule,
@@ -14,7 +15,8 @@ const MATERIAL_MODULES = [
   MatButtonModule,
   MatToolbarModule,
   MatIconModule,
-  MatDialogModule
+  MatDialogModule,
+  ReactiveFormsModule
 ];
 
 @NgModule({
@@ -25,6 +27,9 @@ const MATERIAL_MODULES = [
   exports: [
     BrowserAnimationsModule,
     MATERIAL_MODULES
+  ],
+  providers: [
+    {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}
   ],
   declarations: []
 })

@@ -5,7 +5,8 @@ import {MatDialog} from "@angular/material";
 import {LoginFormComponent} from "../../../main/authorization/login/login-form/login-form.component";
 import {LoginDialogComponent} from "../../../main/authorization/login/login-dialog/login-dialog.component";
 import {RoutingConstants} from "../../routing/routing.constants";
-import {LoginService} from "../../../main/authorization/login.service";
+import {UserService} from "../../../main/authorization/user.service";
+import {AppUser} from "../../../main/authorization/user";
 
 @Component({
   selector: 'app-header',
@@ -14,13 +15,12 @@ import {LoginService} from "../../../main/authorization/login.service";
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private router: Router, public dialog: MatDialog, private loginServ: LoginService) {}
+  constructor(private router: Router, public dialog: MatDialog, private loginServ: UserService) {}
+
+  user: AppUser;
 
   ngOnInit() {
-  }
-
-  goToLogin() {
-
+    this.loginServ.subscribeOnUserData(user => this.user = user);
   }
 
   openLoginDialog(): void {

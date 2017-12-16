@@ -22,6 +22,7 @@ export class AuthService {
 
   clearAuthorization() {
     this.tokenValue = null;
+    return Promise.resolve()
   }
 
 }

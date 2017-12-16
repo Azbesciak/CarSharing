@@ -22,7 +22,7 @@ export class DataService {
       .catch(e => console.log(e))
   }
 
-  getLogedInUserData() {
+  getLoggedInUserData() {
     return this.http.get(DataService.toApi("user/data")).toPromise()
   }
 

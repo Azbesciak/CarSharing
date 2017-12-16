@@ -1,3 +1,4 @@
+<div *ngIf="error" class="mat-error">{{error}}</div>
 <form class="example-form" #form="ngForm" (submit)="loginUser()" name="login-form">
   <mat-form-field class="example-full-width">
     <input matInput placeholder="Login" [(ngModel)]="login" name="login">

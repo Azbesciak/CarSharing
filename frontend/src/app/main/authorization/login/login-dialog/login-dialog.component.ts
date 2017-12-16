@@ -1,5 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
+import {AppUser} from "../../user";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-login-dialog',
@@ -14,12 +16,14 @@ export class LoginDialogComponent implements OnInit {
   ngOnInit() {
   }
 
-  closeDialog() {
-    this.dialogRef.close(false);
+  closeDialog(res = false) {
+    this.dialogRef.close(res);
   }
 
   onAuthResult(event) {
-    console.log(event);
+    if (event && event.user) {
+      this.closeDialog(event)
+    }
   }
 
 }

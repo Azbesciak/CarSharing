@@ -11,7 +11,7 @@ import {Ng2Webstorage} from "ngx-webstorage";
 import { LoginFormComponent } from './login/login-form/login-form.component';
 import { LoginDialogComponent } from './login/login-dialog/login-dialog.component';
 import {UiModule} from "../../functional/ui/ui.module";
-import {LoginService} from "./login.service";
+import {UserService} from "./user.service";
 
 const COMPONENTS = [
   RegistrationComponent,
@@ -31,7 +31,7 @@ const COMPONENTS = [
   declarations: [COMPONENTS],
   exports: [COMPONENTS],
   providers: [
-    AuthService, LoginService, {
+    AuthService, UserService, {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true,
