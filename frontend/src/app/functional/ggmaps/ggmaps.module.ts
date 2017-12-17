@@ -3,13 +3,16 @@ import { CommonModule } from '@angular/common';
 import { GgmapsComponent } from './ggmaps.component';
 import {AgmCoreModule} from "@agm/core";
 import {environment as env} from "../../../environments/environment"
+import {MaterialModule} from "../ui/material/material.module";
 
 @NgModule({
   imports: [
     CommonModule,
     AgmCoreModule.forRoot({
-      apiKey: env.googleMapsKey
-    })
+      apiKey: env.googleMapsKey,
+      libraries: ['places']
+    }),
+    MaterialModule
   ],
   declarations: [GgmapsComponent],
   exports: [GgmapsComponent, AgmCoreModule]

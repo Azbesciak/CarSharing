@@ -21,7 +21,7 @@ export class LoginFormComponent implements OnInit {
   @Output()
   authResp = new EventEmitter<AppUser | HttpErrorResponse>();
 
-  constructor(private auth: UserService, private fb: FormBuilder, private router: Router) {
+  constructor(private auth: UserService, private fb: FormBuilder) {
   }
 
   ngOnInit() {

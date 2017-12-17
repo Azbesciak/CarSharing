@@ -1,3 +1,17 @@
-<agm-map [latitude]="lat" [longitude]="lng">
-  <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+<form class="example-form" (submit)="search(locationsControls)" novalidate [formGroup]="locationsControls">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Source" formControlName="src" #srcSearch
+           autocorrect="off" autocapitalize="off" spellcheck="off">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Destination" type="text" #dstSearch
+           formControlName="dst" autocorrect="off" autocapitalize="off" spellcheck="off">
+  </mat-form-field>
+  <button mat-raised-button color="primary" [disabled]="locationsControls.invalid">Search</button>
+</form>
+
+{{locations | json}}
+<agm-map>
+  <agm-marker *ngFor="let l of locations" [latitude]="l.latitude" [longitude]="l.longitude"></agm-marker>
 </agm-map>

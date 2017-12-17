@@ -28,11 +28,10 @@ class AppUserController(
     return appUser
   }
 
-
   @PostMapping("update")
   @Transactional
   fun finishRegistration(@RequestBody updatedAppUser: ApplicationUser): ApplicationUser {
-    val login = getAuthUser { throw IllegalStateException("User not authenticated")}
+    val login = getAuthUser { throw IllegalStateException("User not authenticated") }
     val appUser = appUserRepository.getByUserLogin(login)
     return if (appUser != null)
       onUserUpdate(appUser, updatedAppUser)
@@ -42,7 +41,8 @@ class AppUserController(
 
   private fun insertNewAppUser(login: String, updatedAppUser: ApplicationUser): ApplicationUser {
     val user = getUserCredentials(login)
-    if (user.login != updatedAppUser.user?.login || user.userId != updatedAppUser.user?.userId) {
+    if (user.login != updatedAppUser.user?.login ||
+        user.userId != updatedAppUser.user?.userId) {
       throw IllegalStateException("User credentials changed")
     }
     updatedAppUser.user = user
@@ -51,7 +51,7 @@ class AppUserController(
   }
 
   private fun onUserUpdate(original: ApplicationUser, updated: ApplicationUser) =
-    original.apply {
+    original {
       firstName = updated.firstName
       lastName = updated.lastName
       phoneNumber = updated.phoneNumber
