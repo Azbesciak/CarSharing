@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../user.service";
 import {HttpErrorResponse} from "@angular/common/http";
 import {ErrorMatcher} from "../../../../functional/form-utils/error-matcher";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login-form',
@@ -20,14 +21,14 @@ export class LoginFormComponent implements OnInit {
   @Output()
   authResp = new EventEmitter<AppUser | HttpErrorResponse>();
 
-  constructor(private auth: UserService, private fb: FormBuilder) {
+  constructor(private auth: UserService, private fb: FormBuilder, private router: Router) {
   }
 
   ngOnInit() {
     let wrongCredsValidator = () => this.error ? {'creds': true} : null;
     this.creds = this.fb.group({
-      login: ['', [Validators.required, wrongCredsValidator]],
-      password: ['', [Validators.required, wrongCredsValidator]]
+      login: ['lama', [Validators.required, wrongCredsValidator]],
+      password: ['123', [Validators.required, wrongCredsValidator]]
     });
     this.matcher = new ErrorMatcher();
     this.forAllControls(c => {

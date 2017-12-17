@@ -4,6 +4,14 @@
     <span>Car Sharing</span></a>
   <app-spacer></app-spacer>
   <span *ngIf="user; else notAuthorized">
+    <a mat-button (click)="showProfile()">
+      <span *ngIf="user.firstName; else notCompleted">
+        {{user.firstName}} {{user.lastName}}
+      </span>
+      <ng-template #notCompleted>
+        {{user.user.login}}
+      </ng-template>
+    </a>
     <a mat-button (click)="logout()">Logout</a>
   </span>
   <ng-template #notAuthorized>

@@ -1,12 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
-import {LoginComponent} from "../../../main/authorization/login/login.component";
 import {MatDialog} from "@angular/material";
-import {LoginFormComponent} from "../../../main/authorization/login/login-form/login-form.component";
 import {LoginDialogComponent} from "../../../main/authorization/login/login-dialog/login-dialog.component";
 import {RoutingConstants} from "../../routing/routing.constants";
 import {UserService} from "../../../main/authorization/user.service";
 import {AppUser} from "../../../main/authorization/user";
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-header',
@@ -15,7 +14,11 @@ import {AppUser} from "../../../main/authorization/user";
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private router: Router, public dialog: MatDialog, private loginServ: UserService) {}
+  constructor(
+    private router: Router,
+    public dialog: MatDialog,
+    private location: Location,
+    private loginServ: UserService) {}
 
   user: AppUser;
 
@@ -24,14 +27,9 @@ export class HeaderComponent implements OnInit {
   }
 
   openLoginDialog(): void {
-    let dialogRef = this.dialog.open(LoginDialogComponent, {
+    this.dialog.open(LoginDialogComponent, {
       width: '250px',
       data: {},
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed', result);
-      // this.animal = result;
     });
   }
 
@@ -40,7 +38,11 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    this.loginServ.logout();
+    this.loginServ.logout()
+  }
+
+  showProfile() {
+    this.router.navigate([RoutingConstants.getProfilePage()])
   }
 
 }

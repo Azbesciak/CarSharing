@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {
   MatToolbarModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule,
-  MatIconModule, MatDialogModule, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher
+  MatIconModule, MatDialogModule, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher, MatDatepickerModule,
+  MatNativeDateModule, MAT_DATE_FORMATS, NativeDateModule,
 } from "@angular/material";
 import {ReactiveFormsModule} from "@angular/forms";
 
@@ -16,7 +17,10 @@ const MATERIAL_MODULES = [
   MatToolbarModule,
   MatIconModule,
   MatDialogModule,
-  ReactiveFormsModule
+  ReactiveFormsModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  NativeDateModule
 ];
 
 @NgModule({
@@ -29,7 +33,7 @@ const MATERIAL_MODULES = [
     MATERIAL_MODULES
   ],
   providers: [
-    {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}
+    {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
   ],
   declarations: []
 })
