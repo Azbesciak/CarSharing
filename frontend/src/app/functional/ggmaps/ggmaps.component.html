@@ -12,6 +12,6 @@
 </form>
 
 {{locations | json}}
-<agm-map>
+<agm-map [fitBounds]="bounds" [maxZoom]="zoom">
   <agm-marker *ngFor="let l of locations" [latitude]="l.latitude" [longitude]="l.longitude"></agm-marker>
 </agm-map>
