@@ -1,6 +1,6 @@
 <form class="example-form" (submit)="search(locationsControls)" novalidate [formGroup]="locationsControls">
   <mat-form-field class="example-full-width">
-    <input matInput placeholder="Source" formControlName="src" #srcSearch
+    <input matInput placeholder="Origin" formControlName="org" #orgSearch
            autocorrect="off" autocapitalize="off" spellcheck="off">
   </mat-form-field>
 
@@ -8,10 +8,15 @@
     <input matInput placeholder="Destination" type="text" #dstSearch
            formControlName="dst" autocorrect="off" autocapitalize="off" spellcheck="off">
   </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="WayPoint" type="text" #wayPointSearch
+           formControlName="add" autocorrect="off" autocapitalize="off" spellcheck="off">
+  </mat-form-field>
   <button mat-raised-button color="primary" [disabled]="locationsControls.invalid">Search</button>
 </form>
 
-{{locations | json}}
-<agm-map [fitBounds]="bounds" [maxZoom]="zoom">
-  <agm-marker *ngFor="let l of locations" [latitude]="l.latitude" [longitude]="l.longitude"></agm-marker>
+<agm-map [fitBounds]="bounds" [maxZoom]="zoom" *ngIf="route">
+  <agm-directions *ngIf="directionsDisplay" [waypoints]="route.wayPoints"
+                  [origin]="route.origin" [destination]="route.destination"
+                  [directionsDisplay]="directionsDisplay"></agm-directions>
 </agm-map>

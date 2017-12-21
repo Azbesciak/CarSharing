@@ -1,0 +1,11 @@
+:host {
+  grid-template: "map routes .";
+  grid-gap: 10px;
+  app-ggmaps {
+    grid-area: map;
+    width: 400px;
+  }
+  app-drag-list {
+    grid-area: routes;
+  }
+}

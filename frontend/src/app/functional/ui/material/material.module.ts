@@ -4,7 +4,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {
   MatToolbarModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule,
   MatIconModule, MatDialogModule, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher, MatDatepickerModule,
-  MatNativeDateModule, MAT_DATE_FORMATS, NativeDateModule,
+  MatNativeDateModule, NativeDateModule, MatListModule,
 } from "@angular/material";
 import {ReactiveFormsModule} from "@angular/forms";
 
@@ -20,7 +20,8 @@ const MATERIAL_MODULES = [
   ReactiveFormsModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  NativeDateModule
+  NativeDateModule,
+  MatListModule
 ];
 
 @NgModule({
