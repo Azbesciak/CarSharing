@@ -1,6 +1,6 @@
 buildscript {
   ext {
-    kotlinVersion = '1.2.0'
+    kotlinVersion = '1.2.10'
     springBootVersion = '2.0.0.M7'
   }
   repositories {
@@ -67,7 +67,7 @@ dependencies {
   compile("org.jetbrains.kotlin:kotlin-stdlib-jre8:${kotlinVersion}")
   compile("io.jsonwebtoken:jjwt:0.7.0")
 
-//  runtime('com.h2database:h2')
+  testCompile('com.h2database:h2')
   testCompile('org.springframework.security:spring-security-test')
   testCompile('org.springframework.boot:spring-boot-starter-test')
   testCompile('io.projectreactor:reactor-test')

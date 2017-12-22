@@ -14,16 +14,14 @@ export class Location {
     return this.latitude == loc.latitude && this.longitude == loc.longitude
   }
 
-  private static LABEL_ORDER = ["route", "locality", "administrative_area_level_2", "administrative_area_level_1", "country"];
-
-  static from(place: google.maps.places.PlaceResult, loc = new Location()): Location {
+  static from(place: google.maps.places.PlaceResult, label: string = place.formatted_address): Location {
     if (place.geometry) {
+      const loc = new Location();
       this.resetFields(loc);
       loc.latitude = place.geometry.location.lat();
       loc.longitude = place.geometry.location.lng();
       this.fillLocationDetails(place, loc);
-      let counter = {cur: 0};
-      this.LABEL_ORDER.forEach(f => loc.addToLabel(f, counter));
+      loc.label = label;
       return loc;
     } else {
       return null;
@@ -42,17 +40,6 @@ export class Location {
         let pl = place.address_components.find(s => !!s.types.find(t => t == k));
         loc[k] = pl ? pl.short_name : null;
       })
-    }
-  }
-
-  private addToLabel(field, counter) {
-    if (this[field] && counter.cur < Location.FIELDS_IN_LABEL) {
-      if (!this.label) {
-        this.label = this[field]
-      } else {
-        this.label = `${this.label}, ${this[field]}`
-      }
-      counter.cur++
     }
   }
 

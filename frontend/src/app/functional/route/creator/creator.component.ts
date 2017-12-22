@@ -1,7 +1,5 @@
 import {Component, ElementRef, NgZone, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Observable} from "rxjs/Observable";
-import {Subject} from "rxjs/Subject";
 import {Location} from "../location";
 import {MapsAPILoader} from "@agm/core";
 import {RouteWatcher} from "../route-watcher";
@@ -39,13 +37,18 @@ export class CreatorComponent extends RouteWatcher implements OnInit {
     this.mapsAPILoader.load()
       .then(() => this.applyForOrgAndDst((loc, inp) => this.addGoogleListener(loc, inp)))
       .then(() => this.addWayPointsAdderIfExists())
+      .then(() => this.getCurrentLocation())
   }
 
   protected onChange(route: Route) {}
 
   private addWayPointsAdderIfExists() {
     if (this.wayPointSearch) {
-      this.addGoogleListener((loc, locs) => locs.splice(locs.length - 1, 0, loc), this.wayPointSearch);
+      this.addGoogleListener((loc, locs) => {
+          this.wayPointSearch.nativeElement.value = "";
+          return locs.splice(locs.length - 1, 0, loc)
+        }, this.wayPointSearch
+      );
     }
   }
 
@@ -61,15 +64,35 @@ export class CreatorComponent extends RouteWatcher implements OnInit {
         let place: google.maps.places.PlaceResult = autocomplete.getPlace();
         console.log(place);
         if (place.geometry) {
-          const loc = Location.from(place);
-          const locs = Location.copyAll(this.route.locations);
-          onNew(loc, locs);
-          this.route = new Route(locs);
-          console.log("emited");
-          this.push(this.route)
+          const label = input.nativeElement.value;
+          this.onPlaceFound(place, onNew, label);
         }
       })
     );
   }
 
+  private onPlaceFound(place: google.maps.places.PlaceResult,
+                       onNew: (loc: Location, locs: Location[]) => void,
+                       label) {
+    this.modifyRoute(onNew, {loc: place, label: label});
+  }
+
+  private getCurrentLocation() {
+    new google.maps.Geocoder().geocode({
+      location: new google.maps.LatLng(this.route.destination.latitude, this.route.destination.longitude)
+    }, (res: any) =>
+      this.modifyRoute((loc, locs) => {
+        locs[0] = Location.copy(loc);
+        locs[locs.length - 1] = Location.copy(loc);
+      }, {loc: res[0]})
+    );
+  }
+
+  private modifyRoute(f: (loc, locs) => void, data: {loc: any, label?: string}) {
+    const loc = Location.from(data.loc, data.label);
+    const locs = Location.copyAll(this.route.locations);
+    f(loc, locs);
+    this.route = new Route(locs);
+    this.push(this.route);
+  }
 }

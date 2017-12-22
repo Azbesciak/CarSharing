@@ -41,7 +41,6 @@ export class DirectionsMapDirective extends RouteWatcher implements OnChanges, O
           if(this.route.origin &&
             ( requestOrigin.lat.toString() == this.route.origin.latitude &&
               requestOrigin.lng.toString() == this.route.origin.longitude)){
-            console.log('if?');
             let temp_lat = requestDestination.lat.toString();
             let temp_lng = requestDestination.lng.toString();
             this.route.origin.latitude = temp_lat;
@@ -49,7 +48,6 @@ export class DirectionsMapDirective extends RouteWatcher implements OnChanges, O
             this.updateDirections(directionsDisplay);
           }
         }
-        console.log(directionsDisplay);
       });
 
 
@@ -63,7 +61,6 @@ export class DirectionsMapDirective extends RouteWatcher implements OnChanges, O
       }
 
       // give the route the data, travel mode is driving bc users should plan a camping/ roadtrip.
-      console.log(this.route.wayPoints);
       const wayPoints = this.route.wayPoints ? this.route.wayPoints.map(point => {
         return {location: {lat: point.latitude, lng: point.longitude}, stopover: true}
         }) : [];

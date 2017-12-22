@@ -6,8 +6,8 @@ apply plugin: 'java'
 
 // configure gradle-node-plugin
 node {
-  version = '6.11.0'
-  npmVersion = '3.10.10'
+  version = '8.9.1'
+  npmVersion = '5.5.1'
   // If true, it will download node using above parameters.
   // If false, it will try to use globally installed node.
   download = true
