@@ -22,6 +22,7 @@ export class CreatorComponent extends RouteWatcher implements OnInit {
   wayPointSearch: ElementRef;
 
   locationsControls: FormGroup;
+  form: {dst?: string, org?: string, add?: string} = {};
 
   constructor(private fb: FormBuilder,
               private mapsAPILoader: MapsAPILoader,
@@ -40,12 +41,15 @@ export class CreatorComponent extends RouteWatcher implements OnInit {
       .then(() => this.getCurrentLocation())
   }
 
-  protected onChange(route: Route) {}
+  protected onChange(route: Route) {
+    this.form.org = route.origin.label;
+    this.form.dst = route.destination.label;
+  }
 
   private addWayPointsAdderIfExists() {
     if (this.wayPointSearch) {
       this.addGoogleListener((loc, locs) => {
-          this.wayPointSearch.nativeElement.value = "";
+          this.form.add = undefined;
           return locs.splice(locs.length - 1, 0, loc)
         }, this.wayPointSearch
       );
@@ -75,6 +79,7 @@ export class CreatorComponent extends RouteWatcher implements OnInit {
                        onNew: (loc: Location, locs: Location[]) => void,
                        label) {
     this.modifyRoute(onNew, {loc: place, label: label});
+    this.onChange(this.route);
   }
 
   private getCurrentLocation() {

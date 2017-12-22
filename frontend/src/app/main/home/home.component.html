@@ -1,6 +1,6 @@
 <div *ngIf="routeEventBus">
   <app-creator [routeEventBus]="routeEventBus"></app-creator>
-  <app-ggmaps [routeEventBus]="routeEventBus"></app-ggmaps>
+  <app-ggmaps [routeEventBus]="routeEventBus" (onDistanceChange)="onDistanceChange($event)"></app-ggmaps>
   <app-drag-list [routeEventBus]="routeEventBus"></app-drag-list>
 </div>
 

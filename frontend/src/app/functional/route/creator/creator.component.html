@@ -1,15 +1,15 @@
 <form class="example-form" (submit)="search(locationsControls)" novalidate [formGroup]="locationsControls">
   <mat-form-field class="example-full-width">
-    <input matInput placeholder="Origin" formControlName="org" #orgSearch
+    <input matInput placeholder="Origin" formControlName="org" #orgSearch [(ngModel)]="form.org"
            autocorrect="off" autocapitalize="off" spellcheck="off">
   </mat-form-field>
 
   <mat-form-field class="example-full-width">
-    <input matInput placeholder="Destination" type="text" #dstSearch
+    <input matInput placeholder="Destination" type="text" #dstSearch [(ngModel)]="form.dst"
            formControlName="dst" autocorrect="off" autocapitalize="off" spellcheck="off">
   </mat-form-field>
   <mat-form-field class="example-full-width">
-    <input matInput placeholder="WayPoint" type="text" #wayPointSearch
+    <input matInput placeholder="WayPoint" type="text" #wayPointSearch [(ngModel)]="form.add"
            formControlName="add" autocorrect="off" autocapitalize="off" spellcheck="off">
   </mat-form-field>
   <button mat-raised-button color="primary" [disabled]="locationsControls.invalid">Search</button>

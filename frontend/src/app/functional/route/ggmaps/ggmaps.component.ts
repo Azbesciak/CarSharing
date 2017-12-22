@@ -1,4 +1,4 @@
-import {Component, OnChanges, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {MapsAPILoader} from '@agm/core';
 import {Route} from "../route";
 import {RouteWatcher} from "../route-watcher";
@@ -11,17 +11,15 @@ const SINGLE_POINT_ZOOM = 14;
   templateUrl: './ggmaps.component.html',
   styleUrls: ['./ggmaps.component.scss']
 })
-export class GgmapsComponent extends RouteWatcher implements OnInit, OnChanges {
-
-  ngOnChanges(): void {
-    // this.update();
-    // console.log("updated maps")
-  }
+export class GgmapsComponent extends RouteWatcher implements OnInit {
 
   bounds: google.maps.LatLngBoundsLiteral;
   zoom = MAX_ZOOM;
 
   directionsDisplay: any;
+
+  @Output()
+  onDistanceChange = new EventEmitter<number>();
 
   constructor(private mapsAPILoader: MapsAPILoader) {super()}
 

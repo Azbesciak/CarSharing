@@ -1,4 +1,4 @@
 <agm-map [fitBounds]="bounds" [maxZoom]="zoom" *ngIf="route">
   <agm-directions *ngIf="directionsDisplay" [routeEventBus]="routeEventBus"
-                  [directionsDisplay]="directionsDisplay"></agm-directions>
+                  [directionsDisplay]="directionsDisplay" (onDistanceChange)="onDistanceChange.next($event)"></agm-directions>
 </agm-map>

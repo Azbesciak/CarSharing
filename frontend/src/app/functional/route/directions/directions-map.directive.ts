@@ -1,4 +1,4 @@
-import {Directive, Input, OnChanges, OnInit} from '@angular/core';
+import {Directive, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {GoogleMapsAPIWrapper} from "@agm/core";
 import { } from 'googlemaps';
 import {Route} from "../route";
@@ -8,32 +8,30 @@ import {RouteWatcher} from "../route-watcher";
   selector: 'agm-directions',
 
 })
-export class DirectionsMapDirective extends RouteWatcher implements OnChanges, OnInit{
+export class DirectionsMapDirective extends RouteWatcher implements OnInit{
 
   @Input()
   directionsDisplay;
+
+  @Output()
+  onDistanceChange = new EventEmitter<number>();
 
   constructor(private gmapsApi: GoogleMapsAPIWrapper) {super()}
 
   ngOnInit() {
     this.subscribe()
-    // this.updateDirections(this.directionsDisplay);
   }
 
   onChange(route: Route) {
     this.updateDirections(this.directionsDisplay)
   }
 
-  ngOnChanges() {
-    // console.log("change in dir");
-    // this.updateDirections(this.directionsDisplay);
-  }
   // updateDirections has 2 optional parameters. gets called in map.component
   updateDirections(directionsDisplay, o?, d?) {
     this.gmapsApi.getNativeMap().then(map => {
       const directionsService = new google.maps.DirectionsService;
       directionsDisplay.addListener('directions_changed', () => {
-        //this.vc.computeTotalDistance(this.directionsDisplay.getDirections());
+        this.computeTotalDistance(this.directionsDisplay.getDirections());
 
         if(directionsDisplay && directionsDisplay.dragResult){
           let requestOrigin = directionsDisplay.dragResult.request.origin;
@@ -79,15 +77,13 @@ export class DirectionsMapDirective extends RouteWatcher implements OnChanges, O
       });
 
       //function for displaying the travel distance
-      function computeTotalDistance(result) {
-        let total = 0;
-        let myroute = result.routes[0];
-        for (let i = 0; i < myroute.legs.length; i++) {
-          total += myroute.legs[i].distance.value;
-        }
-        total = total / 1000;
-        document.getElementById('trip_length').innerHTML = 'The trip is <span id="trip_length_nr">' +total + '</span>km long.';
-      }
+
     });
+  }
+  computeTotalDistance(result) {
+    const total = result.routes[0].legs
+            .map(r => r.distance.value)
+            .reduce((a, b) => a + b);
+    this.onDistanceChange.next(total / 1000);
   }
 }

@@ -24,4 +24,8 @@ export class HomeComponent extends RouteWatcher implements OnInit {
   }
   protected onChange(route: Route) {}
 
+  onDistanceChange(dist: number) {
+    console.log(dist)
+  }
+
 }
