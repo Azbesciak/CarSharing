@@ -5,14 +5,14 @@ import {AuthorizationModule} from "./authorization/authorization.module";
 import { CompletionComponent } from './profile/completion/completion.component';
 import {UiModule} from "../functional/ui/ui.module";
 import { ProfileComponent } from './profile/profile.component';
-import {GgmapsModule} from "../functional/ggmaps/ggmaps.module";
+import {RouteModule} from "../functional/route/route.module";
 
 @NgModule({
   imports: [
     CommonModule,
     AuthorizationModule,
     UiModule,
-    GgmapsModule
+    RouteModule
   ],
   exports: [AuthorizationModule],
   declarations: [HomeComponent, CompletionComponent, ProfileComponent]

@@ -14,9 +14,3 @@
   </mat-form-field>
   <button mat-raised-button color="primary" [disabled]="locationsControls.invalid">Search</button>
 </form>
-
-<agm-map [fitBounds]="bounds" [maxZoom]="zoom" *ngIf="route">
-  <agm-directions *ngIf="directionsDisplay" [waypoints]="route.wayPoints"
-                  [origin]="route.origin" [destination]="route.destination"
-                  [directionsDisplay]="directionsDisplay"></agm-directions>
-</agm-map>

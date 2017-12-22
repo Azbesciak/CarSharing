@@ -1,0 +1,5 @@
+<mat-list dnd-sortable-container [sortableData]="locations">
+  <mat-list-item *ngFor="let loc of locations; let i = index" dnd-sortable [sortableIndex]="i">
+    <h3 matLine> {{loc.label}} </h3>
+  </mat-list-item>
+</mat-list>

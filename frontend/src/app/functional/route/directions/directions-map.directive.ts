@@ -1,29 +1,32 @@
 import {Directive, Input, OnChanges, OnInit} from '@angular/core';
 import {GoogleMapsAPIWrapper} from "@agm/core";
 import { } from 'googlemaps';
-import {Location} from "./location";
+import {Route} from "../route";
+import {RouteWatcher} from "../route-watcher";
 
 @Directive({
   selector: 'agm-directions',
 
 })
-export class DirectionsMapDirective  implements OnChanges, OnInit{
-  // get variables from map.component
-  @Input() origin: Location;
-  @Input() destination: Location;
-  @Input() waypoints;
-  @Input() waypointCnt;
-  @Input() directionsDisplay;
+export class DirectionsMapDirective extends RouteWatcher implements OnChanges, OnInit{
 
-  constructor(private gmapsApi: GoogleMapsAPIWrapper) {}
+  @Input()
+  directionsDisplay;
 
+  constructor(private gmapsApi: GoogleMapsAPIWrapper) {super()}
 
   ngOnInit() {
-    this.updateDirections(this.directionsDisplay);
+    this.subscribe()
+    // this.updateDirections(this.directionsDisplay);
+  }
+
+  onChange(route: Route) {
+    this.updateDirections(this.directionsDisplay)
   }
 
   ngOnChanges() {
-    this.updateDirections(this.directionsDisplay);
+    // console.log("change in dir");
+    // this.updateDirections(this.directionsDisplay);
   }
   // updateDirections has 2 optional parameters. gets called in map.component
   updateDirections(directionsDisplay, o?, d?) {
@@ -35,14 +38,14 @@ export class DirectionsMapDirective  implements OnChanges, OnInit{
         if(directionsDisplay && directionsDisplay.dragResult){
           let requestOrigin = directionsDisplay.dragResult.request.origin;
           let requestDestination = directionsDisplay.dragResult.request.destination;
-          if(this.origin &&
-            ( requestOrigin.lat.toString() == this.origin.latitude &&
-              requestOrigin.lng.toString() == this.origin.longitude)){
+          if(this.route.origin &&
+            ( requestOrigin.lat.toString() == this.route.origin.latitude &&
+              requestOrigin.lng.toString() == this.route.origin.longitude)){
             console.log('if?');
             let temp_lat = requestDestination.lat.toString();
             let temp_lng = requestDestination.lng.toString();
-            this.origin.latitude = temp_lat;
-            this.origin.longitude = temp_lng;
+            this.route.origin.latitude = temp_lat;
+            this.route.origin.longitude = temp_lng;
             this.updateDirections(directionsDisplay);
           }
         }
@@ -52,21 +55,21 @@ export class DirectionsMapDirective  implements OnChanges, OnInit{
 
       //if origin / destination are undefined use value from optional parameters.
       directionsDisplay.setMap(map);
-      if(!this.destination && d) {
-        this.destination = d;
+      if(!this.route.destination && d) {
+        this.route.destination = d;
       }
-      if(!this.origin && o) {
-        this.origin = o;
+      if(!this.route.origin && o) {
+        this.route.origin  = o;
       }
 
       // give the route the data, travel mode is driving bc users should plan a camping/ roadtrip.
-      console.log(this.waypoints);
-      const wayPoints = this.waypoints ? this.waypoints.map(point => {
-        return {location: {lat: point.latitude, lng: point.longitude}}
+      console.log(this.route.wayPoints);
+      const wayPoints = this.route.wayPoints ? this.route.wayPoints.map(point => {
+        return {location: {lat: point.latitude, lng: point.longitude}, stopover: true}
         }) : [];
       directionsService.route({
-        origin: {lat: this.origin.latitude, lng: this.origin.longitude},
-        destination: {lat: this.destination.latitude, lng: this.destination.longitude},
+        origin: {lat: this.route.origin.latitude, lng: this.route.origin.longitude},
+        destination: {lat: this.route.destination.latitude, lng: this.route.destination.longitude},
         waypoints: wayPoints,
         optimizeWaypoints: true,
         travelMode: google.maps.TravelMode.DRIVING

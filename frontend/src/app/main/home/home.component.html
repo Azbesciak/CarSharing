@@ -1,3 +1,6 @@
-<app-ggmaps [route]="route"></app-ggmaps>
-<app-drag-list [items]="route.locations"></app-drag-list>
+<div *ngIf="routeEventBus">
+  <app-creator [routeEventBus]="routeEventBus"></app-creator>
+  <app-ggmaps [routeEventBus]="routeEventBus"></app-ggmaps>
+  <app-drag-list [routeEventBus]="routeEventBus"></app-drag-list>
+</div>
 

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DragListComponent } from './drag-list.component';
+import { WayPointsComponent } from './way-points.component';
 
-describe('DragListComponent', () => {
-  let component: DragListComponent;
-  let fixture: ComponentFixture<DragListComponent>;
+describe('WayPointsComponent', () => {
+  let component: WayPointsComponent;
+  let fixture: ComponentFixture<WayPointsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DragListComponent ]
+      declarations: [ WayPointsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DragListComponent);
+    fixture = TestBed.createComponent(WayPointsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -55,4 +55,14 @@ export class Location {
       counter.cur++
     }
   }
- }
+
+  static copy(orginal: Location): Location {
+    const loc = new Location();
+    Object.keys(orginal).forEach(k => loc[k] = orginal[k]);
+    return loc;
+  }
+
+  static copyAll(original: Location[]): Location[] {
+    return original.slice().map(x => Location.copy(x));
+  }
+}

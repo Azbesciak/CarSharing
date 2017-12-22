@@ -7,6 +7,7 @@ import {
   MatNativeDateModule, NativeDateModule, MatListModule,
 } from "@angular/material";
 import {ReactiveFormsModule} from "@angular/forms";
+import {DndModule} from "ng2-dnd";
 
 const MATERIAL_MODULES = [
   BrowserAnimationsModule,
