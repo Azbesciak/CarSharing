@@ -1,5 +1,4 @@
 export class Location {
-  static FIELDS_IN_LABEL = 3;
   constructor(
     public longitude: number = null,
     public latitude: number = null,
@@ -43,9 +42,10 @@ export class Location {
     }
   }
 
-  static copy(orginal: Location): Location {
+  static copy(original: Location): Location {
+    if (!original) return original;
     const loc = new Location();
-    Object.keys(orginal).forEach(k => loc[k] = orginal[k]);
+    Object.keys(original).forEach(k => loc[k] = original[k]);
     return loc;
   }
 

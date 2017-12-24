@@ -1,6 +1,15 @@
 <mat-list dnd-sortable-container [sortableData]="locations">
-  <mat-list-item *ngFor="let loc of locations; let i = index"
-                 dnd-sortable [sortableIndex]="i">
-    <h3 matLine> {{loc.label}} </h3>
+  <mat-list-item *ngFor="let loc of locations; let i = index; let first = first; let last = last"
+                 dnd-sortable [sortableIndex]="i" [ngClass]="{first: first, last: last}">
+    <mat-icon *ngIf="first" class="icon start">panorama_fish_eye</mat-icon>
+    <mat-icon *ngIf="!first && !last" class="icon">more_vert</mat-icon>
+    <mat-icon *ngIf="last" class="icon">place</mat-icon>
+    <span matLine *ngIf="loc; else placeholder" class="label"> {{loc.label}} </span>
+    <ng-template #placeholder>
+      <span matLine class="placeholder">
+        <span *ngIf="first">Enter your origin</span>
+        <span *ngIf="last">Enter your destination</span>
+      </span>
+    </ng-template>
   </mat-list-item>
 </mat-list>

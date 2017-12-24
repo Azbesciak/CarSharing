@@ -9,6 +9,8 @@ import {CreatorComponent} from "./creator/creator.component";
 import {LocationService} from "./location.service";
 import {WayPointsComponent} from "./waypoints/way-points.component";
 import {DndModule} from "ng2-dnd";
+import { LocationInputComponent } from './location-input/location-input.component';
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
   imports: [
@@ -18,10 +20,11 @@ import {DndModule} from "ng2-dnd";
       libraries: ['places', 'directions', 'geometry', 'drawing']
     }),
     MaterialModule,
+    FormsModule,
     DndModule.forRoot()
   ],
   providers: [LocationService],
-  declarations: [GgmapsComponent, DirectionsMapDirective, CreatorComponent, WayPointsComponent],
+  declarations: [GgmapsComponent, DirectionsMapDirective, CreatorComponent, WayPointsComponent, LocationInputComponent],
   exports: [GgmapsComponent, AgmCoreModule, DirectionsMapDirective, CreatorComponent, WayPointsComponent]
 })
 export class RouteModule { }

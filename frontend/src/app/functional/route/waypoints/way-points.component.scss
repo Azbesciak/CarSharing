@@ -1,0 +1,31 @@
+:host {
+  mat-list {
+    width: 300px;
+    mat-list-item {
+      height: 36px;
+       .icon {
+        order: -1;
+         &.start{
+           transform: scale(0.5);
+         }
+      }
+      .first, .last {
+        font-size: 14px;
+        font-weight: 500;
+      }
+      &:not(.first):not(.last) {
+        font-size: 12px;
+        height: 24px;
+        .icon {
+          font-size: 26px;
+          margin-left: -1px;
+        }
+      }
+      .placeholder {
+        color: #555555;
+        font-size: 12px;
+      }
+    }
+  }
+
+}

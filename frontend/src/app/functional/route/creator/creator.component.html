@@ -1,16 +1,6 @@
-<form class="example-form" (submit)="search(locationsControls)" novalidate [formGroup]="locationsControls">
-  <mat-form-field class="example-full-width">
-    <input matInput placeholder="Origin" formControlName="org" #orgSearch [(ngModel)]="form.org"
-           autocorrect="off" autocapitalize="off" spellcheck="off">
-  </mat-form-field>
+{{inputs | json}}
+<form class="example-form" (submit)="onSubmit(route)" novalidate>
 
-  <mat-form-field class="example-full-width">
-    <input matInput placeholder="Destination" type="text" #dstSearch [(ngModel)]="form.dst"
-           formControlName="dst" autocorrect="off" autocapitalize="off" spellcheck="off">
-  </mat-form-field>
-  <mat-form-field class="example-full-width">
-    <input matInput placeholder="WayPoint" type="text" #wayPointSearch [(ngModel)]="form.add"
-           formControlName="add" autocorrect="off" autocapitalize="off" spellcheck="off">
-  </mat-form-field>
-  <button mat-raised-button color="primary" [disabled]="locationsControls.invalid">Search</button>
+  <app-location-input *ngFor="let inp of inputs" [locInp]="inp" [routeEventBus]="routeEventBus"></app-location-input>
+  <button mat-raised-button color="primary" [disabled]="isValid()">Search</button>
 </form>

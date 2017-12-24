@@ -7,7 +7,7 @@ export class Route {
   set locations(value: Location[]) {
     this.update(value);
   }
-  constructor(locations: Location[] = [new Location(), new Location()]) {
+  constructor(locations: Location[] = [undefined, undefined]) {
     locations = Location.copyAll(locations);
     this.update(locations)
   }
@@ -23,9 +23,12 @@ export class Route {
     } else {
       this._locations = loc
     }
+    while (this.locations.length < 2) {
+      this.locations.push(undefined)
+    }
     this.wayPoints = this._locations.slice(1, this._locations.length - 1);
     this.destination = this._locations[this._locations.length - 1];
-    this.origin = this._locations[0];
+    this.origin =this._locations[0];
     Object.freeze(this._locations);
   }
 }

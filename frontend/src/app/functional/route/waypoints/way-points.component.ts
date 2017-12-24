@@ -17,10 +17,13 @@ export class WayPointsComponent extends RouteWatcher implements OnInit, DoCheck 
         changed = true;
       } else {
         for (let i = 0; i < this.locations.length; i++) {
-          if (!this.locations[i].equals(this.route.locations[i])) {
-            changed = true;
-            break;
+          const original = this.route.locations[i];
+          const copy = this.locations[i];
+          if ((copy && original && copy.equals(original)) || (!original && !copy)) {
+            continue;
           }
+          changed = true;
+          break;
         }
       }
       if (changed) {
