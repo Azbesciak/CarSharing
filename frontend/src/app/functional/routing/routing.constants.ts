@@ -5,7 +5,8 @@ export class RoutingConstants {
   static LOGIN_PAGE = 'login';
   static PROFILE_PATH = "profile";
   static PROFILE_COMPLETION_PAGE = "completion";
-
+  static ROUTES_PATH = 'routes';
+  static ADD_ROUTE_PATH = "addRoute";
   static getProfileCompletionPage() {
     return this.getProfileSubpage(this.PROFILE_COMPLETION_PAGE);
   }

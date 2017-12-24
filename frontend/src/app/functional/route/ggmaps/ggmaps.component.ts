@@ -37,7 +37,7 @@ export class GgmapsComponent extends RouteWatcher implements OnInit {
     this.bounds = {east: lng.max, west: lng.min, north: lat.max, south: lat.min};
     const allAreSame = lat.max == lat.min && lng.max == lng.min;
     this.zoom = allAreSame && SINGLE_POINT_ZOOM;
-    setTimeout(() => this.zoom = undefined, 300);
+    setTimeout(() => this.zoom = undefined, 1000);
   }
 
   getMinAndMAx(field) {

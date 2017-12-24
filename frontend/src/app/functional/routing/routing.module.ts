@@ -7,9 +7,11 @@ import {HomeComponent} from "../../main/home/home.component";
 import {RoutingConstants} from "./routing.constants"
 import {CompletionComponent} from "../../main/profile/completion/completion.component";
 import {AuthGuardService} from "../../main/authorization/auth-guard.service";
+import { RoutesComponent } from "../../main/routes/routes.component";
 
 const appRoutes: Routes = [
   {path: RoutingConstants.HOME_PAGE, component: HomeComponent},
+  {path: RoutingConstants.ROUTES_PATH, component: RoutesComponent},
   {path: RoutingConstants.REGISTER_PAGE, component: RegistrationComponent},
   {path: RoutingConstants.LOGIN_PAGE, component: LoginComponent},
   {

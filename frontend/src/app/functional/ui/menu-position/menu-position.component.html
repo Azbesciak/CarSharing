@@ -1,0 +1,4 @@
+<a mat-button (click)="item.onClick()" *ngIf="item.isVisible">
+  <mat-icon *ngIf="item.icon">{{item.icon}}</mat-icon>
+  <span>{{item.label}}</span>
+</a>

@@ -1,23 +1,23 @@
 <mat-toolbar>
-  <a mat-button>
-    <mat-icon>directions_car</mat-icon>
-    <span>Car Sharing</span></a>
-  <app-spacer></app-spacer>
-  <span *ngIf="user; else notAuthorized">
-    <a mat-button (click)="showProfile()">
-      <span *ngIf="user.firstName; else notCompleted">
-        {{user.firstName}} {{user.lastName}}
-      </span>
-      <ng-template #notCompleted>
-        {{user.user.login}}
-      </ng-template>
-    </a>
-    <a mat-button (click)="logout()">Logout</a>
-  </span>
-  <ng-template #notAuthorized>
-    <a mat-button (click)="openLoginDialog()">Sign in</a>
-    <a mat-button (click)="register()">Sign up</a>
-  </ng-template>
+  <nav>
+    <app-menu-position *ngFor="let item of menuItems" [item]="item"></app-menu-position>
+    <app-spacer></app-spacer>
+    <span *ngIf="user; else notAuthorized">
+      <a mat-button (click)="showProfile()">
+        <span *ngIf="user.firstName; else notCompleted">
+          {{user.firstName}} {{user.lastName}}
+        </span>
+        <ng-template #notCompleted>
+          {{user.user.login}}
+        </ng-template>
+      </a>
+      <a mat-button (click)="logout()">Logout</a>
+    </span>
+    <ng-template #notAuthorized>
+      <a mat-button (click)="openLoginDialog()">Sign in</a>
+      <a mat-button (click)="register()">Sign up</a>
+    </ng-template>
 
-  <a mat-button (click)="logout()">wywal to g</a>
+    <a mat-button (click)="logout()">wywal to g</a>
+  </nav>
 </mat-toolbar>
