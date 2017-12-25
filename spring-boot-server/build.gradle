@@ -62,9 +62,11 @@ dependencies {
   runtime('org.springframework.boot:spring-boot-devtools')
   runtime('com.microsoft.sqlserver:mssql-jdbc')
   compile('com.fasterxml.jackson.datatype:jackson-datatype-jsr310')
-  compile('com.fasterxml.jackson.module:jackson-module-kotlin:2.9.2')
+  compile('com.fasterxml.jackson.module:jackson-module-kotlin:2.9.3')
   compile("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
   compile("org.jetbrains.kotlin:kotlin-stdlib-jre8:${kotlinVersion}")
+  compile("org.jetbrains.kotlin:kotlin-stdlib-jre7:${kotlinVersion}")
+  compile("org.jetbrains.kotlin:kotlin-stdlib:${kotlinVersion}")
   compile("io.jsonwebtoken:jjwt:0.7.0")
 
   testCompile('com.h2database:h2')

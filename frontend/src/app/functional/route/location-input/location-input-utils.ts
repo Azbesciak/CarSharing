@@ -8,7 +8,8 @@ export function originInput(): LocationInput {
     (route, inp) => {
       inp.value = route.origin ? route.origin.label : undefined
     },
-    true);
+    true,
+    (loc, locs) => locs[0] = loc);
 }
 
 export function destInput(): LocationInput {
@@ -16,7 +17,8 @@ export function destInput(): LocationInput {
     locs[locs.length - 1] = loc
   }, (route, inp) => {
     inp.value = route.destination ? route.destination.label : undefined
-  }, true)
+  }, true,
+    (loc, locs) => locs[locs.length - 1] = loc)
 }
 
 

@@ -1,0 +1,3 @@
+<mat-icon (click)="localize()" *ngIf="!isLoading" class="loader"
+          [ngStyle]="{width: diameter + 'px', height: diameter + 'px', 'font-size': diameter + 'px'}">my_location</mat-icon>
+<mat-spinner *ngIf="isLoading" [diameter]="diameter"></mat-spinner>

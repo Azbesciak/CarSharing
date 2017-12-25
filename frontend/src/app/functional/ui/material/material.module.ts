@@ -4,7 +4,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {
   MatToolbarModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule,
   MatIconModule, MatDialogModule, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher, MatDatepickerModule,
-  MatNativeDateModule, NativeDateModule, MatListModule,
+  MatNativeDateModule, NativeDateModule, MatListModule, MatProgressSpinnerModule,
 } from "@angular/material";
 import {ReactiveFormsModule} from "@angular/forms";
 import {DndModule} from "ng2-dnd";
@@ -22,7 +22,8 @@ const MATERIAL_MODULES = [
   MatDatepickerModule,
   MatNativeDateModule,
   NativeDateModule,
-  MatListModule
+  MatListModule,
+  MatProgressSpinnerModule
 ];
 
 @NgModule({

@@ -1,6 +1,4 @@
-{{inputs | json}}
 <form class="example-form" (submit)="onSubmit(route)" novalidate>
-
   <app-location-input *ngFor="let inp of inputs" [locInp]="inp" [routeEventBus]="routeEventBus"></app-location-input>
   <button mat-raised-button color="primary" [disabled]="isValid()">Search</button>
 </form>
