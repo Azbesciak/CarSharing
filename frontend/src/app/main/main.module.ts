@@ -7,6 +7,7 @@ import { UiModule } from "../functional/ui/ui.module";
 import { ProfileComponent } from "./profile/profile.component";
 import { RouteModule } from "../functional/route/route.module";
 import { RoutesComponent } from "./routes/routes.component";
+import { AddRouteComponent } from './routes/add-route/add-route.component';
 
 @NgModule({
   imports: [
@@ -16,7 +17,7 @@ import { RoutesComponent } from "./routes/routes.component";
     RouteModule
   ],
   exports: [AuthorizationModule],
-  declarations: [HomeComponent, CompletionComponent, ProfileComponent, RoutesComponent]
+  declarations: [HomeComponent, CompletionComponent, ProfileComponent, RoutesComponent, AddRouteComponent]
 })
 export class MainModule {
 }

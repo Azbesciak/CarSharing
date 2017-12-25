@@ -20,6 +20,9 @@ export class CreatorComponent extends RouteWatcher implements OnInit {
   @Input()
   onSubmit: (route: Route) => Promise<any>;
 
+  @Input()
+  submitLabel: string;
+
   constructor() {
     super()
   }
@@ -32,6 +35,7 @@ export class CreatorComponent extends RouteWatcher implements OnInit {
   }
 
   isValid() {
+    console.log()
     return this.locInputs.every(inp => inp.isValid()) && this.dateInputs.every(inp => inp.isValid())
   }
 

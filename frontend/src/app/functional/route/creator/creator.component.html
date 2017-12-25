@@ -5,5 +5,5 @@
   <app-visit-date *ngFor="let inp of dateInputs; let i = index"
                   [class]="'date-inp-' + i"
                   [routeEventBus]="routeEventBus" [timeDateInp]="inp"></app-visit-date>
-  <button mat-raised-button color="primary" class="sub-btn" [disabled]="isValid()" (click)="onsubmit(route)">Search</button>
+  <button mat-raised-button color="primary" class="sub-btn" [disabled]="!isValid()" (click)="onsubmit(route)">{{submitLabel}}</button>
 </form>

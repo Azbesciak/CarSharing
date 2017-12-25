@@ -3,11 +3,11 @@ package com.witkups.carsharing.users.application
 import javax.persistence.*
 
 @Entity
-@Table(name = "travels")
-data class Travel(
+@Table(name = "routes")
+data class Route(
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "travel_id")
+  @Column(name = "route_id")
   var id: Long? = null,
   var description: String? = null,
 
@@ -16,7 +16,7 @@ data class Travel(
   var driver: ApplicationUser? = null,
 
   @OneToMany(cascade = [CascadeType.ALL], orphanRemoval = true)
-  @JoinColumn(name = "travel_part_id")
-  var travelParts: MutableSet<TravelPart> = mutableSetOf()
+  @JoinColumn(name = "route_snapshot_id")
+  var routeSnapshots: MutableSet<RouteSnapshot> = mutableSetOf()
 
 )

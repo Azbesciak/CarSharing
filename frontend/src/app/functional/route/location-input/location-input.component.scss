@@ -1,8 +1,7 @@
 :host {
   .inp-container {
     display: grid;
-    width: 180px;
-    grid-template-columns: auto 30px;
+    grid-template-columns: 159px 30px;
   }
   app-current-location {
     grid-column: 3;

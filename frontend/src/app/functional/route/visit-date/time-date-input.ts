@@ -4,6 +4,7 @@ export class TimeDateInput {
   constructor(public onDateTimeSelect: (date: Date, snaps: RouteSnapshot[]) => void,
               public label: string,
               public required: boolean = false,
+              public type: string = 'date',
               public date: Date = null) {}
 
   isValid() {

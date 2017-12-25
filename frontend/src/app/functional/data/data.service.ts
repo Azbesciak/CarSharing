@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment as env} from "../../../environments/environment"
 import {AppUser, User} from "../../main/authorization/user";
+import { Route } from "../route/route";
 
 @Injectable()
 export class DataService {
@@ -27,6 +28,10 @@ export class DataService {
 
   completeUserData(user: AppUser) {
     return this.http.post(DataService.toApi("user/update"), user).toPromise()
+  }
+
+  searchRoute(route: Route, date: Date) {
+    return this.http.get(DataService.toApi(`routes/${route.origin.location.label}/${route.destination.location.label}/${date.getTime()}`))
   }
 
   static toApi(url: string): string {

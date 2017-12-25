@@ -1,0 +1,8 @@
+<div *ngIf="routeEventBus" class="add-route-container">
+  <div class="creator">
+    <app-creator [routeEventBus]="routeEventBus" *ngIf="locInputs" [locInputs]="locInputs"
+                 [dateInputs]="dateInputs" [submitLabel]="'Add route'"></app-creator>
+    <app-drag-list [routeEventBus]="routeEventBus"></app-drag-list>
+  </div>
+  <app-ggmaps [routeEventBus]="routeEventBus" (onDistanceChange)="onDistanceChange($event)"></app-ggmaps>
+</div>

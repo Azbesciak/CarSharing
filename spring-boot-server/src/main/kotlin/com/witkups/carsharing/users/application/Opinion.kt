@@ -18,7 +18,6 @@ data class Opinion(
   @JoinColumn(name = "reviewer_id", nullable = false, referencedColumnName = "user_id")
   var reviewer: User? = null,
 
-
   @ManyToOne(targetEntity = User::class, fetch = FetchType.LAZY, cascade = [CascadeType.DETACH])
   @JoinColumn(name = "reviewed_id", nullable = false, referencedColumnName = "user_id")
   var reviewed: User? = null,

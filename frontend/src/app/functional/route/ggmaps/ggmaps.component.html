@@ -1,5 +1,5 @@
-<agm-map [fitBounds]="bounds" [maxZoom]="zoom"
-         *ngIf="route &&
+<agm-map [fitBounds]="bounds" [maxZoom]="zoom">
+  <div *ngIf="route &&
           ((route.origin && route.origin.location) ||
            (route.destination && route.destination.location))">
   <agm-marker *ngIf="singleSnapRepr; else direction"
@@ -9,4 +9,6 @@
     <agm-directions *ngIf="directionsDisplay" [routeEventBus]="routeEventBus"
                     [directionsDisplay]="directionsDisplay" (onDistanceChange)="onDistanceChange.next($event)"></agm-directions>
   </ng-template>
+
+  </div>
 </agm-map>
