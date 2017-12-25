@@ -3,15 +3,19 @@
     width: 300px;
     mat-list-item {
       height: 36px;
-       .icon {
+      .icon {
         order: -1;
-         &.start{
-           transform: scale(0.5);
-         }
+        &.start {
+          transform: scale(0.5);
+        }
       }
-      .first, .last {
+      &.first, &.last {
+        margin: 1px 0;
         font-size: 14px;
         font-weight: 500;
+        -webkit-box-shadow: 0px 0px 10px -4px rgba(117,117,117,0.98);
+        -moz-box-shadow: 0px 0px 10px -4px rgba(117,117,117,0.98);
+        box-shadow: 0px 0px 10px -4px rgba(117,117,117,0.98);
       }
       &:not(.first):not(.last) {
         font-size: 12px;
