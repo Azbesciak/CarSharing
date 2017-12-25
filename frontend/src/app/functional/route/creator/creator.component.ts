@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from "@angular/core";
 import { RouteWatcher } from "../route-watcher";
 import { Route } from "../route";
 import { LocationInput } from "../location-input/location-input";
+import { TimeDateInput } from "../visit-date/time-date-input";
 
 @Component({
   selector: "app-creator",
@@ -11,7 +12,10 @@ import { LocationInput } from "../location-input/location-input";
 export class CreatorComponent extends RouteWatcher implements OnInit {
 
   @Input()
-  inputs: LocationInput[];
+  locInputs: LocationInput[];
+
+  @Input()
+  dateInputs: TimeDateInput[];
 
   @Input()
   onSubmit: (route: Route) => Promise<any>;
@@ -28,7 +32,7 @@ export class CreatorComponent extends RouteWatcher implements OnInit {
   }
 
   isValid() {
-    return this.inputs.every(inp => inp.isValid())
+    return this.locInputs.every(inp => inp.isValid()) && this.dateInputs.every(inp => inp.isValid())
   }
 
 

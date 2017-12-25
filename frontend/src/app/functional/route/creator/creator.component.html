@@ -1,4 +1,9 @@
-<form class="example-form" (submit)="onSubmit(route)" novalidate>
-  <app-location-input *ngFor="let inp of inputs" [locInp]="inp" [routeEventBus]="routeEventBus"></app-location-input>
-  <button mat-raised-button color="primary" [disabled]="isValid()">Search</button>
+<form class="creator-form" (submit)="onSubmit(route)" novalidate>
+  <app-location-input *ngFor="let inp of locInputs; let i = index"
+                      [class]="'loc-inp-' + i" [locInp]="inp"
+                      [routeEventBus]="routeEventBus"></app-location-input>
+  <app-visit-date *ngFor="let inp of dateInputs; let i = index"
+                  [class]="'date-inp-' + i"
+                  [routeEventBus]="routeEventBus" [timeDateInp]="inp"></app-visit-date>
+  <button mat-raised-button color="primary" class="sub-btn" [disabled]="isValid()" (click)="onsubmit(route)">Search</button>
 </form>

@@ -50,11 +50,11 @@ export class DirectionsMapDirective extends RouteWatcher implements OnInit {
 
         // give the route the data, travel mode is driving bc users should plan a camping/ roadtrip.
         const wayPoints = this.route.wayPoints ? this.route.wayPoints.map(point => {
-          return {location: {lat: point.latitude, lng: point.longitude}, stopover: true}
+          return {location: {lat: point.location.latitude, lng: point.location.longitude}, stopover: true}
         }) : [];
         this.directionsService.route({
-          origin: {lat: this.route.origin.latitude, lng: this.route.origin.longitude},
-          destination: {lat: this.route.destination.latitude, lng: this.route.destination.longitude},
+          origin: {lat: this.route.origin.location.latitude, lng: this.route.origin.location.longitude},
+          destination: {lat: this.route.destination.location.latitude, lng: this.route.destination.location.longitude},
           waypoints: wayPoints,
           optimizeWaypoints: true,
           travelMode: google.maps.TravelMode.DRIVING
@@ -77,12 +77,12 @@ export class DirectionsMapDirective extends RouteWatcher implements OnInit {
         let requestOrigin = this.directionsDisplay.dragResult.request.origin;
         let requestDestination = this.directionsDisplay.dragResult.request.destination;
         if (this.route.origin &&
-          (requestOrigin.lat.toString() == this.route.origin.latitude &&
-            requestOrigin.lng.toString() == this.route.origin.longitude)) {
+          (requestOrigin.lat.toString() == this.route.origin.location.latitude &&
+            requestOrigin.lng.toString() == this.route.origin.location.longitude)) {
           let temp_lat = requestDestination.lat.toString();
           let temp_lng = requestDestination.lng.toString();
-          this.route.origin.latitude = temp_lat;
-          this.route.origin.longitude = temp_lng;
+          this.route.origin.location.latitude = temp_lat;
+          this.route.origin.location.longitude = temp_lng;
           this.updateDirections(this.directionsDisplay);
         }
       }

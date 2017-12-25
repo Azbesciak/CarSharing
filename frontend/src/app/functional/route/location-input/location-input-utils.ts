@@ -2,21 +2,21 @@ import { LocationInput } from "./location-input";
 
 export function originInput(): LocationInput {
   return new LocationInput("Origin",
-    (loc, locs) => {
-      locs[0] = loc
+    (snap, snaps) => {
+      snaps[0] = snap
     },
     (route, inp) => {
-      inp.value = route.origin ? route.origin.label : undefined
+      inp.value = route.origin && route.origin.location ? route.origin.location.label : undefined
     },
     true,
     (loc, locs) => locs[0] = loc);
 }
 
 export function destInput(): LocationInput {
-  return new LocationInput("Destination", (loc, locs) => {
-    locs[locs.length - 1] = loc
+  return new LocationInput("Destination", (snap, snaps) => {
+    snaps[snaps.length - 1] = snap
   }, (route, inp) => {
-    inp.value = route.destination ? route.destination.label : undefined
+    inp.value = route.destination && route.destination.location ? route.destination.location.label : undefined
   }, true,
     (loc, locs) => locs[locs.length - 1] = loc)
 }

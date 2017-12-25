@@ -2,6 +2,7 @@ import {Component, DoCheck, OnInit} from '@angular/core';
 import {RouteWatcher} from "../route-watcher";
 import {Route} from "../route";
 import {Location} from "../location";
+import { RouteSnapshot } from "../route-snapshot";
 
 @Component({
   selector: 'app-drag-list',
@@ -11,14 +12,14 @@ import {Location} from "../location";
 export class WayPointsComponent extends RouteWatcher implements OnInit, DoCheck {
 
   ngDoCheck(): void {
-    if (this.locations) {
+    if (this.snapshots) {
       let changed = false;
-      if (this.locations.length != this.route.locations.length) {
+      if (this.snapshots.length != this.route.snapshots.length) {
         changed = true;
       } else {
-        for (let i = 0; i < this.locations.length; i++) {
-          const original = this.route.locations[i];
-          const copy = this.locations[i];
+        for (let i = 0; i < this.snapshots.length; i++) {
+          const original = this.route.snapshots[i];
+          const copy = this.snapshots[i];
           if ((copy && original && copy.equals(original)) || (!original && !copy)) {
             continue;
           }
@@ -33,7 +34,7 @@ export class WayPointsComponent extends RouteWatcher implements OnInit, DoCheck 
   }
 
   private update() {
-    this.route = new Route(this.locations);
+    this.route = new Route(this.snapshots);
     this.push(this.route)
   }
 
@@ -41,13 +42,13 @@ export class WayPointsComponent extends RouteWatcher implements OnInit, DoCheck 
     super()
   }
 
-  protected locations: Location[];
+  protected snapshots: RouteSnapshot[];
 
   ngOnInit() {
     this.subscribe();
   }
 
   protected onChange(route: Route) {
-    this.locations = Location.copyAll(route.locations);
+    this.snapshots = RouteSnapshot.copyAll(route.snapshots);
   }
 }

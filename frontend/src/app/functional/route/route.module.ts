@@ -12,6 +12,7 @@ import {DndModule} from "ng2-dnd";
 import { LocationInputComponent } from './location-input/location-input.component';
 import { FormsModule } from "@angular/forms";
 import { CurrentLocationComponent } from './current-location/current-location.component';
+import { VisitDateComponent } from './visit-date/visit-date.component';
 
 @NgModule({
   imports: [
@@ -25,7 +26,7 @@ import { CurrentLocationComponent } from './current-location/current-location.co
     DndModule.forRoot()
   ],
   providers: [LocationService],
-  declarations: [GgmapsComponent, DirectionsMapDirective, CreatorComponent, WayPointsComponent, LocationInputComponent, CurrentLocationComponent],
-  exports: [GgmapsComponent, AgmCoreModule, DirectionsMapDirective, CreatorComponent, WayPointsComponent]
+  declarations: [GgmapsComponent, DirectionsMapDirective, CreatorComponent, WayPointsComponent, LocationInputComponent, CurrentLocationComponent, VisitDateComponent],
+  exports: [GgmapsComponent, AgmCoreModule, DirectionsMapDirective, CreatorComponent, WayPointsComponent, VisitDateComponent]
 })
 export class RouteModule { }

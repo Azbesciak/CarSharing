@@ -13,6 +13,10 @@ export class Location {
     return this.latitude == loc.latitude && this.longitude == loc.longitude
   }
 
+  static equals(loc1: Location, loc2: Location) {
+    return (!loc1 && !loc2) || (loc1 && loc2 && loc1.equals(loc2))
+  }
+
   static from(place: google.maps.places.PlaceResult, label: string = place.formatted_address): Location {
     if (place.geometry) {
       const loc = new Location();
@@ -49,7 +53,7 @@ export class Location {
     return loc;
   }
 
-  static copyAll(original: Location[]): Location[] {
-    return original.slice().map(x => Location.copy(x));
-  }
+  // static copyAll(original: Location[]): Location[] {
+  //   return original.slice().map(x => Location.copy(x));
+  // }
 }

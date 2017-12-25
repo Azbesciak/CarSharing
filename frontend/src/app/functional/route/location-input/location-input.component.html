@@ -1,9 +1,11 @@
-<mat-form-field class="example-full-width">
-  <input matInput [placeholder]="locInp.name" #inp [(ngModel)]="locInp.value"
-         autocorrect="off" autocapitalize="off" spellcheck="off" [required]="locInp.required">
-</mat-form-field>
-<app-current-location *ngIf="locInp.onCurLocFound"
-                      [onCurLocationFound]="locInp.onCurLocFound"
-                      [routeEventBus]="routeEventBus"
-                      [diameter]="18">
-</app-current-location>
+<div class="inp-container">
+  <mat-form-field class="example-full-width">
+    <input matInput [placeholder]="locInp.name" #inp [(ngModel)]="locInp.value"
+           autocorrect="off" autocapitalize="off" spellcheck="off" [required]="locInp.required">
+  </mat-form-field>
+  <app-current-location *ngIf="locInp.onCurLocFound"
+                        [onCurLocationFound]="locInp.onCurLocFound"
+                        [routeEventBus]="routeEventBus"
+                        [diameter]="18">
+  </app-current-location>
+</div>

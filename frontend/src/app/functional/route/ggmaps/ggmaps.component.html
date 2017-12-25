@@ -1,7 +1,10 @@
-<agm-map [fitBounds]="bounds" [maxZoom]="zoom" *ngIf="route && (route.origin || route.destination)">
-  <agm-marker *ngIf="singleLocRepr;else direction"
-              [latitude]="singleLocRepr.latitude"
-              [longitude]="singleLocRepr.longitude"></agm-marker>
+<agm-map [fitBounds]="bounds" [maxZoom]="zoom"
+         *ngIf="route &&
+          ((route.origin && route.origin.location) ||
+           (route.destination && route.destination.location))">
+  <agm-marker *ngIf="singleSnapRepr; else direction"
+              [latitude]="singleSnapRepr.location.latitude"
+              [longitude]="singleSnapRepr.location.longitude"></agm-marker>
   <ng-template #direction>
     <agm-directions *ngIf="directionsDisplay" [routeEventBus]="routeEventBus"
                     [directionsDisplay]="directionsDisplay" (onDistanceChange)="onDistanceChange.next($event)"></agm-directions>

@@ -1,7 +1,18 @@
 :host {
+  .inp-container {
+    display: grid;
+    width: 180px;
+    grid-template-columns: auto 30px;
+  }
   app-current-location {
-    position: absolute;
-    margin-top: 14px;
+    grid-column: 3;
+    grid-row: 1;
+    margin-top: 12px;
     margin-left: -24px;
+    z-index: 2;
+  }
+  mat-form-field {
+    grid-column: 1/3;
+    grid-row: 1;
   }
 }

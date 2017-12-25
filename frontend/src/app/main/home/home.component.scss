@@ -1,11 +1,32 @@
 :host {
-  grid-template: "map routes .";
-  grid-gap: 10px;
-  app-ggmaps {
-    grid-area: map;
-    width: 400px;
+  .home-container {
+    display: grid;
+    min-height: 80vh;
+    grid-template-columns: auto 700px auto;
+    grid-template-rows: 100px 300px auto;
+    grid-gap: 10px;
+    app-ggmaps {
+      grid-area: map;
+      width: 400px;
+    }
+    app-drag-list {
+      grid-area: routes;
+    }
+    app-creator /deep/{
+      grid-column: 2;
+      grid-row: 2;
+      .creator-form {
+        width: 680px;
+        display: grid;
+        grid-gap: 10px;
+        grid-template-columns: auto auto auto auto;
+        .sub-btn {
+          align-self: center;
+        }
+      }
+    }
   }
-  app-drag-list {
-    grid-area: routes;
-  }
+
+
 }
+

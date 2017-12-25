@@ -8,6 +8,7 @@ import {
 } from "@angular/material";
 import {ReactiveFormsModule} from "@angular/forms";
 import {DndModule} from "ng2-dnd";
+import { Md2DatepickerModule, MdNativeDateModule } from "md2";
 
 const MATERIAL_MODULES = [
   BrowserAnimationsModule,
@@ -23,7 +24,9 @@ const MATERIAL_MODULES = [
   MatNativeDateModule,
   NativeDateModule,
   MatListModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  Md2DatepickerModule,
+  MdNativeDateModule
 ];
 
 @NgModule({

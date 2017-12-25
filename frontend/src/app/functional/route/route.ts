@@ -1,34 +1,34 @@
-import {Location} from "./location";
+import { RouteSnapshot } from "./route-snapshot";
 
 export class Route {
-  get locations(): Location[] {
-    return this._locations;
+  get snapshots(): RouteSnapshot[] {
+    return this._snapshots;
   }
-  set locations(value: Location[]) {
+  set snapshots(value: RouteSnapshot[]) {
     this.update(value);
   }
-  constructor(locations: Location[] = [undefined, undefined]) {
-    locations = Location.copyAll(locations);
-    this.update(locations)
+  constructor(snapshots: RouteSnapshot[] = [undefined, undefined]) {
+    snapshots = RouteSnapshot.copyAll(snapshots);
+    this.update(snapshots)
   }
 
-  private _locations: Location[];
-  origin: Location;
-  destination: Location;
-  wayPoints: Location[];
+  private _snapshots: RouteSnapshot[];
+  origin: RouteSnapshot;
+  destination: RouteSnapshot;
+  wayPoints: RouteSnapshot[];
 
-  update(loc:((locations) => void) | Location[]) {
+  update(loc:((snapshots: RouteSnapshot[]) => void) | RouteSnapshot[]) {
     if(loc instanceof Function) {
-      loc(this._locations);
+      loc(this._snapshots);
     } else {
-      this._locations = loc
+      this._snapshots = loc
     }
-    while (this.locations.length < 2) {
-      this.locations.push(undefined)
+    while (this.snapshots.length < 2) {
+      this.snapshots.push(undefined)
     }
-    this.wayPoints = this._locations.slice(1, this._locations.length - 1);
-    this.destination = this._locations[this._locations.length - 1];
-    this.origin =this._locations[0];
-    Object.freeze(this._locations);
+    this.wayPoints = this._snapshots.slice(1, this._snapshots.length - 1);
+    this.destination = this._snapshots[this._snapshots.length - 1];
+    this.origin = this._snapshots[0];
+    Object.freeze(this._snapshots);
   }
 }
