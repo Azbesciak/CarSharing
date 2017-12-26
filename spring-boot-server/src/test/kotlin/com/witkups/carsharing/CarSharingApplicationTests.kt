@@ -1,5 +1,6 @@
 package com.witkups.carsharing
 
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.boot.test.context.SpringBootTest
@@ -11,6 +12,7 @@ class CarSharingApplicationTests {
 
   @Test
   fun contextLoads() {
+    assertEquals(2, 2)
   }
 
 }

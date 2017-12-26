@@ -10,8 +10,10 @@ data class RoutePart(
   @GeneratedValue(strategy = GenerationType.SEQUENCE)
   var id: Long? = null,
 
-  @Column(nullable = false)
+  @JoinColumn(name = "origin_id", nullable = false, referencedColumnName = "route_snapshot_id")
+  @ManyToOne(optional = false, cascade = [CascadeType.DETACH])
   var origin: RouteSnapshot? = null,
-  @Column(nullable = false)
+  @JoinColumn(name = "destination_id", nullable = false, referencedColumnName = "route_snapshot_id")
+  @ManyToOne(optional = false, cascade = [CascadeType.DETACH])
   var destination: RouteSnapshot? = null
 )
