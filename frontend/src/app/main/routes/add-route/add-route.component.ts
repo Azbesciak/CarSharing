@@ -27,9 +27,9 @@ export class AddRouteComponent extends RouteWatcher implements OnInit {
     this.route = new Route();
     this.routeEventBus = new BehaviorSubject(new RouteEvent(this.route, this));
     this.locInputs = [originInput(), destInput(), wayPointInput()];
-    this.dateInputs = [originDateInput(), destinationDateInput()];
+    this.dateInputs = [originDateInput('datetime'), destinationDateInput()];
     this.submitFun = route => {
-      console.log(route)
+      console.log(route);
       return Promise.resolve()
     };
 

@@ -1,19 +1,19 @@
 import { TimeDateInput } from "./time-date-input";
 
-export function routeDateInput(ref): TimeDateInput {
-  return new TimeDateInput(date => {
-    ref.date = date
-  },"Date of the trip", true)
-}
-export function originDateInput(): TimeDateInput {
-  return new TimeDateInput((date, snaps) => {
-    snaps[0].date = date
-  },"Date of the departure", true, 'datetime')
+export function originDateInput(type: string = 'date'): TimeDateInput {
+  return new TimeDateInput(
+    (comp) => comp.route = comp.route.withDepartureDate(comp.timeDateInp.date),
+    (route, ref) => ref.date = route.departureDate,
+    "Date of the departure", type, true)
 }
 
 export function destinationDateInput(): TimeDateInput {
-  return new TimeDateInput((date, snaps) => {
-    snaps[snaps.length - 1].date = date
-  },"Date of the arrival", true, 'datetime')
+  return new TimeDateInput(() => {},
+    (route, ref) => {
+    const totalTime = route.durations.reduce((a, b) => a + b, 0);
+    ref.date = route.departureDate ? new Date(route.departureDate.getTime() + totalTime) : undefined;
+    }
+    // snaps[snaps.length - 1].date = date
+  ,"Date of the arrival", 'datetime',true, true)
 }
 

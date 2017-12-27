@@ -1,33 +1,53 @@
-import { RouteSnapshot } from "./route-snapshot";
+import {Location} from "./location";
 
 export class Route {
-  get snapshots(): RouteSnapshot[] {
-    return this._snapshots;
+  get locations(): Location[] {
+    return this._locations;
   }
-  set snapshots(value: RouteSnapshot[]) {
+  set locations(value: Location[]) {
     this.update(value);
   }
-  constructor(snapshots: RouteSnapshot[] = [undefined, undefined]) {
-    snapshots = RouteSnapshot.copyAll(snapshots);
-    this.update(snapshots)
+  constructor(locations: Location[] = [undefined, undefined],
+              public distances: number[] = [],
+              public departureDate: Date = undefined,
+              public durations: number[] = []) {
+    locations = Location.copyAll(locations);
+    this.update(locations)
   }
 
-  private _snapshots: RouteSnapshot[];
-  origin: RouteSnapshot;
-  destination: RouteSnapshot;
-  wayPoints: RouteSnapshot[];
-  update(loc:((snapshots: RouteSnapshot[]) => void) | RouteSnapshot[]) {
+  private _locations: Location[];
+  origin: Location;
+  destination: Location;
+  wayPoints: Location[];
+
+  update(loc:((locations: Location[]) => void) | Location[]) {
     if(loc instanceof Function) {
-      loc(this._snapshots);
+      loc(this._locations);
     } else {
-      this._snapshots = loc
+      this._locations = loc
     }
-    while (this.snapshots.length < 2) {
-      this.snapshots.push(undefined)
+    while (this.locations.length < 2) {
+      this.locations.push(undefined)
     }
-    this.wayPoints = this._snapshots.slice(1, this._snapshots.length - 1);
-    this.destination = this._snapshots[this._snapshots.length - 1];
-    this.origin = this._snapshots[0];
-    Object.freeze(this._snapshots);
+    this.wayPoints = this._locations.slice(1, this._locations.length - 1);
+    this.destination = this._locations[this._locations.length - 1];
+    this.origin = this._locations[0];
+    Object.freeze(this._locations);
+  }
+
+  withLocations(locations: Location[]): Route {
+    return new Route(locations, this.distances.slice(), this.departureDate, this.durations.slice())
+  }
+
+  withDistances(distances: number[]): Route {
+    return new Route(this.locations, distances.slice(), this.departureDate, this.durations.slice())
+  }
+
+  withDepartureDate(date: Date): Route {
+    return new Route(this.locations, this.distances.slice(), new Date(date.getTime()), this.durations.slice())
+  }
+
+  withDurations(durations: number[]): Route {
+    return new Route(this.locations, this.distances.slice(), this.departureDate, durations.slice())
   }
 }

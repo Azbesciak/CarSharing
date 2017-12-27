@@ -1,12 +1,12 @@
 import { Route } from "../route";
-import { RouteSnapshot } from "../route-snapshot";
+import {Location} from "../location";
 
 export class LocationInput {
   constructor(public name: string,
-              public onNew: (snap: RouteSnapshot, snaps: RouteSnapshot[], ref: LocationInput) => void,
+              public onNew: (snap: Location, snaps: Location[], ref: LocationInput) => void,
               public onChange: (route: Route, inp: LocationInput) => void = () => {},
               public required: boolean = false,
-              public onCurLocFound: (loc: RouteSnapshot, locs: RouteSnapshot[]) => void = null,
+              public onCurLocFound: (loc: Location, locs: Location[]) => void = null,
               public value: string = ""){}
 
   isValid() {

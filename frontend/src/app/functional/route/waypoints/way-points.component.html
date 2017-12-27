@@ -1,10 +1,10 @@
-<mat-list dnd-sortable-container [sortableData]="snapshots">
-  <mat-list-item *ngFor="let snap of snapshots; let i = index; let first = first; let last = last"
+<mat-list dnd-sortable-container [sortableData]="locations">
+  <mat-list-item *ngFor="let loc of locations; let i = index; let first = first; let last = last"
                  dnd-sortable [sortableIndex]="i" [ngClass]="{first: first, last: last}">
     <mat-icon *ngIf="first" class="icon start">panorama_fish_eye</mat-icon>
     <mat-icon *ngIf="!first && !last" class="icon">more_vert</mat-icon>
     <mat-icon *ngIf="last" class="icon">place</mat-icon>
-    <span matLine *ngIf="snap; else placeholder" class="label"> {{snap.location.label}} </span>
+    <span matLine *ngIf="loc; else placeholder" class="label"> {{loc.label}} </span>
     <ng-template #placeholder>
       <span matLine class="placeholder">
         <span *ngIf="first">Enter your origin</span>

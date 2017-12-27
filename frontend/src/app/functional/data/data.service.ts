@@ -31,7 +31,7 @@ export class DataService {
   }
 
   searchRoute(route: Route, date: Date) {
-    return this.http.get(DataService.toApi(`routes/${route.origin.location.label}/${route.destination.location.label}/${date.getTime()}`))
+    return this.http.get(DataService.toApi(`routes/${route.origin.label}/${route.destination.label}/${date.getTime()}`))
   }
 
   static toApi(url: string): string {

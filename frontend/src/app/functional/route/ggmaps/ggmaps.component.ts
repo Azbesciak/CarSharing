@@ -3,7 +3,6 @@ import { MapsAPILoader } from "@agm/core";
 import { Route } from "../route";
 import { RouteWatcher } from "../route-watcher";
 import { Location } from "../location";
-import { RouteSnapshot } from "../route-snapshot";
 
 const MAX_ZOOM = 17;
 const SINGLE_POINT_ZOOM = 14;
@@ -20,7 +19,7 @@ export class GgmapsComponent extends RouteWatcher implements OnInit {
 
   directionsDisplay: any;
 
-  singleSnapRepr: RouteSnapshot;
+  singleLoc: Location;
 
   @Output()
   onDistanceChange = new EventEmitter<number>();
@@ -48,16 +47,15 @@ export class GgmapsComponent extends RouteWatcher implements OnInit {
   }
 
   getMinAndMAx(field) {
-    let results = this.route.snapshots
+    let results = this.route.locations
       .filter(a => a)
-      .map(a => a.location)
       .map(a => a[field]);
     return {min: Math.min(...results), max: Math.max(...results)}
   }
 
   checkIfSingleLoc() {
-    const notEmpty = this.route.snapshots.filter(a => a);
+    const notEmpty = this.route.locations.filter(a => a);
     const areEqual = notEmpty.length > 0 && notEmpty.every(r => r.equals(notEmpty[0]));
-    this.singleSnapRepr = areEqual && notEmpty[0];
+    this.singleLoc = areEqual && notEmpty[0];
   }
 }

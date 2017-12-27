@@ -12,14 +12,14 @@ import { RouteSnapshot } from "../route-snapshot";
 export class WayPointsComponent extends RouteWatcher implements OnInit, DoCheck {
 
   ngDoCheck(): void {
-    if (this.snapshots) {
+    if (this.locations) {
       let changed = false;
-      if (this.snapshots.length != this.route.snapshots.length) {
+      if (this.locations.length != this.route.locations.length) {
         changed = true;
       } else {
-        for (let i = 0; i < this.snapshots.length; i++) {
-          const original = this.route.snapshots[i];
-          const copy = this.snapshots[i];
+        for (let i = 0; i < this.locations.length; i++) {
+          const original = this.route.locations[i];
+          const copy = this.locations[i];
           if ((copy && original && copy.equals(original)) || (!original && !copy)) {
             continue;
           }
@@ -34,7 +34,7 @@ export class WayPointsComponent extends RouteWatcher implements OnInit, DoCheck 
   }
 
   private update() {
-    this.route = new Route(this.snapshots);
+    this.route = this.route.withLocations(this.locations);
     this.push(this.route)
   }
 
@@ -42,13 +42,13 @@ export class WayPointsComponent extends RouteWatcher implements OnInit, DoCheck 
     super()
   }
 
-  protected snapshots: RouteSnapshot[];
+  protected locations: Location[];
 
   ngOnInit() {
     this.subscribe();
   }
 
   protected onChange(route: Route) {
-    this.snapshots = RouteSnapshot.copyAll(route.snapshots);
+    this.locations = Location.copyAll(route.locations);
   }
 }

@@ -3,6 +3,7 @@ import { RouteWatcher } from "../route-watcher";
 import { Route } from "../route";
 import { RouteSnapshot } from "../route-snapshot";
 import { TimeDateInput } from "./time-date-input";
+import {Location} from "../location";
 
 @Component({
   selector: 'app-visit-date',
@@ -15,13 +16,11 @@ export class VisitDateComponent extends RouteWatcher implements OnInit {
   timeDateInp: TimeDateInput;
 
   protected onChange(route: Route) {
-
+    this.timeDateInp.onRouteChange(route, this.timeDateInp);
   }
 
   updateDate() {
-    const routeSnapshots = RouteSnapshot.copyAll(this.route.snapshots);
-    this.timeDateInp.onDateTimeSelect(this.timeDateInp.date, routeSnapshots);
-    console.log("aaa")
+    this.timeDateInp.onDateTimeSelect(this);
     this.push(this.route);
   }
 

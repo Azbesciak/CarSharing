@@ -52,9 +52,9 @@ export class LocationInputComponent extends RouteWatcher implements OnInit {
 
   private modifyRoute(data: {loc: any, label?: string}) {
     const loc = Location.from(data.loc, data.label);
-    const snaps = RouteSnapshot.copyAll(this.route.snapshots);
-    this.locInp.onNew(new RouteSnapshot(loc), snaps, this.locInp);
-    this.route = new Route(snaps);
+    const locs = Location.copyAll(this.route.locations);
+    this.locInp.onNew(loc, locs, this.locInp);
+    this.route = this.route.withLocations(locs);
     this.push(this.route);
   }
 }

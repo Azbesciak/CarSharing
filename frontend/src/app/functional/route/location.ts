@@ -53,7 +53,7 @@ export class Location {
     return loc;
   }
 
-  // static copyAll(original: Location[]): Location[] {
-  //   return original.slice().map(x => Location.copy(x));
-  // }
+  static copyAll(original: Location[]): Location[] {
+    return original.slice().map(x => Location.copy(x));
+  }
 }
