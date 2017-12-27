@@ -16,7 +16,6 @@ export class Route {
   origin: RouteSnapshot;
   destination: RouteSnapshot;
   wayPoints: RouteSnapshot[];
-
   update(loc:((snapshots: RouteSnapshot[]) => void) | RouteSnapshot[]) {
     if(loc instanceof Function) {
       loc(this._snapshots);

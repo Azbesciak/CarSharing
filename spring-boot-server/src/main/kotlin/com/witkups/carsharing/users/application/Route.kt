@@ -17,6 +17,9 @@ data class Route(
 
   @OneToMany(cascade = [CascadeType.ALL], orphanRemoval = true)
   @JoinColumn(name = "route_snapshot_id")
-  var routeSnapshots: MutableSet<RouteSnapshot> = mutableSetOf()
+  var routeSnapshots: MutableSet<RouteSnapshot> = mutableSetOf(),
 
+  @ManyToOne(optional = true, fetch = FetchType.EAGER)
+  @JoinColumn(name = "car_id", referencedColumnName = "car_id")
+  var car: Car? = null
 )

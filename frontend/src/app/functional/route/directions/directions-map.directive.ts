@@ -95,4 +95,6 @@ export class DirectionsMapDirective extends RouteWatcher implements OnInit {
       .reduce((a, b) => a + b);
     this.onDistanceChange.next(total / 1000);
   }
+
+
 }
