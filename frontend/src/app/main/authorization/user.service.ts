@@ -26,7 +26,7 @@ export class UserService {
       .then(() => this.getUserData())
       .then(user => {
         if (!this.isCompletedUser(user)) {
-          this.router.navigate([RoutingConstants.getProfileCompletionPage()])
+          this.router.navigate([RoutingConstants.getProfileModificationPage()])
         }
         return user;
       });

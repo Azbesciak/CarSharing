@@ -5,10 +5,14 @@ import {RegistrationComponent} from "../../main/authorization/registration/regis
 import {LoginComponent} from "../../main/authorization/login/login.component";
 import {HomeComponent} from "../../main/home/home.component";
 import {RoutingConstants} from "./routing.constants"
-import {CompletionComponent} from "../../main/profile/completion/completion.component";
+import {BasicComponent} from "../../main/profile/modification/basic/basic.component";
 import {AuthGuardService} from "../../main/authorization/auth-guard.service";
 import { RoutesComponent } from "../../main/routes/routes.component";
 import { AddRouteComponent } from "../../main/routes/add-route/add-route.component";
+import {ProfileComponent} from "../../main/profile/profile.component";
+import {CarComponent} from "../../main/profile/modification/car/car.component";
+import {PhotoComponent} from "../../main/profile/modification/photo/photo.component";
+import {ModificationComponent} from "../../main/profile/modification/modification.component";
 
 const appRoutes: Routes = [
   {path: RoutingConstants.HOME_PAGE, component: HomeComponent},
@@ -17,9 +21,16 @@ const appRoutes: Routes = [
   {path: RoutingConstants.REGISTER_PAGE, component: RegistrationComponent},
   {path: RoutingConstants.LOGIN_PAGE, component: LoginComponent},
   {
-    path: RoutingConstants.PROFILE_PATH, canActivate: [AuthGuardService],
+    path: RoutingConstants.PROFILE_PATH, canActivate: [AuthGuardService], component: ProfileComponent,
     children: [
-      {path: RoutingConstants.PROFILE_COMPLETION_PAGE, component: CompletionComponent, canDeactivate: [AuthGuardService]},
+      {path: '', pathMatch: 'full', redirectTo: RoutingConstants.PROFILE_MODIFICATION_PAGE},
+      {path: RoutingConstants.PROFILE_MODIFICATION_PAGE, canDeactivate: [AuthGuardService],
+        component: ModificationComponent, children: [
+          {path: '', pathMatch: 'full', redirectTo: RoutingConstants.PROFILE_MODIFICATION_BASIC_PAGE},
+          {path: RoutingConstants.PROFILE_MODIFICATION_BASIC_PAGE, component: BasicComponent},
+          {path: RoutingConstants.PROFILE_MODIFICATION_CARS_PAGE, component: CarComponent},
+          {path: RoutingConstants.PROFILE_MODIFICATION_PHOTOS_PAGE, component: PhotoComponent}
+        ]},
     ]
   },
 

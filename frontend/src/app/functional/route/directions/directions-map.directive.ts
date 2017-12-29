@@ -56,7 +56,7 @@ export class DirectionsMapDirective extends RouteWatcher implements OnInit {
           origin: {lat: this.route.origin.latitude, lng: this.route.origin.longitude},
           destination: {lat: this.route.destination.latitude, lng: this.route.destination.longitude},
           waypoints: wayPoints,
-          optimizeWaypoints: true,
+          optimizeWaypoints: false,
           travelMode: google.maps.TravelMode.DRIVING
         }, (response, status) => {
           if (status == google.maps.DirectionsStatus.OK) {
@@ -90,7 +90,7 @@ export class DirectionsMapDirective extends RouteWatcher implements OnInit {
   }
 
   computeTotalDistance(result) {
-    // console.log(result)
+    console.log(result)
     const directionsLegs = result.routes[0].legs;
     this.route = this.route
       .withDistances(directionsLegs.map(r => r.distance.value / 1000))

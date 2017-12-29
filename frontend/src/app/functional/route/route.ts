@@ -1,16 +1,21 @@
 import {Location} from "./location";
+import {Car} from "./car";
 
 export class Route {
   get locations(): Location[] {
     return this._locations;
   }
+
   set locations(value: Location[]) {
     this.update(value);
   }
+
   constructor(locations: Location[] = [undefined, undefined],
               public distances: number[] = [],
               public departureDate: Date = undefined,
-              public durations: number[] = []) {
+              public durations: number[] = [],
+              public prices: number[] = [],
+              public car: Car = null) {
     locations = Location.copyAll(locations);
     this.update(locations)
   }
@@ -20,8 +25,8 @@ export class Route {
   destination: Location;
   wayPoints: Location[];
 
-  update(loc:((locations: Location[]) => void) | Location[]) {
-    if(loc instanceof Function) {
+  update(loc: ((locations: Location[]) => void) | Location[]) {
+    if (loc instanceof Function) {
       loc(this._locations);
     } else {
       this._locations = loc
@@ -36,18 +41,32 @@ export class Route {
   }
 
   withLocations(locations: Location[]): Route {
-    return new Route(locations, this.distances.slice(), this.departureDate, this.durations.slice())
+    return new Route(locations, this.distances.slice(), this.departureDate,
+      this.durations.slice(), this.prices.slice(), this.car)
   }
 
   withDistances(distances: number[]): Route {
-    return new Route(this.locations, distances.slice(), this.departureDate, this.durations.slice())
+    return new Route(this.locations, distances.slice(), this.departureDate,
+      this.durations.slice(), this.prices.slice(), this.car)
   }
 
   withDepartureDate(date: Date): Route {
-    return new Route(this.locations, this.distances.slice(), new Date(date.getTime()), this.durations.slice())
+    return new Route(this.locations, this.distances.slice(), new Date(date.getTime()),
+      this.durations.slice(), this.prices.slice(), this.car)
   }
 
   withDurations(durations: number[]): Route {
-    return new Route(this.locations, this.distances.slice(), this.departureDate, durations.slice())
+    return new Route(this.locations, this.distances.slice(), this.departureDate,
+      durations.slice(), this.prices.slice(), this.car)
+  }
+
+  withCar(car: Car): Route {
+    return new Route(this.locations, this.distances.slice(), this.departureDate,
+      this.durations.slice(), this.prices.slice(), car)
+  }
+
+  withPrices(prices: number[]) {
+    return new Route(this.locations, this.distances.slice(), this.departureDate,
+      this.durations.slice(), prices.slice(), Car.copy(this.car))
   }
 }

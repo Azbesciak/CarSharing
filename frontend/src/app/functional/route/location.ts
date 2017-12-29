@@ -1,5 +1,6 @@
 export class Location {
   constructor(
+    public placeId: string = null,
     public longitude: number = null,
     public latitude: number = null,
     public label: string = null,
@@ -24,6 +25,7 @@ export class Location {
       loc.latitude = place.geometry.location.lat();
       loc.longitude = place.geometry.location.lng();
       this.fillLocationDetails(place, loc);
+      loc.placeId = place.place_id;
       loc.label = label;
       return loc;
     } else {
@@ -37,7 +39,6 @@ export class Location {
 
   private static fillLocationDetails(place: google.maps.places.PlaceResult, loc: Location) {
     if (place.address_components) {
-
       Object.keys(loc).forEach(k => {
         if (loc[k]) return;
         let pl = place.address_components.find(s => !!s.types.find(t => t == k));

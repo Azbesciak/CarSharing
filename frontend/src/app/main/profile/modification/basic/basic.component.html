@@ -1,0 +1,23 @@
+<form class="example-form" (submit)="completeUserData(basic)" novalidate [formGroup]="basic">
+  <mat-form-field class="example-full-width" [class.onError]="error">
+    <input matInput placeholder="First name" type="firstname" formControlName="firstName"
+           [errorStateMatcher]="matcher">
+    <mat-error *ngIf="error">{{error}}</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Last name" type="lastname" formControlName="lastName">
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Phone number" type="phone" formControlName="phoneNumber">
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <input matInput [matDatepicker]="dateOfBirth" placeholder="Date of birth"
+           formControlName="dateOfBirth" [min]="dates.min" [max]="dates.max">
+    <mat-datepicker-toggle matSuffix [for]="dateOfBirth"></mat-datepicker-toggle>
+    <mat-datepicker #dateOfBirth [disabled]="false" startView="year"></mat-datepicker>
+  </mat-form-field>
+  <div class="sbt-container">
+    <button mat-raised-button color="primary" [disabled]="basic.invalid">Send</button>
+  </div>
+</form>

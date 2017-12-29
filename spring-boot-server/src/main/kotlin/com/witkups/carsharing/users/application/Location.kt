@@ -1,11 +1,14 @@
 package com.witkups.carsharing.users.application
 
 import javax.persistence.Column
-import javax.persistence.Embeddable
+import javax.persistence.Entity
+import javax.persistence.Id
 
-@Embeddable
+@Entity
 data class Location(
-
+  @Id
+  @Column(name = "location_id")
+  val placeId: String? = null,
   @Column(nullable = false)
   var longitude: Double? = null,
   @Column(nullable = false)
@@ -19,6 +22,4 @@ data class Location(
   var administrative_area_level_2: String? = null,
   var locality: String? = null,
   var route: String? = null
-
-
 )

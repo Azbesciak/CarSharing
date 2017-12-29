@@ -1,0 +1,6 @@
+<mat-card>
+  <app-parts></app-parts>
+  <div class="modif-view">
+    <router-outlet (activate)="onModificatorChange($event)"></router-outlet>
+  </div>
+</mat-card>

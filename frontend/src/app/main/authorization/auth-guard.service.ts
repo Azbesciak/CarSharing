@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, CanDeactivate, Router, RouterStateSnapshot} from "@angular/router";
 import {UserService} from "./user.service";
 import {RoutingConstants} from "../../functional/routing/routing.constants";
-import {CompletionComponent} from "../profile/completion/completion.component";
+import {BasicComponent} from "../profile/modification/basic/basic.component";
 
 @Injectable()
-export class AuthGuardService implements CanActivate, CanDeactivate<CompletionComponent> {
+export class AuthGuardService implements CanActivate, CanDeactivate<BasicComponent> {
 
-  private static profileCompletionPage = RoutingConstants.getProfileCompletionPage();
+  private static profileCompletionPage = RoutingConstants.getBasicModifPage();
 
   constructor(private auth: UserService, private router: Router) {}
 

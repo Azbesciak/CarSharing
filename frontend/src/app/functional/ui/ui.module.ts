@@ -14,6 +14,7 @@ import { MenuPositionComponent } from './menu-position/menu-position.component';
     MaterialModule,
     HeaderComponent,
     SpacerComponent,
+    MenuPositionComponent,
   ],
   declarations: [HeaderComponent, SpacerComponent, MenuPositionComponent]
 })

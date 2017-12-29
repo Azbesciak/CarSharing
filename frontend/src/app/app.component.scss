@@ -1,1 +1,6 @@
-
+:host {
+  router-outlet {
+    width: 100vw;
+    height: calc(100vh - 69px);
+  }
+}

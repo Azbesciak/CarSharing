@@ -1,0 +1,20 @@
+:host {
+  display: grid;
+  grid-template: ". form .";
+  padding: 5px;
+  mat-card {
+    display: grid;
+    width: 525px;
+    grid-template-columns: 175px auto;
+    grid-template-rows: 200px 20px;
+    grid-area: form;
+
+    app-parts {
+      grid-column: 1;
+    }
+    .modif-view {
+      justify-self: flex-end;
+      grid-column: 2;
+    }
+  }
+}

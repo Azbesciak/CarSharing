@@ -11,7 +11,7 @@ import javax.validation.constraints.Past
 @Entity
 @Table(name = "cars")
 @Check(constraints = "year_of_production < getDate()")
-data class Car(
+class Car(
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "car_id")
@@ -33,11 +33,43 @@ data class Car(
   @Column(nullable = false)
   @DateTimeFormat(style = "YYYY")
   @Past
-  var yearOfProduction: LocalDate
-): Serializable {
-	enum class Type {
-		HATCHBACK, SEDAN, MINIBUS, MINIVAN, SUV,
-		COUPE, OFF_ROAD, CABRIO, COMBI, PICKUP
-	}
+  var yearOfProduction: LocalDate? = null,
+
+  @Column(nullable = true)
+  var description: String? = null
+) : Serializable {
+  enum class Type {
+    HATCHBACK, SEDAN, MINIBUS, MINIVAN, SUV,
+    COUPE, OFF_ROAD, CABRIO, COMBI, PICKUP
+  }
+
+  override fun toString(): String {
+    return "Car(id=$id, manufacturer=$manufacturer, model=$model, type=$type, " +
+      "seatCount=$seatCount, yearOfProduction=$yearOfProduction, description=$description)"
+  }
+
+  override fun equals(other: Any?): Boolean {
+    if (this === other) return true
+    if (javaClass != other?.javaClass) return false
+
+    other as Car
+
+    if (manufacturer != other.manufacturer) return false
+    if (model != other.model) return false
+    if (type != other.type) return false
+    if (seatCount != other.seatCount) return false
+    if (yearOfProduction != other.yearOfProduction) return false
+
+    return true
+  }
+
+  override fun hashCode(): Int {
+    var result = manufacturer?.hashCode() ?: 0
+    result = 31 * result + (model?.hashCode() ?: 0)
+    result = 31 * result + (type?.hashCode() ?: 0)
+    result = 31 * result + (seatCount ?: 0)
+    result = 31 * result + (yearOfProduction?.hashCode() ?: 0)
+    return result
+  }
 }
 

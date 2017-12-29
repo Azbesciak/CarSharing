@@ -20,11 +20,9 @@ data class RoutePart(
 
   @Column(nullable = false)
   var distance: Double? = null,
-  @Column(nullable = false)
-  var cost: Double? = null,
 
   @Column(nullable = false)
-  var slots: Int? = null,
+  var cost: Double? = null,
 
   @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(name = "route_part_passengers",
