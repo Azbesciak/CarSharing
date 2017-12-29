@@ -24,6 +24,7 @@ class Car(
   var model: String? = null,
 
   @Column(nullable = false)
+  @Enumerated(EnumType.STRING)
   var type: Type? = null,
 
   @Column(nullable = false)

@@ -5,6 +5,8 @@ import {UserService} from "../../../authorization/user.service";
 import {DataService} from "../../../../functional/data/data.service";
 import {AppUser} from "../../../authorization/user";
 import {AppUserModificator} from "../app-user-modificator";
+import {Router} from "@angular/router";
+import {RoutingConstants} from "../../../../functional/routing/routing.constants";
 
 @Component({
   selector: 'app-basic',
@@ -12,38 +14,41 @@ import {AppUserModificator} from "../app-user-modificator";
   styleUrls: ['./basic.component.scss'],
 })
 export class BasicComponent extends AppUserModificator implements OnInit {
+
   basic: FormGroup;
   matcher;
-  user: AppUser;
   dates = {
     min: new Date(1900, 0, 1),
     max: new Date()
   };
   constructor(private auth: UserService,
-              private fb: FormBuilder,
-              private data: DataService) {super() }
+              private router: Router,
+              private fb: FormBuilder) {super()}
 
   ngOnInit() {
-    this.user = this.auth.getAuthorizedUser();
     this.basic = this.fb.group({
       firstName: [this.user.firstName, [Validators.required]],
       lastName: [this.user.lastName, [Validators.required]],
-      phoneNumber: [this.user.phoneNumber, Validators.pattern("\\d{9}")],
-      dateOfBirth: [ this.user.dateOfBirth ? new Date(this.user.dateOfBirth) : null],
-
+      phoneNumber: [this.user.phoneNumber, [Validators.required, Validators.pattern("\\d{9}")]],
+      dateOfBirth: [this.user.dateOfBirth ? new Date(this.user.dateOfBirth) : null],
     });
     this.matcher = new ErrorMatcher();
   }
 
-  completeUserData({value, valid}: {value: AppUser, valid: boolean}) {
+  onCompleted({value, valid}: {value: AppUser, valid: boolean}):boolean {
     if (valid) {
-      value.user = this.user.user;
-      debugger;
-      this.data
-        .completeUserData(value)
-        .then(async() => await this.auth.getUserData())
-        .then(e => console.log(e));
+      this.user.lastName = value.lastName;
+      this.user.firstName = value.firstName;
+      this.user.phoneNumber = value.phoneNumber;
+      this.user.dateOfBirth = value.dateOfBirth;
+      this.sub.next(this.user);
+      if (!value.cars || value.cars.length == 0) {
+        this.router.navigate([RoutingConstants.getAddCarsPage()]);
+        return false;
+      } else {
+        return true;
+      }
     }
+    return false;
   }
-
 }

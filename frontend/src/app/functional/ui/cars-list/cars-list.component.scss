@@ -1,0 +1,7 @@
+:host {
+  display: flex;
+  mat-list {
+    width: calc(100% - 20px);
+    padding: 5px;
+  }
+}

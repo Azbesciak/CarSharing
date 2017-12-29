@@ -4,6 +4,8 @@ import {MaterialModule} from "./material/material.module";
 import { HeaderComponent } from './header/header.component';
 import { SpacerComponent } from './spacer/spacer.component';
 import { MenuPositionComponent } from './menu-position/menu-position.component';
+import { CarItemComponent } from './car-item/car-item.component';
+import { CarsListComponent } from './cars-list/cars-list.component';
 
 @NgModule({
   imports: [
@@ -15,7 +17,9 @@ import { MenuPositionComponent } from './menu-position/menu-position.component';
     HeaderComponent,
     SpacerComponent,
     MenuPositionComponent,
+    CarItemComponent,
+    CarsListComponent
   ],
-  declarations: [HeaderComponent, SpacerComponent, MenuPositionComponent]
+  declarations: [HeaderComponent, SpacerComponent, MenuPositionComponent, CarItemComponent, CarsListComponent]
 })
 export class UiModule { }

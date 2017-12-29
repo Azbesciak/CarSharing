@@ -7,8 +7,7 @@ import { Route } from "../route/route";
 @Injectable()
 export class DataService {
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   loginUser(user: User) {
     return this.http.post(
@@ -30,8 +29,14 @@ export class DataService {
     return this.http.post(DataService.toApi("user/update"), user).toPromise()
   }
 
-  searchRoute(route: Route, date: Date) {
-    return this.http.get(DataService.toApi(`routes/${route.origin.label}/${route.destination.label}/${date.getTime()}`))
+  searchRoute(route: Route) {
+    return this.http.get(DataService.toApi(
+      `routes/${route.origin.label}/${route.destination.label}/${route.departureDate.getTime()}`
+    )).toPromise();
+  }
+
+  getAllCarTypes() {
+    return this.http.get(DataService.toApi('cars/types')).toPromise();
   }
 
   static toApi(url: string): string {

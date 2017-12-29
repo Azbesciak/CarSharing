@@ -1,20 +1,36 @@
+@import "../../../../styles";
+
 :host {
   display: grid;
-  grid-template: ". form .";
-  padding: 5px;
+  grid-template: ". . ." ". form ." ". . .";
+  height: $full-height;
+  justify-items: center;
+  align-items: baseline;
   mat-card {
     display: grid;
     width: 525px;
+    grid-column-gap: 30px;
     grid-template-columns: 175px auto;
-    grid-template-rows: 200px 20px;
     grid-area: form;
 
-    app-parts {
+    .options {
       grid-column: 1;
+      display: grid;
+      height: 100%;
+      grid-template-rows: auto auto;
+      app-parts {
+        grid-row: 1;
+      }
+      button {
+        justify-self: center;
+        align-self: flex-end;
+      }
+
     }
     .modif-view {
       justify-self: flex-end;
       grid-column: 2;
     }
   }
+
 }

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {AppUserModificator} from "./app-user-modificator";
-import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../../authorization/user.service";
 import {AppUser} from "../../authorization/user";
+import {DataService} from "../../../functional/data/data.service";
 
 @Component({
   selector: 'app-modification',
@@ -13,12 +13,11 @@ export class ModificationComponent implements OnInit {
   private user: AppUser;
   private modif: AppUserModificator;
 
-  constructor(private userService: UserService) {
+  constructor(private auth: UserService, private data:DataService) {
   }
 
-
   ngOnInit() {
-    this.userService
+    this.auth
       .subscribeOnUserData(user => {
         this.user = user;
         if (this.modif) {
@@ -27,9 +26,21 @@ export class ModificationComponent implements OnInit {
       })
   }
 
-  onModificatorChange(modif) {
+  onModificatorChange(modif: AppUserModificator) {
     this.modif = modif;
+    this.modif.sub.subscribe(user => this.user = user);
     this.modif.user = this.user;
   }
 
+  onComplete() {
+    this.data
+      .completeUserData(this.user)
+      .then(async() => await this.auth.getUserData())
+      .then(e => console.log(e));
+  }
+
+  isInvalid() {
+    return  !(this.user && this.user.cars && this.user.cars.length > 0 &&
+            this.user.firstName && this.user.lastName && this.user.phoneNumber)
+  }
 }

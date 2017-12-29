@@ -35,14 +35,8 @@ data class ApplicationUser(
   @Pattern(regexp = "\\d{9}")
   var phoneNumber: String? = null,
 
-  @OneToMany(mappedBy = "reviewer", fetch = FetchType.LAZY)
-  var givenOpinions: MutableSet<Opinion> = mutableSetOf(),
-
-  @OneToMany(mappedBy = "reviewed", fetch = FetchType.LAZY)
-  var receivedOpinions: MutableSet<Opinion> = mutableSetOf(),
-
-  @OneToMany(fetch = FetchType.LAZY)
-  @JoinColumn(name = "car_id", foreignKey = ForeignKey(name = "FK_APP_USER_CARS"))
+  @OneToMany(cascade = [CascadeType.ALL], orphanRemoval = true, fetch = FetchType.LAZY)
+  @JoinColumn(name = "user_id", foreignKey = ForeignKey(name = "FK_APP_USER_CARS"), nullable = false)
   var cars: MutableSet<Car> = mutableSetOf()
 
 ): Serializable {

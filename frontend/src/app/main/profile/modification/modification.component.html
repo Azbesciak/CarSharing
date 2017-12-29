@@ -1,5 +1,8 @@
 <mat-card>
-  <app-parts></app-parts>
+  <div class="options">
+    <app-parts></app-parts>
+    <button mat-raised-button color="primary" [disabled]="isInvalid()" (click)="onComplete()">Send</button>
+  </div>
   <div class="modif-view">
     <router-outlet (activate)="onModificatorChange($event)"></router-outlet>
   </div>

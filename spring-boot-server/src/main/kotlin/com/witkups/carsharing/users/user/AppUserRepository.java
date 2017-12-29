@@ -11,5 +11,6 @@ public interface AppUserRepository extends JpaRepository<ApplicationUser, Long> 
   @Query("select u from ApplicationUser u where u.user.login = ?1")
   ApplicationUser getByUserLogin(String login);
 
+  ApplicationUser findApplicationUserById(Long id);
 }
 

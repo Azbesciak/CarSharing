@@ -1,3 +1,34 @@
-<p>
-  car works!
-</p>
+<form class="example-form" (submit)="complete(carForm, $event)"
+      novalidate [formGroup]="carForm" *ngIf="carForm">
+  <div>
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Manufacturer" type="text" formControlName="manufacturer">
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Model" type="text" formControlName="model">
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <mat-select placeholder="Type" formControlName="type">
+        <mat-option *ngFor="let type of carTypes" [value]="type">{{type}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Seat count" type="number" formControlName="seatCount">
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Year of production" formControlName="yearOfProduction" type="number">
+    </mat-form-field>
+    <mat-form-field hintLabel="Max 255 characters" class="full-width">
+      <textarea matInput #input placeholder="Description" formControlName="description" matTextareaAutosize ></textarea>
+      <mat-hint align="end">{{input.value?.length || 0}}/255</mat-hint>
+    </mat-form-field>
+  </div>
+  <div class="sbt-container">
+    <button mat-raised-button color="primary" [disabled]="carForm.invalid">
+      {{currentCarIndex >= 0 ? 'Modify':'Add To Cars'}}
+    </button>
+  </div>
+  <app-cars-list [cars]="user.cars" (carSelected)="assignValueToForm($event)"
+                 (carDeleted)="deleteCar($event)"></app-cars-list>
+</form>
+
