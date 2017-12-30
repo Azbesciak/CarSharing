@@ -14,6 +14,16 @@ import { FormsModule } from "@angular/forms";
 import { CurrentLocationComponent } from './current-location/current-location.component';
 import { VisitDateComponent } from './visit-date/visit-date.component';
 
+const components = [
+  GgmapsComponent,
+  DirectionsMapDirective,
+  CreatorComponent,
+  WayPointsComponent,
+  LocationInputComponent,
+  CurrentLocationComponent,
+  VisitDateComponent
+];
+
 @NgModule({
   imports: [
     CommonModule,
@@ -26,7 +36,7 @@ import { VisitDateComponent } from './visit-date/visit-date.component';
     DndModule.forRoot()
   ],
   providers: [LocationService],
-  declarations: [GgmapsComponent, DirectionsMapDirective, CreatorComponent, WayPointsComponent, LocationInputComponent, CurrentLocationComponent, VisitDateComponent],
-  exports: [GgmapsComponent, AgmCoreModule, DirectionsMapDirective, CreatorComponent, WayPointsComponent, VisitDateComponent]
+  declarations: [components],
+  exports: [components, AgmCoreModule]
 })
 export class RouteModule { }

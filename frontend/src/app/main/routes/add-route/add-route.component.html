@@ -1,9 +1,10 @@
 <div *ngIf="routeEventBus" class="add-route-container">
-  <div class="creator">
-    <app-creator [routeEventBus]="routeEventBus" *ngIf="locInputs" [locInputs]="locInputs"
-                 [dateInputs]="dateInputs" [submitLabel]="'Add route'"></app-creator>
-    <app-drag-list [routeEventBus]="routeEventBus"></app-drag-list>
-    <app-cars-list [cars]="user?.cars" (carSelected)="onCarSelect($event)"></app-cars-list>
+  <div class="route-creator">
+    <mat-vertical-stepper>
+      <mat-step *ngFor="let comp of routeComponents" [label]="comp.label">
+          <ng-container *ngComponentOutlet="comp.comp"></ng-container>
+      </mat-step>
+    </mat-vertical-stepper>
   </div>
   <app-ggmaps [routeEventBus]="routeEventBus"></app-ggmaps>
 

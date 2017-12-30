@@ -13,14 +13,16 @@ import {ProfileComponent} from "../../main/profile/profile.component";
 import {CarComponent} from "../../main/profile/modification/car/car.component";
 import {PhotoComponent} from "../../main/profile/modification/photo/photo.component";
 import {ModificationComponent} from "../../main/profile/modification/modification.component";
+import {RouteComponent} from "../../main/routes/add-route/route/route.component";
 
 const appRoutes: Routes = [
   {path: RoutingConstants.HOME_PAGE, component: HomeComponent},
   {path: RoutingConstants.ROUTES_PATH, component: RoutesComponent},
   {path: RoutingConstants.REGISTER_PAGE, component: RegistrationComponent},
   {path: RoutingConstants.LOGIN_PAGE, component: LoginComponent},
-  {path: RoutingConstants.ADD_ROUTE_PATH, canActivate:[AuthGuardService], component: AddRouteComponent, children: [
-      {path: '', pathMatch: 'full', redirectTo: RoutingConstants.PROFILE_MODIFICATION_PAGE},
+  {path: RoutingConstants.ADD_ROUTE_PATH, canActivate: [AuthGuardService], component: AddRouteComponent, children: [
+      // {path: '', pathMatch: 'full', redirectTo: RoutingConstants.ADD_ROUTE_CREATE_PATH},
+      // {path: RoutingConstants.ADD_ROUTE_CREATE_PATH, component: RouteComponent},
     ]},
   {
     path: RoutingConstants.PROFILE_PATH, canActivate: [AuthGuardService], component: ProfileComponent,

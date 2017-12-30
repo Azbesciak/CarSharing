@@ -1,4 +1,4 @@
-import { Directive, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { Directive, Input, OnInit } from "@angular/core";
 import { GoogleMapsAPIWrapper } from "@agm/core";
 import {} from "googlemaps";
 import { Route } from "../route";
@@ -12,9 +12,6 @@ export class DirectionsMapDirective extends RouteWatcher implements OnInit {
 
   @Input()
   directionsDisplay;
-
-  @Output()
-  onDistanceChange = new EventEmitter<number>();
 
   private lastTimeout;
   private directionsService;
@@ -90,18 +87,10 @@ export class DirectionsMapDirective extends RouteWatcher implements OnInit {
   }
 
   computeTotalDistance(result) {
-    console.log(result)
     const directionsLegs = result.routes[0].legs;
     this.route = this.route
       .withDistances(directionsLegs.map(r => r.distance.value / 1000))
       .withDurations(directionsLegs.map(r => r.duration.value * 1000));
     this.push(this.route);
-    console.log(this.route)
-    const total = directionsLegs
-      .map(r => r.distance.value)
-      .reduce((a, b) => a + b);
-    this.onDistanceChange.next(total / 1000);
   }
-
-
 }

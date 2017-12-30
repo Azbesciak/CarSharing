@@ -5,6 +5,7 @@ import {
   MatToolbarModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule,
   MatIconModule, MatDialogModule, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher, MatDatepickerModule,
   MatNativeDateModule, NativeDateModule, MatListModule, MatProgressSpinnerModule, MatOptionModule, MatSelectModule,
+  MatStepperModule,
 } from "@angular/material";
 import {ReactiveFormsModule} from "@angular/forms";
 import { Md2DatepickerModule, MdNativeDateModule } from "md2";
@@ -27,7 +28,8 @@ const MATERIAL_MODULES = [
   Md2DatepickerModule,
   MdNativeDateModule,
   MatOptionModule,
-  MatSelectModule
+  MatSelectModule,
+  MatStepperModule
 ];
 
 @NgModule({

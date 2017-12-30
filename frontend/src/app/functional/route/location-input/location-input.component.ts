@@ -38,7 +38,7 @@ export class LocationInputComponent extends RouteWatcher implements OnInit {
         let place: google.maps.places.PlaceResult = autocomplete.getPlace();
         if (place.geometry) {
           console.log(place);
-          console.log(autocomplete)
+          console.log(autocomplete);
           const label = this.inp.nativeElement.value;
           this.onPlaceFound(place, label);
         }

@@ -4,8 +4,10 @@
               [latitude]="singleLoc.latitude"
               [longitude]="singleLoc.longitude"></agm-marker>
   <ng-template #direction>
-    <agm-directions *ngIf="directionsDisplay" [routeEventBus]="routeEventBus"
-                    [directionsDisplay]="directionsDisplay" (onDistanceChange)="onDistanceChange.next($event)"></agm-directions>
+    <agm-directions *ngIf="directionsDisplay"
+                    [routeEventBus]="routeEventBus"
+                    [directionsDisplay]="directionsDisplay"
+    ></agm-directions>
   </ng-template>
 
   </div>

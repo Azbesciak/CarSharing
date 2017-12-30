@@ -22,7 +22,7 @@ import {MainModule} from "./main/main.module";
     MainModule,
   ],
   providers: [DataService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {
 }

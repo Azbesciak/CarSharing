@@ -1,0 +1,21 @@
+@import "../add-route.component";
+:host {
+
+  display: grid;
+  grid-template-rows: min-content;
+  align-items: flex-start;
+  app-creator /deep/ {
+    .creator-form {
+      grid-template: "org-inp org-date" "dest-inp dest-date" "waypoint add";
+      width: $creator-width;
+      display: grid;
+      justify-items: center;
+      .sub-btn {
+        justify-self: center;
+        align-self: center;
+        grid-area: add;
+      }
+    }
+  }
+
+}

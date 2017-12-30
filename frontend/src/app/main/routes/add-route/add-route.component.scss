@@ -1,44 +1,24 @@
 @import "../../../../styles";
+$creator-width: 300px;
+
 :host {
   $total-height: calc(100vh - 64px);
-  $creator-width: 420px;
-  $map-width: calc(100vw - 440px);
+  $map-width: calc(100vw - 320px);
   display: grid;
   .add-route-container {
     height: $total-height;
     grid-template: "creator map";
     display: grid;
-    .creator {
+    .route-creator {
       padding: 20px 10px;
-      @include shadow();
       z-index: 2;
-      display: grid;
-      grid-template-rows: 200px min-content;
-      align-items: flex-start;
+      @include shadow();
       grid-area: creator;
-      app-creator /deep/{
-        .creator-form {
-          grid-template: "org-inp org-date" "dest-inp dest-date" "waypoint add";
-          width: $creator-width;
-          display: grid;
-          justify-items: center;
-          .loc-inp-0 {grid-area: org-inp}
-          .loc-inp-1 {grid-area: dest-inp}
-          .loc-inp-2 {grid-area: waypoint}
-          .date-inp-0 {grid-area: org-date}
-          .date-inp-1 {grid-area: dest-date}
-          .sub-btn {
-            justify-self: center;
-            align-self: center;
-            grid-area: add;
-          }
-        }
-      }
     }
-
     app-ggmaps {
       grid-area: map;
-      /deep/ agm-map{
+      z-index: -1;
+      /deep/ agm-map {
         width: $map-width;
         height: $total-height;
       }

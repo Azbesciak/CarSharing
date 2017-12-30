@@ -1,17 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Injectable, Injector, OnInit, ReflectiveInjector} from '@angular/core';
 import {RouteEvent, RouteWatcher} from "../../../functional/route/route-watcher";
 import {Route} from "../../../functional/route/route";
-import {TimeDateInput} from "../../../functional/route/visit-date/time-date-input";
-import {destInput, originInput, wayPointInput} from "../../../functional/route/location-input/location-input-utils";
-import {LocationInput} from "../../../functional/route/location-input/location-input";
-import {
-  destinationDateInput, originDateInput,
-} from "../../../functional/route/visit-date/time-date-input-utils";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
-import {RoutingConstants} from "../../../functional/routing/routing.constants";
-import {Router} from "@angular/router";
-import {UserService} from "../../authorization/user.service";
 import {AppUser} from "../../authorization/user";
+import {RouteComponent} from "./route/route.component";
+import {BusInjectorService} from "./bus-injector.service";
+import {TimesComponent} from "./times/times.component";
+import {CostsComponent} from "./costs/costs.component";
+import {SummaryComponent} from "./summary/summary.component";
+
 
 @Component({
   selector: 'app-add-route',
@@ -19,34 +16,46 @@ import {AppUser} from "../../authorization/user";
   styleUrls: ['./add-route.component.scss']
 })
 export class AddRouteComponent extends RouteWatcher implements OnInit {
+  // RouteComponent = RouteComponent;
 
-  locInputs: LocationInput[];
-  dateInputs: TimeDateInput[];
-  submitFun: (route: Route) => Promise<any>;
+  currentStep = 0;
   user: AppUser;
+  routeComponents: RouteCreator[];
 
-  constructor(private router: Router,
-              private userData: UserService) {
+  constructor(private busInjector: BusInjectorService) {
     super()
   }
 
+
   ngOnInit(): void {
-    this.userData.subscribeOnUserData((user: AppUser) => this.user = user);
     this.route = new Route();
+    this.routeComponents = [
+      new RouteCreator("Add your route", RouteComponent),
+      new RouteCreator("Specify route times", TimesComponent),
+      new RouteCreator("Set costs", CostsComponent),
+      new RouteCreator("Summary", SummaryComponent),
+    ];
     this.routeEventBus = new BehaviorSubject(new RouteEvent(this.route, this));
-    this.locInputs = [originInput(), destInput(), wayPointInput()];
-    this.dateInputs = [originDateInput('datetime'), destinationDateInput()];
-    this.submitFun = route => {
-      console.log(route);
-      return Promise.resolve()
-    };
-
+    this.busInjector.addNew(this.routeEventBus);
   }
 
-  protected onChange(route: Route) {
+  protected onChange(route: Route) {}
+
+  addBusToComponent(comp: RouteWatcher) {
+    comp.routeEventBus = this.routeEventBus
   }
 
-  onCarSelect(car) {
-    console.log(car);
+  onCreate($event) {
+    console.log($event)
   }
+
+  onClisk(i) {
+    console.log(i)
+  }
+}
+class RouteCreator{
+  constructor(
+    public label:string = null,
+    public comp: any = null,
+  ){}
 }
