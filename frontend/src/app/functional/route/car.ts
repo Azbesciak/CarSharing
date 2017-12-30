@@ -6,9 +6,14 @@ export class Car {
   public type: string = null,
   public seatCount: number = null,
   public yearOfProduction: Date = null,
-  public description: string = null){}
+  public description: string = null,
+  public fuelUsage: number = null){}
 
   static copy(c: Car) {
-    return c ? new Car(c.id, c.manufacturer, c.model, c.type, c.seatCount, c.yearOfProduction, c.description) : c
+    return c ? new Car(
+      c.id, c.manufacturer,
+      c.model, c.type,
+      c.seatCount, c.yearOfProduction,
+      c.description, c.fuelUsage) : c
   }
 }

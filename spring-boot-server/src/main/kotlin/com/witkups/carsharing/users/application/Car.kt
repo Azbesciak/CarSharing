@@ -36,6 +36,10 @@ class Car(
   @Past
   var yearOfProduction: LocalDate? = null,
 
+  @Column(nullable = false)
+  @Min(0)
+  var fuelUsage: Double? = null,
+
   @Column(nullable = true)
   var description: String? = null
 ) : Serializable {

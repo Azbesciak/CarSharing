@@ -17,9 +17,11 @@ import {ModificationComponent} from "../../main/profile/modification/modificatio
 const appRoutes: Routes = [
   {path: RoutingConstants.HOME_PAGE, component: HomeComponent},
   {path: RoutingConstants.ROUTES_PATH, component: RoutesComponent},
-  {path: RoutingConstants.ADD_ROUTE_PATH, component: AddRouteComponent},
   {path: RoutingConstants.REGISTER_PAGE, component: RegistrationComponent},
   {path: RoutingConstants.LOGIN_PAGE, component: LoginComponent},
+  {path: RoutingConstants.ADD_ROUTE_PATH, canActivate:[AuthGuardService], component: AddRouteComponent, children: [
+      {path: '', pathMatch: 'full', redirectTo: RoutingConstants.PROFILE_MODIFICATION_PAGE},
+    ]},
   {
     path: RoutingConstants.PROFILE_PATH, canActivate: [AuthGuardService], component: ProfileComponent,
     children: [

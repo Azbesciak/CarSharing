@@ -2,5 +2,6 @@
   <app-car-item *ngFor="let car of cars; let i = index" [car]="car"
                 (onCarSelect)="onCarSelected($event, i)"
                 (conCarDeleted)="onCarDeleted($event, i)"
+                [canDelete]="canDelete"
   ></app-car-item>
 </mat-list>

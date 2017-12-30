@@ -16,6 +16,9 @@
       <input matInput placeholder="Seat count" type="number" formControlName="seatCount">
     </mat-form-field>
     <mat-form-field class="full-width">
+      <input matInput placeholder="Fuel usage (l/100km)" type="number" formControlName="fuelUsage">
+    </mat-form-field>
+    <mat-form-field class="full-width">
       <input matInput placeholder="Year of production" formControlName="yearOfProduction" type="number">
     </mat-form-field>
     <mat-form-field hintLabel="Max 255 characters" class="full-width">
@@ -29,6 +32,6 @@
     </button>
   </div>
   <app-cars-list [cars]="user.cars" (carSelected)="assignValueToForm($event)"
-                 (carDeleted)="deleteCar($event)"></app-cars-list>
+                 (carDeleted)="deleteCar($event)" [canDelete]="true"></app-cars-list>
 </form>
 

@@ -11,6 +11,9 @@ export class CarsListComponent implements OnInit {
   @Input()
   cars: Car[];
 
+  @Input()
+  canDelete = false;
+
   @Output()
   carSelected = new EventEmitter();
 

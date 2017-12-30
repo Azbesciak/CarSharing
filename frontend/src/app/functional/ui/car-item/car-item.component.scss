@@ -7,7 +7,12 @@ mat-card {
     font-size: 18px;
     padding-bottom: 2px;
     margin-bottom: 2px;
-    padding-right: 8px;
+
+  }
+  .with-deletion {
+    mat-card-title {
+      padding-right: 8px;
+    }
   }
 
   mat-card-title, mat-card-subtitle {

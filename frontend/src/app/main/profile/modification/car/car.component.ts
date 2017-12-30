@@ -49,18 +49,12 @@ export class CarComponent extends AppUserModificator implements OnInit {
         model: [car.model, [Validators.required]],
         type: [car.type, [Validators.required]],
         seatCount: [car.seatCount, Validators.min(1)],
+        fuelUsage: [car.fuelUsage, Validators.min(0)],
         yearOfProduction: [car.yearOfProduction ? car.yearOfProduction.getFullYear() : undefined,
           [Validators.min(1900), Validators.max(new Date().getFullYear()), Validators.required]],
         description: [car.description, Validators.maxLength(255)],
       });
     });
-
-    // setTimeout(() => {
-    //   this.carForm.markAsPristine();
-    //   this.carForm.markAsUntouched();
-    //   this.carForm.updateValueAndValidity()
-    // });
-
     this.currentCarIndex = i;
   }
 

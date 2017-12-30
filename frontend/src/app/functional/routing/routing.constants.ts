@@ -10,6 +10,7 @@ export class RoutingConstants {
   static PROFILE_MODIFICATION_PHOTOS_PAGE = "photos";
   static ROUTES_PATH = 'routes';
   static ADD_ROUTE_PATH = "addRoute";
+  // static
 
   static getProfileModificationPage() {
     return this.getProfileSubPage(this.PROFILE_MODIFICATION_PAGE);
