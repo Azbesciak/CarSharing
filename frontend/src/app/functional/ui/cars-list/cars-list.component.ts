@@ -34,6 +34,7 @@ export class CarsListComponent implements OnInit {
   }
 
   onCarDeleted(car: Car, index: number) {
+    this.selectedCar = undefined;
     this.carDeleted.next({car: car, i: index})
   }
 }
