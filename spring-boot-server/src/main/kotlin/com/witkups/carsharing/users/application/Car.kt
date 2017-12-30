@@ -10,7 +10,7 @@ import javax.validation.constraints.Past
 
 @Entity
 @Table(name = "cars")
-@Check(constraints = "year_of_production < getDate()")
+@Check(constraints = "year_of_production < year(getDate())")
 class Car(
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,10 +31,9 @@ class Car(
   @Min(1)
   var seatCount: Int? = null,
 
-  @Column(nullable = false)
-  @DateTimeFormat(style = "YYYY")
-  @Past
-  var yearOfProduction: LocalDate? = null,
+  @Column(nullable = false, precision = 4)
+  @Min(1900)
+  var yearOfProduction: Int? = null,
 
   @Column(nullable = false)
   @Min(0)

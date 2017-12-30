@@ -19,7 +19,9 @@
       <input matInput placeholder="Fuel usage (l/100km)" type="number" formControlName="fuelUsage">
     </mat-form-field>
     <mat-form-field class="full-width">
-      <input matInput placeholder="Year of production" formControlName="yearOfProduction" type="number">
+      <mat-select placeholder="Year of production" formControlName="yearOfProduction" type="number">
+        <mat-option *ngFor="let year of years" [value]="year">{{year}}</mat-option>
+      </mat-select>
     </mat-form-field>
     <mat-form-field hintLabel="Max 255 characters" class="full-width">
       <textarea matInput #input placeholder="Description" formControlName="description" matTextareaAutosize ></textarea>
@@ -28,10 +30,10 @@
   </div>
   <div class="sbt-container">
     <button mat-raised-button color="primary" [disabled]="carForm.invalid">
-      {{currentCarIndex >= 0 ? 'Modify':'Add To Cars'}}
+      {{selectedCarIndex >= 0 ? 'Modify':'Add To Cars'}}
     </button>
   </div>
-  <app-cars-list [cars]="user.cars" (carSelected)="assignValueToForm($event)"
+  <app-cars-list [cars]="user.cars" (carSelected)="assignValueToForm($event)" [selectedCar]="selectedCarIndex"
                  (carDeleted)="deleteCar($event)" [canDelete]="true"></app-cars-list>
 </form>
 

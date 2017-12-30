@@ -5,7 +5,7 @@ export class Car {
   public model: string = null,
   public type: string = null,
   public seatCount: number = null,
-  public yearOfProduction: Date = null,
+  public yearOfProduction: number = null,
   public description: string = null,
   public fuelUsage: number = null){}
 

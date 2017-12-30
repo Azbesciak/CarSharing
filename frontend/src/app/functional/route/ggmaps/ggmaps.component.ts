@@ -21,9 +21,6 @@ export class GgmapsComponent extends RouteWatcher implements OnInit {
 
   singleLoc: Location;
 
-  @Output()
-  onDistanceChange = new EventEmitter<number>();
-
   constructor(private mapsAPILoader: MapsAPILoader) {
     super()
   }

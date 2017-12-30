@@ -3,5 +3,6 @@
                 (onCarSelect)="onCarSelected($event, i)"
                 (conCarDeleted)="onCarDeleted($event, i)"
                 [canDelete]="canDelete"
+                [ngClass]="{'selected-car': i == selectedCar}"
   ></app-car-item>
 </mat-list>

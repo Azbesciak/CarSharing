@@ -4,4 +4,9 @@
     width: calc(100% - 20px);
     padding: 5px;
   }
+  .selected-car /deep/{
+    mat-card{
+      background: #b1b1b1;
+    }
+  }
 }

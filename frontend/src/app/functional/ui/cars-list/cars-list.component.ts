@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ApplicationRef, ChangeDetectorRef, Component, EventEmitter, Input, NgZone, OnInit, Output} from '@angular/core';
 import {Car} from "../../route/car";
 
 @Component({
@@ -20,15 +20,15 @@ export class CarsListComponent implements OnInit {
   @Output()
   carDeleted = new EventEmitter();
 
-  selected = -1;
+  @Input()
+  selectedCar;
 
-  constructor() { }
+  constructor(private zone: ChangeDetectorRef) { }
 
   ngOnInit() {
   }
 
   onCarSelected(car: Car, index: number) {
-    this.selected = index;
     this.carSelected.next({car: car, i: index});
   }
 

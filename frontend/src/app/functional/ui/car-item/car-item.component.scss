@@ -3,14 +3,14 @@ mat-card {
   width: 100%;
   margin-bottom: 5px;
   cursor: pointer;
+  display: block;
   mat-card-title {
     font-size: 18px;
     padding-bottom: 2px;
     margin-bottom: 2px;
-
   }
-  .with-deletion {
-    mat-card-title {
+  &.with-deletion {
+     mat-card-title {
       padding-right: 8px;
     }
   }

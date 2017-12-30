@@ -14,10 +14,13 @@ import {DataService} from "../../../../functional/data/data.service";
 export class CarComponent extends AppUserModificator implements OnInit {
 
   carForm: FormGroup;
-  currentCarIndex: number;
+  selectedCarIndex: number;
 
   @SessionStorage()
   carTypes: string[];
+
+  @SessionStorage()
+  years: number[];
 
   constructor(private router: Router,
               private fb: FormBuilder,
@@ -30,6 +33,14 @@ export class CarComponent extends AppUserModificator implements OnInit {
       this.data.getAllCarTypes()
         .then((types: string[]) => this.carTypes = types)
     }
+    if (!this.years) {
+      const maxYears = 60;
+      const startYear = new Date().getFullYear() - maxYears;
+      this.years = Array.from({length: maxYears}, (v, k) => k + 1)
+        .map(k => k + startYear)
+        .reverse()
+    }
+
     this.assignValueToForm(this.emptyCar());
   }
 
@@ -38,10 +49,6 @@ export class CarComponent extends AppUserModificator implements OnInit {
   }
 
   assignValueToForm({car, i}: { car: Car, i: number }) {
-    if (this.carForm) {
-      // this.carForm.reset();
-      this.carForm = null;
-    }
     setTimeout(() => {
       this.carForm = this.fb.group({
         id: [car.id],
@@ -50,30 +57,31 @@ export class CarComponent extends AppUserModificator implements OnInit {
         type: [car.type, [Validators.required]],
         seatCount: [car.seatCount, Validators.min(1)],
         fuelUsage: [car.fuelUsage, Validators.min(0)],
-        yearOfProduction: [car.yearOfProduction ? car.yearOfProduction.getFullYear() : undefined,
-          [Validators.min(1900), Validators.max(new Date().getFullYear()), Validators.required]],
+        yearOfProduction: [car.yearOfProduction,
+          [Validators.min(this.years[this.years.length - 1]), Validators.max(this.years[0]), Validators.required]],
         description: [car.description, Validators.maxLength(255)],
       });
+      if (i == -1) {
+        this.carForm.reset()
+      }
     });
-    this.currentCarIndex = i;
+
+
+    this.selectedCarIndex = i;
+
   }
 
-  deleteCar({car, i}: {car: Car, i: number}) {
+  deleteCar({car, i}: { car: Car, i: number }) {
     this.user.cars.splice(i, 1);
-    if (this.currentCarIndex == i) {
-      this.currentCarIndex = -1;
+    if (this.selectedCarIndex == i) {
+      this.selectedCarIndex = -1;
     }
   }
 
   onCompleted({value, valid}: { value: Car, valid: boolean }) {
     if (valid) {
-      if (!(value.yearOfProduction instanceof Date)) {
-        const date = new Date();
-        date.setFullYear(value.yearOfProduction);
-        value.yearOfProduction = date;
-      }
-      if (this.currentCarIndex >= 0) {
-        this.user.cars[this.currentCarIndex] = value;
+      if (this.selectedCarIndex >= 0) {
+        this.user.cars[this.selectedCarIndex] = value;
       } else {
         this.user.cars.push(value);
       }
