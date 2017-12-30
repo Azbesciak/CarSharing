@@ -2,7 +2,6 @@ import {Component, DoCheck, OnInit} from '@angular/core';
 import {RouteWatcher} from "../route-watcher";
 import {Route} from "../route";
 import {Location} from "../location";
-import { RouteSnapshot } from "../route-snapshot";
 
 @Component({
   selector: 'app-drag-list',
@@ -12,24 +11,8 @@ import { RouteSnapshot } from "../route-snapshot";
 export class WayPointsComponent extends RouteWatcher implements OnInit, DoCheck {
 
   ngDoCheck(): void {
-    if (this.locations) {
-      let changed = false;
-      if (this.locations.length != this.route.locations.length) {
-        changed = true;
-      } else {
-        for (let i = 0; i < this.locations.length; i++) {
-          const original = this.route.locations[i];
-          const copy = this.locations[i];
-          if ((copy && original && copy.equals(original)) || (!original && !copy)) {
-            continue;
-          }
-          changed = true;
-          break;
-        }
-      }
-      if (changed) {
-        this.update();
-      }
+    if (this.locations && this.route.wereLocationsChanged(this.locations)) {
+      this.update();
     }
   }
 

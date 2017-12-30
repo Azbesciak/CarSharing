@@ -17,7 +17,7 @@ export abstract class RouteWatcher {
   }
 
   protected abstract onChange(route: Route);
-  protected push(route: Route) {
+  protected push(route: Route = this.route) {
     this.routeEventBus.next(new RouteEvent(route, this))
   }
 }

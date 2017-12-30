@@ -1,0 +1,16 @@
+:host {
+  display: grid;
+  grid-template-columns: 9fr 1fr 9fr;
+  grid-column-gap: 5px;
+  .location {
+    text-align: center;
+    white-space: normal;
+    align-content: center;
+    align-self: center;
+    justify-self: center;
+  }
+  .arrow {
+    align-self: center;
+    font-size: 22px;
+  }
+}

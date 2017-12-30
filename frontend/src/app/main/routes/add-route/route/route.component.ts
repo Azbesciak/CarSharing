@@ -4,7 +4,7 @@ import {RouteWatcher} from "../../../../functional/route/route-watcher";
 import {Route} from "../../../../functional/route/route";
 import {destInput, originInput, wayPointInput} from "../../../../functional/route/location-input/location-input-utils";
 import {BusInjectorService} from "../bus-injector.service";
-import {RouteCreator} from "./route-creator";
+import {RouteCreator} from "../route-creator";
 
 @Component({
   selector: 'app-route',
@@ -18,7 +18,6 @@ export class RouteComponent extends RouteCreator implements OnInit {
   }
 
   ngOnInit() {
-    this.subscribe();
     this.locInputs = [originInput(), destInput(), wayPointInput()];
   }
 

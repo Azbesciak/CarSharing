@@ -20,20 +20,22 @@ import { DetailsComponent } from './routes/add-route/details/details.component';
 import { CostsComponent } from './routes/add-route/costs/costs.component';
 import { SummaryComponent } from './routes/add-route/summary/summary.component';
 
+const routeCreatorComponents = [RouteComponent, TimesComponent, CostsComponent, SummaryComponent, DetailsComponent];
+
 @NgModule({
   imports: [
     CommonModule,
     AuthorizationModule,
     UiModule,
     RouteModule,
-    RoutingModule
+    RoutingModule,
   ],
   exports: [AuthorizationModule],
   declarations: [
     HomeComponent, BasicComponent,
     ProfileComponent, RoutesComponent, AddRouteComponent,
-    CarComponent, PhotoComponent, PartsComponent, ModificationComponent, RouteComponent, TimesComponent, DetailsComponent, CostsComponent, SummaryComponent],
-  bootstrap: [RouteComponent, TimesComponent, CostsComponent, SummaryComponent],
+    CarComponent, PhotoComponent, PartsComponent, ModificationComponent, routeCreatorComponents],
+  bootstrap: [routeCreatorComponents],
   providers: [BusInjectorService]
 })
 export class MainModule {

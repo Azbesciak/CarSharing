@@ -10,10 +10,28 @@ export function originDateInput(type: string = 'date'): TimeDateInput {
 export function destinationDateInput(): TimeDateInput {
   return new TimeDateInput(() => {},
     (route, ref) => {
-    const totalTime = route.durations.reduce((a, b) => a + b, 0);
-    ref.date = route.departureDate ? new Date(route.departureDate.getTime() + totalTime) : undefined;
+    const destination = route.routeParts[route.routeParts.length - 1].destination;
+    ref.date = destination && destination.date
     }
-    // snaps[snaps.length - 1].date = date
   ,"Date of the arrival", 'datetime',true, true)
+}
+
+export function getModifier(i: number): TimeDateInput[] {
+  return [
+    getRoutePartModifier(i, 'origin', 'Time of the departure'),
+    getRoutePartModifier(i, 'destination', 'Time of the arrival')
+  ]
+}
+function getRoutePartModifier(i: number, field: string, label: string) : TimeDateInput{
+  return new TimeDateInput(
+    (comp) => {
+      const routePart = comp.route.routeParts[i];
+      routePart[field].date = comp.timeDateInp.date;
+      comp.route = comp.route.withRouteParts(comp.route.routeParts);
+    },
+    (route, ref) => ref.date = route.routeParts[i]? route.routeParts[i][field].date : null,
+    label, 'datetime', true
+  )
+
 }
 

@@ -13,6 +13,7 @@ import { LocationInputComponent } from './location-input/location-input.componen
 import { FormsModule } from "@angular/forms";
 import { CurrentLocationComponent } from './current-location/current-location.component';
 import { VisitDateComponent } from './visit-date/visit-date.component';
+import {RoutePartComponent} from "./route-part/route-part.component";
 
 const components = [
   GgmapsComponent,
@@ -21,7 +22,8 @@ const components = [
   WayPointsComponent,
   LocationInputComponent,
   CurrentLocationComponent,
-  VisitDateComponent
+  VisitDateComponent,
+  RoutePartComponent
 ];
 
 @NgModule({

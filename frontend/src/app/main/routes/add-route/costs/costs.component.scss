@@ -1,0 +1,30 @@
+:host {
+  app-small-card /deep/ .cost-container{
+    display: grid;
+    .cost-info {
+      display: grid;
+      grid-template-columns: 100px 100px;
+      grid-column-gap: 30px;
+      justify-content: center;
+      width: 100%;
+      .cost {
+        .mat-form-field-wrapper {
+          padding-bottom: 0;
+        }
+        .mat-form-field-underline {
+          bottom: 1px;
+        }
+      }
+      .distance {
+        padding-top: 5px;
+        .title{
+          font-weight: 500;
+        }
+        .value, .title {
+          text-align: center;
+        }
+      }
+    }
+
+  }
+}

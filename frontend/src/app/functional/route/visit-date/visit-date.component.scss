@@ -1,8 +1,12 @@
-md2-datepicker /deep/{
-  .md2-datepicker-trigger {
-    padding: 4px 0;
-  }
-  .md2-datepicker-button {
-    display: none;
+:host {
+  display: block;
+  md2-datepicker /deep/{
+    .md2-datepicker-trigger {
+      padding: 4px 0;
+    }
+    .md2-datepicker-button {
+      display: none;
+    }
   }
 }
+

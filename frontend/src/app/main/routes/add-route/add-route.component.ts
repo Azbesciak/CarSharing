@@ -8,6 +8,7 @@ import {BusInjectorService} from "./bus-injector.service";
 import {TimesComponent} from "./times/times.component";
 import {CostsComponent} from "./costs/costs.component";
 import {SummaryComponent} from "./summary/summary.component";
+import {DetailsComponent} from "./details/details.component";
 
 
 @Component({
@@ -16,9 +17,7 @@ import {SummaryComponent} from "./summary/summary.component";
   styleUrls: ['./add-route.component.scss']
 })
 export class AddRouteComponent extends RouteWatcher implements OnInit {
-  // RouteComponent = RouteComponent;
 
-  currentStep = 0;
   user: AppUser;
   routeComponents: RouteCreator[];
 
@@ -26,12 +25,12 @@ export class AddRouteComponent extends RouteWatcher implements OnInit {
     super()
   }
 
-
   ngOnInit(): void {
     this.route = new Route();
     this.routeComponents = [
       new RouteCreator("Add your route", RouteComponent),
       new RouteCreator("Specify route times", TimesComponent),
+      new RouteCreator("Description and car", DetailsComponent),
       new RouteCreator("Set costs", CostsComponent),
       new RouteCreator("Summary", SummaryComponent),
     ];

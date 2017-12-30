@@ -1,0 +1,22 @@
+:host {
+  display: block;
+}
+mat-card /deep/ {
+  padding: 5px;
+  width: 100%;
+  margin-bottom: 5px;
+  cursor: pointer;
+  display: block;
+  mat-card-title {
+    font-size: 18px;
+    padding-bottom: 2px;
+    margin-bottom: 2px;
+  }
+
+  mat-card-title, mat-card-subtitle {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 4px;
+  }
+}

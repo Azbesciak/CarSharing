@@ -4,5 +4,7 @@
                     [routeEventBus]="routeEventBus"></app-location-input>
 </div>
 
-<button mat-raised-button color="primary" class="sub-btn" [disabled]="!isValid()" (click)="goToDetails()">Go to details</button>
-<app-drag-list [routeEventBus]="routeEventBus"></app-drag-list>
+<!--<button mat-raised-button color="primary" class="sub-btn" [disabled]="!isValid()" (click)="goToDetails()">Go to details</button>-->
+<app-section sectionName="Route path">
+  <app-drag-list [routeEventBus]="routeEventBus"></app-drag-list>
+</app-section>

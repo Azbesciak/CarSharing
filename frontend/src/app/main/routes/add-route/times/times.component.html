@@ -1,3 +1,14 @@
-<p>
-  times works!
-</p>
+<app-visit-date *ngFor="let inp of dateInputs; let i = index" class="time-input"
+                [routeEventBus]="routeEventBus" [timeDateInp]="inp"></app-visit-date>
+<mat-accordion>
+  <mat-expansion-panel *ngFor="let part of route.routeParts; let i = index">
+    <mat-expansion-panel-header *ngIf="part.origin.location && part.destination.location">
+      <mat-panel-title>
+        <app-route-part [routePart]="part"></app-route-part>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <app-visit-date *ngFor="let inp of partsDateInputs[i]" class="time-input"
+                    [routeEventBus]="routeEventBus" [timeDateInp]="inp"></app-visit-date>
+  </mat-expansion-panel>
+</mat-accordion>

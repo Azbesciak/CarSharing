@@ -1,3 +1,8 @@
-<p>
-  details works!
-</p>
+<mat-form-field hintLabel="Max 255 characters" class="full-width">
+  <textarea matInput #input placeholder="Route description (optional)" [(ngModel)]="description"
+            matTextareaAutosize (blur)="updateRoute()"></textarea>
+  <mat-hint align="end">{{input.value?.length || 0}}/255</mat-hint>
+</mat-form-field>
+<app-section sectionName="Select car">
+  <app-cars-list [cars]="user.cars" (carSelected)="updateRoute($event)"></app-cars-list>
+</app-section>

@@ -4,16 +4,30 @@ export class RoutePart {
   constructor(
     public order: number,
     public distance: number,
-    public duration: number,
+    public cost: number,
     public origin: RouteSnapshot,
     public destination: RouteSnapshot
   ) {}
 
   static copy(r: RoutePart): RoutePart {
     return new RoutePart(
-      r.order, r.distance, r.duration,
+      r.order, r.distance, r.cost,
       RouteSnapshot.copy(r.origin),
       RouteSnapshot.copy(r.destination)
     )
+  }
+
+  getDuration() {
+    if (this.isDateDefined('origin') && this.isDateDefined('destination')) {
+      const dur = this.destination.date.getTime() - this.origin.date.getTime();
+      if (dur > 0) {
+        return dur;
+      }
+    }
+    return null;
+  }
+
+  isDateDefined(field: string): boolean {
+    return this[field] && this[field].date
   }
 }

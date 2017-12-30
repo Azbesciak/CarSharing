@@ -3,14 +3,14 @@ $creator-width: 300px;
 
 :host {
   $total-height: calc(100vh - 64px);
-  $map-width: calc(100vw - 320px);
+  $map-width: calc(100vw - 384px);
   display: grid;
   .add-route-container {
     height: $total-height;
     grid-template: "creator map";
     display: grid;
     .route-creator {
-      padding: 20px 10px;
+      //padding: 20px 10px;
       z-index: 2;
       @include shadow();
       grid-area: creator;

@@ -3,6 +3,7 @@ import { GoogleMapsAPIWrapper } from "@agm/core";
 import {} from "googlemaps";
 import { Route } from "../route";
 import { RouteWatcher } from "../route-watcher";
+import {Location} from "../location";
 
 @Directive({
   selector: "agm-directions",
@@ -15,6 +16,7 @@ export class DirectionsMapDirective extends RouteWatcher implements OnInit {
 
   private lastTimeout;
   private directionsService;
+  private locations: Location[] = [];
 
   constructor(private gmapsApi: GoogleMapsAPIWrapper) {
     super()
@@ -27,7 +29,10 @@ export class DirectionsMapDirective extends RouteWatcher implements OnInit {
   }
 
   onChange(route: Route) {
-    this.updateDirections()
+    if (this.route.wereLocationsChanged(this.locations)) {
+      this.updateDirections();
+      this.locations = this.route.locations
+    }
   }
 
   // updateDirections has 2 optional parameters. gets called in map.component

@@ -6,20 +6,30 @@ import { SpacerComponent } from './spacer/spacer.component';
 import { MenuPositionComponent } from './menu-position/menu-position.component';
 import { CarItemComponent } from './car-item/car-item.component';
 import { CarsListComponent } from './cars-list/cars-list.component';
+import {FormsModule} from "@angular/forms";
+import { SectionComponent } from './section/section.component';
+import {SmallCardComponent} from "./small-card/small-card.component";
+
+const components = [
+  HeaderComponent,
+  SpacerComponent,
+  MenuPositionComponent,
+  CarItemComponent,
+  CarsListComponent,
+  SectionComponent,
+  SmallCardComponent];
 
 @NgModule({
   imports: [
     CommonModule,
     MaterialModule,
+    FormsModule,
   ],
   exports: [
     MaterialModule,
-    HeaderComponent,
-    SpacerComponent,
-    MenuPositionComponent,
-    CarItemComponent,
-    CarsListComponent
+    components,
+    FormsModule
   ],
-  declarations: [HeaderComponent, SpacerComponent, MenuPositionComponent, CarItemComponent, CarsListComponent]
+  declarations: components
 })
 export class UiModule { }
