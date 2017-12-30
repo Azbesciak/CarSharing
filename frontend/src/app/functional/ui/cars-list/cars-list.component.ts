@@ -21,14 +21,15 @@ export class CarsListComponent implements OnInit {
   carDeleted = new EventEmitter();
 
   @Input()
-  selectedCar;
+  selectedCar: number;
 
-  constructor(private zone: ChangeDetectorRef) { }
+  constructor() { }
 
   ngOnInit() {
   }
 
   onCarSelected(car: Car, index: number) {
+    this.selectedCar = index;
     this.carSelected.next({car: car, i: index});
   }
 
