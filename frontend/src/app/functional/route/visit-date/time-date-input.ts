@@ -1,7 +1,8 @@
 import {Route} from "../route";
 import {VisitDateComponent} from "./visit-date.component";
+import {Verifiable} from "../../form-utils/verifiable";
 
-export class TimeDateInput {
+export class TimeDateInput implements Verifiable{
   constructor(public onDateTimeSelect: (comp: VisitDateComponent) => void,
               public onRouteChange: (route: Route, ref: TimeDateInput) => void,
               public label: string,

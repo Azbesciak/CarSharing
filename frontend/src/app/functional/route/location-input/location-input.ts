@@ -1,7 +1,8 @@
 import { Route } from "../route";
 import {Location} from "../location";
+import {Verifiable} from "../../form-utils/verifiable";
 
-export class LocationInput {
+export class LocationInput implements Verifiable {
   constructor(public name: string,
               public onNew: (snap: Location, snaps: Location[], ref: LocationInput) => void,
               public onChange: (route: Route, inp: LocationInput) => void = () => {},

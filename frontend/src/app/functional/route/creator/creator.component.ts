@@ -35,8 +35,7 @@ export class CreatorComponent extends RouteWatcher implements OnInit {
   }
 
   isValid() {
-    console.log()
-    return this.locInputs.every(inp => inp.isValid()) && this.dateInputs.every(inp => inp.isValid())
+    return [...this.locInputs, ...this.dateInputs].every(inp => inp.isValid());
   }
 
 
