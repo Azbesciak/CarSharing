@@ -11,36 +11,39 @@ export class DataService {
 
   loginUser(user: User) {
     return this.http.post(
-        DataService.toApi("login"),
+        toApi("login"),
         user, {responseType: 'text', observe: 'response'})
       .toPromise()
   }
 
   registerUser(user: User) {
-    return this.http.post(DataService.toApi("register"), user).toPromise()
+    return this.http.post(toApi("register"), user).toPromise()
       .catch(e => console.log(e))
   }
 
   getLoggedInUserData() {
-    return this.http.get(DataService.toApi("user/data")).toPromise()
+    return this.http.get(toApi("user/data")).toPromise()
   }
 
   completeUserData(user: AppUser) {
-    return this.http.post(DataService.toApi("user/update"), user).toPromise()
+    return this.http.post(toApi("user/update"), user).toPromise()
+  }
+
+  addRoute(route: Route) {
+    return this.http.post(toApi('routes/add'), route)
   }
 
   searchRoute(route: Route) {
-    return this.http.get(DataService.toApi(
+    return this.http.get(toApi(
       `routes/${route.origin.label}/${route.destination.label}/${route.departureDate.getTime()}`
     )).toPromise();
   }
 
   getAllCarTypes() {
-    return this.http.get(DataService.toApi('cars/types')).toPromise();
+    return this.http.get(toApi('cars/types')).toPromise();
   }
+}
 
-  static toApi(url: string): string {
-    return `${env.apiRoot}/${url}`
-  }
-
+function toApi(url: string): string {
+  return `${env.apiRoot}/${url}`
 }

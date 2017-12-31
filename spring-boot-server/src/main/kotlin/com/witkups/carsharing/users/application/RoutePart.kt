@@ -10,11 +10,15 @@ data class RoutePart(
   @GeneratedValue(strategy = GenerationType.AUTO)
   var id: Long? = null,
 
-  @JoinColumn(name = "origin_id", nullable = false, referencedColumnName = "route_snapshot_id")
+  @JoinColumn(name = "origin_id", nullable = false,
+    referencedColumnName = "route_snapshot_id",
+    foreignKey = ForeignKey(name = "FK_ROUTE_PARTS_ORIGIN"))
   @ManyToOne(optional = false, cascade = [CascadeType.DETACH])
   var origin: RouteSnapshot? = null,
 
-  @JoinColumn(name = "destination_id", nullable = false, referencedColumnName = "route_snapshot_id")
+  @JoinColumn(name = "destination_id", nullable = false,
+    referencedColumnName = "route_snapshot_id",
+    foreignKey = ForeignKey(name = "FK_ROUTE_PARTS_DESTINATION"))
   @ManyToOne(optional = false, cascade = [CascadeType.DETACH])
   var destination: RouteSnapshot? = null,
 
@@ -26,8 +30,8 @@ data class RoutePart(
 
   @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(name = "route_part_passengers",
-    joinColumns = [(JoinColumn(name = "route_part_id"))],
-    inverseJoinColumns = [(JoinColumn(name = "user_id"))]
+    joinColumns = [(JoinColumn(name = "route_part_id", foreignKey = ForeignKey(name = "FK_APP_USER_ROUTE_PART")))],
+    inverseJoinColumns = [(JoinColumn(name = "user_id", foreignKey = ForeignKey(name = "FK_ROUTE_PART_APP_USER")))]
   )
   var passengers: Set<ApplicationUser> = setOf()
 )

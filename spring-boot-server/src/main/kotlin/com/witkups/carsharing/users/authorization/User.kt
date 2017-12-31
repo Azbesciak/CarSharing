@@ -13,7 +13,9 @@ class User(
   @Column(name = "user_id")
   var userId: Long? = null,
 
-  @JoinTable(name = "user_roles", joinColumns = [(JoinColumn(name = "user_id"))])
+  @JoinTable(name = "user_roles",
+    joinColumns = [(JoinColumn(name = "user_id"))],
+    foreignKey = ForeignKey(name = "FK_USER_ROLES_USER"))
   @Column(name = "role", nullable = false)
   @Enumerated(EnumType.STRING)
   @ElementCollection(targetClass = Role::class, fetch = FetchType.EAGER)

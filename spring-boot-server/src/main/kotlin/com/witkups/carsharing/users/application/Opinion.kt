@@ -15,11 +15,15 @@ data class Opinion(
   var id: Long? = null,
 
   @ManyToOne(targetEntity = User::class, fetch = FetchType.LAZY, cascade = [CascadeType.DETACH])
-  @JoinColumn(name = "reviewer_id", nullable = false, referencedColumnName = "user_id")
+  @JoinColumn(name = "reviewer_id", nullable = false,
+    referencedColumnName = "user_id",
+    foreignKey = ForeignKey(name = "FK_OPINIONS_REVIEVER"))
   var reviewer: User? = null,
 
   @ManyToOne(targetEntity = User::class, fetch = FetchType.LAZY, cascade = [CascadeType.DETACH])
-  @JoinColumn(name = "reviewed_id", nullable = false, referencedColumnName = "user_id")
+  @JoinColumn(name = "reviewed_id", nullable = false,
+    referencedColumnName = "user_id",
+    foreignKey = ForeignKey(name = "FK_OPINIONS_REVIEWED"))
   var reviewed: User? = null,
 
   @CreationTimestamp
