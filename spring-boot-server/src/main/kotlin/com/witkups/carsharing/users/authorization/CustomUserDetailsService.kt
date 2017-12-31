@@ -19,7 +19,7 @@ class CustomUserDetailsService(
   }
 
   @Transactional
-  fun updateUserLogin(user: UserDetails) = updateLastLoginDate(user.username!!)
+  fun updateOnUserLogin(user: UserDetails) = updateLastLoginDate(user.username!!)
 
   private fun fetchUser(username: String) = findByLoginOrEmail(username)
 }

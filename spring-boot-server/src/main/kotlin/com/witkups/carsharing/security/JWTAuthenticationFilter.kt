@@ -52,7 +52,7 @@ class JWTAuthenticationFilter(
       .setExpiration(Date(System.currentTimeMillis() + EXPIRATION_TIME))
       .signWith(SignatureAlgorithm.HS512, SECRET.toByteArray())
       .compact()
-    userDetailsService.updateUserLogin(user)
+    userDetailsService.updateOnUserLogin(user)
     res.addHeader(HEADER_STRING, "$TOKEN_PREFIX$token")
     res.addHeader("access-control-expose-headers", HEADER_STRING)
   }
