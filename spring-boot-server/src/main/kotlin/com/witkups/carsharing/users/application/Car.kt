@@ -10,7 +10,7 @@ import javax.validation.constraints.Past
 
 @Entity
 @Table(name = "cars")
-@Check(constraints = "year_of_production < year(getDate())")
+@Check(constraints = "year_of_production <= year(getDate())")
 class Car(
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)

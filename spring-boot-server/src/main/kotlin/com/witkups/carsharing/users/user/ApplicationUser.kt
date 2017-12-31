@@ -1,5 +1,7 @@
-package com.witkups.carsharing.users.application
+package com.witkups.carsharing.users.user
 
+import com.witkups.carsharing.users.application.Car
+import com.witkups.carsharing.users.application.Image
 import com.witkups.carsharing.users.authorization.User
 import java.io.Serializable
 import java.time.LocalDate

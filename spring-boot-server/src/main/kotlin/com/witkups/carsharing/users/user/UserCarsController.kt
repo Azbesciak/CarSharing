@@ -1,6 +1,5 @@
 package com.witkups.carsharing.users.user
 
-import com.witkups.carsharing.users.application.ApplicationUser
 import com.witkups.carsharing.users.application.Car
 import org.springframework.web.bind.annotation.*
 

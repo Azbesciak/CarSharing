@@ -3,6 +3,7 @@ import {Route} from "../../../../functional/route/route";
 import {BusInjectorService} from "../bus-injector.service";
 import {RouteCreator} from "../route-creator";
 import {RoutePart} from "../../../../functional/route/route-part";
+import {DataService} from "../../../../functional/data/data.service";
 
 @Component({
   selector: 'app-summary',
@@ -14,13 +15,16 @@ export class SummaryComponent extends RouteCreator implements OnInit {
   protected onChange(route: Route) {
   }
 
-  constructor(busInjector: BusInjectorService) { super(busInjector)}
+  constructor(
+    private data: DataService,
+    busInjector: BusInjectorService
+  ) { super(busInjector)}
 
   ngOnInit() {
   }
 
   addRoute() {
-    console.log(this.route)
+    this.data.addRoute(this.route).then(r => console.log(r))
   }
   isValid() {
     return true;

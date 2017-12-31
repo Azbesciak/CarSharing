@@ -30,7 +30,7 @@ export class DataService {
   }
 
   addRoute(route: Route) {
-    return this.http.post(toApi('routes/add'), route)
+    return this.http.post(toApi('routes/add'), route).toPromise()
   }
 
   searchRoute(route: Route) {

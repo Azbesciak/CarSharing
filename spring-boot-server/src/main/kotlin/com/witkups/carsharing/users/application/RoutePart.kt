@@ -1,25 +1,40 @@
 package com.witkups.carsharing.users.application
 
+import com.witkups.carsharing.users.user.ApplicationUser
+import org.hibernate.annotations.Check
 import javax.persistence.*
 
 @Entity
 @Table(name = "route_parts")
+@Check(constraints = "departure <= arrival")
 data class RoutePart(
   @Id
   @Column(name = "route_part_id")
   @GeneratedValue(strategy = GenerationType.AUTO)
   var id: Long? = null,
 
-  @JoinColumn(name = "origin_id", nullable = false,
-    referencedColumnName = "route_snapshot_id",
-    foreignKey = ForeignKey(name = "FK_ROUTE_PARTS_ORIGIN"))
-  @ManyToOne(optional = false, cascade = [CascadeType.DETACH])
+  @Embedded
+  @AttributeOverrides(
+    AttributeOverride(name = "date", column = Column(name = "departure", nullable = false))
+  )
+  @AssociationOverride(
+    name = "location", joinColumns = [
+    JoinColumn(name = "origin_id", nullable = false,
+      insertable = false, updatable = false,
+      foreignKey = ForeignKey(name = "FK_ROUTE_PARTS_ORIGIN_ID"))
+  ])
   var origin: RouteSnapshot? = null,
 
-  @JoinColumn(name = "destination_id", nullable = false,
-    referencedColumnName = "route_snapshot_id",
-    foreignKey = ForeignKey(name = "FK_ROUTE_PARTS_DESTINATION"))
-  @ManyToOne(optional = false, cascade = [CascadeType.DETACH])
+  @Embedded
+  @AttributeOverrides(
+    AttributeOverride(name = "date", column = Column(name = "arrival", nullable = false))
+  )
+  @AssociationOverride(
+    name = "location", joinColumns = [
+    JoinColumn(name = "destination_id", nullable = false,
+      insertable = false, updatable = false,
+      foreignKey = ForeignKey(name = "FK_ROUTE_PARTS_DESTINATION_ID"))
+  ])
   var destination: RouteSnapshot? = null,
 
   @Column(nullable = false)

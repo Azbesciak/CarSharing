@@ -1,5 +1,6 @@
 package com.witkups.carsharing.users.application
 
+import com.witkups.carsharing.users.user.ApplicationUser
 import javax.persistence.*
 
 @Entity

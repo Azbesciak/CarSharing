@@ -52,13 +52,13 @@ export class UserService {
 
   logout() {
     return this.auth.clearAuthorization()
+      .then(() => this.user = null)
+      .then(() => this.subject.next(null))
       .then(() => {
         if (this.location.path().startsWith(RoutingConstants.getProfilePage())) {
           this.router.navigate([RoutingConstants.HOME_PAGE])
         }
       })
-      .then(() => this.user = null)
-      .then(() => this.subject.next(null))
   }
 
   isCompletedUser(user: AppUser = this.user): boolean {

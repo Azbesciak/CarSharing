@@ -10,9 +10,10 @@ $creator-width: 300px;
     grid-template: "creator map";
     display: grid;
     .route-creator {
-      //padding: 20px 10px;
       z-index: 2;
       @include shadow();
+      max-height: $total-height;
+      overflow: auto;
       grid-area: creator;
     }
     app-ggmaps {
