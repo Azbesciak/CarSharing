@@ -5,7 +5,6 @@ mat-card /deep/ {
   padding: 5px;
   width: 100%;
   margin-bottom: 5px;
-  cursor: pointer;
   display: block;
   mat-card-title {
     font-size: 18px;
@@ -19,4 +18,8 @@ mat-card /deep/ {
     text-overflow: ellipsis;
     margin-bottom: 4px;
   }
+}
+
+mat-card.clickable /deep/{
+  cursor: pointer;
 }

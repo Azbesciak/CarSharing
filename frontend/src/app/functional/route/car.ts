@@ -16,4 +16,10 @@ export class Car {
       c.seatCount, c.yearOfProduction,
       c.description, c.fuelUsage) : c
   }
+
+  static areDifferent(c1: Car, c2: Car) {
+    if (!c1 && !c2) return false;
+    if (!c1 || !c2) return true;
+    return c1.id != c2.id
+  }
 }

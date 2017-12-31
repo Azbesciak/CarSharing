@@ -23,7 +23,7 @@ export class Route {
               public description: string = null) {
     locations = Location.copyAll(locations);
     this.update(locations);
-    this.createRouteParts()
+    this.createRouteParts();
     console.log(this.routeParts)
   }
 
@@ -72,9 +72,9 @@ export class Route {
       this.durations.slice(), this.costs.slice(), car, this.breaks, this.routeParts, this.description)
   }
 
-  withPrices(prices: number[]) {
+  withCosts(costs: number[]) {
     return new Route(this.locations, this.distances.slice(), this.departureDate,
-      this.durations.slice(), prices.slice(), Car.copy(this.car), this.breaks, this.routeParts, this.description)
+      this.durations.slice(), costs.slice(), Car.copy(this.car), this.breaks, this.routeParts, this.description)
   }
 
   withRouteParts(parts: RoutePart[]) {
@@ -123,13 +123,13 @@ export class Route {
       let dest = this.locations[i + 1];
       let distance = this.distances[i];
       let duration = this.durations[i];
-      let price = this.costs[i];
+      let cost = this.costs[i];
 
       let start = this.getDepartureDate(i, parts[i - 1]);
-      let arival = start ? new Date(start.getTime() + duration) : start;
+      let arrival = start ? new Date(start.getTime() + duration) : start;
       const startSnap = new RouteSnapshot(org, start);
-      const endSnap = new RouteSnapshot(dest, arival);
-      parts[i] = new RoutePart(i, distance, price, startSnap, endSnap);
+      const endSnap = new RouteSnapshot(dest, arrival);
+      parts[i] = new RoutePart(i, distance, cost, startSnap, endSnap);
     }
     this.routeParts = parts;
   }
@@ -153,7 +153,7 @@ export class Route {
     } else {
       for (let i = 0; i < this.locations.length; i++) {
         const original = this.locations[i];
-        const copy = this.locations[i];
+        const copy = locations[i];
         if ((copy && original && copy.equals(original)) || (!original && !copy)) {
           continue;
         }

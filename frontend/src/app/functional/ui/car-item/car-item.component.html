@@ -1,4 +1,4 @@
-<app-small-card (click)="onCarSelect.next(car)"  [ngClass]="{'with-deletion': canDelete}">
+<app-small-card (click)="onCarSelect.next(car)" [ngClass]="{'with-deletion': canDelete}" [clickable]="clickable">
   <mat-card-title>{{car.manufacturer}}</mat-card-title>
   <mat-card-subtitle>{{car.model}}</mat-card-subtitle>
   <mat-icon (click)="conCarDeleted.next(car)" *ngIf="canDelete">close</mat-icon>

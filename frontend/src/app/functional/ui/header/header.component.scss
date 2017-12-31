@@ -1,7 +1,9 @@
 @import "../../../../styles";
 :host {
-  z-index: 999;
-  @include shadow();
+  mat-toolbar {
+    z-index: 999;
+    @include shadow();
+  }
   display: block;
   nav {
     display: flex;

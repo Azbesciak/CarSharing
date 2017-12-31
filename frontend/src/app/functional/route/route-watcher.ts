@@ -7,13 +7,23 @@ export abstract class RouteWatcher {
   routeEventBus: BehaviorSubject<RouteEvent>;
   route: Route;
 
+  timeout;
   subscribe() {
     this.routeEventBus.subscribe(e => {
       if (e.source !== this) {
-        this.route = e.route;
-        this.onChange(e.route);
+        if (!this.route) {
+          this.setNewRoute(e)
+        } else {
+          clearTimeout(this.timeout);
+          this.timeout = setTimeout(() => this.setNewRoute(e), 10)
+        }
       }
     })
+  }
+
+  private setNewRoute(e) {
+    this.route = e.route;
+    this.onChange(e.route);
   }
 
   protected abstract onChange(route: Route);

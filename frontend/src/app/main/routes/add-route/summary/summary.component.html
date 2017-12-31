@@ -1,3 +1,34 @@
-<p>
-  summary works!
-</p>
+<app-section sectionName="Your route">
+  <div *ngFor="let part of route.routeParts">
+    <app-small-card *ngIf="part.isValid()">
+      <div class="part-container">
+        <app-route-part [routePart]="part"></app-route-part>
+        <div class="departure-date">
+          {{part.origin?.date | date: 'short'}}
+        </div>
+        <div class="arrival-date">
+          {{part.origin?.date | date: 'short'}}
+        </div>
+        <div class="duration">
+          <div class="label">Duration</div>
+          <div class="value">{{getDuration(part)}}</div>
+        </div>
+        <div class="cost">
+          <div class="label">Cost/passenger</div>
+          <div class="value">{{part.cost}}</div>
+        </div>
+      </div>
+    </app-small-card>
+  </div>
+</app-section>
+<app-section sectionName="Selected car" *ngIf="route.car">
+ <app-car-item [car]="route.car"></app-car-item>
+</app-section>
+<app-section sectionName="Description" *ngIf="route.description">
+  <p class="description">
+    {{route.description}}
+  </p>
+</app-section>
+<button mat-raised-button color="primary" class="sub-btn" [disabled]="!isValid()" (click)="addRoute()">Add route</button>
+
+

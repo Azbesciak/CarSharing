@@ -30,4 +30,12 @@ export class RoutePart {
   isDateDefined(field: string): boolean {
     return this[field] && this[field].date
   }
+
+  isValid() {
+    return this.isValidLocation('origin') && this.isValidLocation('destination')
+  }
+
+  isValidLocation(field:string) {
+    return this[field] && this[field].location && this[field].location.label
+  }
 }

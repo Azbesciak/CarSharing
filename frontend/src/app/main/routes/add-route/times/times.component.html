@@ -2,7 +2,7 @@
                 [routeEventBus]="routeEventBus" [timeDateInp]="inp"></app-visit-date>
 <mat-accordion>
   <mat-expansion-panel *ngFor="let part of route.routeParts; let i = index">
-    <mat-expansion-panel-header *ngIf="part.origin.location && part.destination.location">
+    <mat-expansion-panel-header *ngIf="part.isValid()">
       <mat-panel-title>
         <app-route-part [routePart]="part"></app-route-part>
       </mat-panel-title>

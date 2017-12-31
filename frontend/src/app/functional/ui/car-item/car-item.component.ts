@@ -14,6 +14,9 @@ export class CarItemComponent implements OnInit {
   @Input()
   canDelete: boolean = false;
 
+  @Input()
+  clickable: boolean;
+
   @Output()
   onCarSelect = new EventEmitter<Car>();
 
@@ -23,6 +26,9 @@ export class CarItemComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    if (this.canDelete) {
+      this.clickable = true;
+    }
   }
 
 }

@@ -1,6 +1,6 @@
 <mat-list>
   <span *ngFor="let part of route.routeParts;let i = index">
-    <app-small-card *ngIf="part?.origin?.location && part?.destination?.location">
+    <app-small-card *ngIf="part.isValid()">
       <div class="cost-container">
         <mat-card-title>
           <app-route-part [routePart]="part"></app-route-part>
@@ -11,7 +11,8 @@
             <div class="value">{{part.distance}} km</div>
           </div>
           <mat-form-field class="cost">
-            <input matInput placeholder="Cost" type="number" class="example-right-align" [(ngModel)]="route.costs[i]">
+            <input matInput placeholder="Cost" type="number" class="example-right-align"
+                   [(ngModel)]="costs[i]" (blur)="onCostChange()">
             <span matPrefix>$&nbsp;</span>
           </mat-form-field>
         </div>
