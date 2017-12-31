@@ -42,7 +42,7 @@ class JWTAuthorizationFilter(
     return Optional.ofNullable(request.getHeader(HEADER_STRING))
       .flatMap { Optional.ofNullable(getUserFromToken(it)) }
         .map { userDetailsService.loadUserByUsername(it) }
-        .map { UsernamePasswordAuthenticationToken(it.username, it.password, it.authorities) }
+        .map { UsernamePasswordAuthenticationToken(it, it.password, it.authorities) }
       .map { UsernamePasswordAuthenticationToken(it, null, Collections.emptyList()) }
   }
 
