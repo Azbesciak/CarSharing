@@ -13,6 +13,9 @@ data class RoutePart(
   @GeneratedValue(strategy = GenerationType.AUTO)
   var id: Long? = null,
 
+  @Column(nullable = false, name = "route_part_order")
+  var order: Int? = null,
+
   @Embedded
   @AttributeOverrides(
     AttributeOverride(name = "date", column = Column(name = "departure", nullable = false)),
