@@ -23,17 +23,21 @@ class RoutesController(
   }
 
   private fun persistLocations(route: Route) {
-    val allLocations = route.routeParts
+    val distinctLocations = route.routeParts
       .flatMap { setOf(it.destination?.location, it.origin?.location) }.toSet()
-    locationRepository.saveAll(allLocations)
+    val locationsWithAlreadyExisting = locationRepository
+      .findAllById(distinctLocations
+        .map { it!!.placeId })
+      .toSet()
+      .plus(distinctLocations)
     route.routeParts.forEach {
       it.destination.apply {
-        this!!.location = allLocations.find { it!!.placeId == this.location!!.placeId }
+        this!!.location = locationsWithAlreadyExisting.find { it!!.placeId == location!!.placeId }
       }
     }
     route.routeParts.forEach {
       it.origin.apply {
-        this!!.location = allLocations.find { it!!.placeId == this.location!!.placeId }
+        this!!.location = locationsWithAlreadyExisting.find { it!!.placeId == location!!.placeId }
       }
     }
   }

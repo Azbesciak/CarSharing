@@ -15,24 +15,26 @@ data class RoutePart(
 
   @Embedded
   @AttributeOverrides(
-    AttributeOverride(name = "date", column = Column(name = "departure", nullable = false))
+    AttributeOverride(name = "date", column = Column(name = "departure", nullable = false)),
+    AttributeOverride(name = "location_id", column = Column(name = "origin", nullable = false))
   )
   @AssociationOverride(
     name = "location", joinColumns = [
     JoinColumn(name = "origin_id", nullable = false,
-      insertable = false, updatable = false,
+//      insertable = false, updatable = false,
       foreignKey = ForeignKey(name = "FK_ROUTE_PARTS_ORIGIN_ID"))
   ])
   var origin: RouteSnapshot? = null,
 
   @Embedded
   @AttributeOverrides(
-    AttributeOverride(name = "date", column = Column(name = "arrival", nullable = false))
+    AttributeOverride(name = "date", column = Column(name = "arrival", nullable = false)),
+    AttributeOverride(name = "location_id", column = Column(name = "destination_id", nullable = false))
   )
   @AssociationOverride(
     name = "location", joinColumns = [
     JoinColumn(name = "destination_id", nullable = false,
-      insertable = false, updatable = false,
+//      insertable = false, updatable = false,
       foreignKey = ForeignKey(name = "FK_ROUTE_PARTS_DESTINATION_ID"))
   ])
   var destination: RouteSnapshot? = null,

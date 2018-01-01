@@ -7,7 +7,7 @@ import javax.validation.constraints.Future
 @Embeddable
 @Table(name = "route_snapshots")
 data class RouteSnapshot(
-  @ManyToOne(optional = false, fetch = FetchType.LAZY)
+  @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = [CascadeType.MERGE, CascadeType.PERSIST])
   @JoinColumn(name = "location_id", nullable = false,
     insertable = false, updatable = false,
     foreignKey = ForeignKey(name = "FK_SNAPSHOT_LOC"))
