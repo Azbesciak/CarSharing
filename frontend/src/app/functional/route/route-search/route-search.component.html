@@ -1,9 +1,10 @@
-<form class="creator-form" (submit)="onSubmit(route)" novalidate>
+<form class="creator-form" (submit)="submitMade($event)" novalidate>
   <app-location-input *ngFor="let inp of locInputs; let i = index"
                       [class]="'loc-inp-' + i" [locInp]="inp"
                       [routeEventBus]="routeEventBus"></app-location-input>
   <app-visit-date *ngFor="let inp of dateInputs; let i = index"
                   [class]="'date-inp-' + i"
                   [routeEventBus]="routeEventBus" [timeDateInp]="inp"></app-visit-date>
-  <button mat-raised-button color="primary" class="sub-btn" [disabled]="!isValid()" (click)="onsubmit(route)">{{submitLabel}}</button>
+  <button mat-raised-button color="primary" class="sub-btn" [disabled]="!isValid()"
+          (click)="submitMade($event)">{{submitLabel}}</button>
 </form>

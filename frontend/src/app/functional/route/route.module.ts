@@ -5,7 +5,7 @@ import {AgmCoreModule} from "@agm/core";
 import {environment as env} from "../../../environments/environment"
 import {MaterialModule} from "../ui/material/material.module";
 import { DirectionsMapDirective } from './directions/directions-map.directive';
-import {CreatorComponent} from "./creator/creator.component";
+import {RouteSearchComponent} from "./route-search/route-search.component";
 import {LocationService} from "./location.service";
 import {WayPointsComponent} from "./waypoints/way-points.component";
 import {DndModule} from "ng2-dnd";
@@ -18,7 +18,7 @@ import {RoutePartComponent} from "./route-part/route-part.component";
 const components = [
   GgmapsComponent,
   DirectionsMapDirective,
-  CreatorComponent,
+  RouteSearchComponent,
   WayPointsComponent,
   LocationInputComponent,
   CurrentLocationComponent,

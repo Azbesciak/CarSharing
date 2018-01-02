@@ -19,8 +19,15 @@ import { TimesComponent } from './routes/add-route/times/times.component';
 import { DetailsComponent } from './routes/add-route/details/details.component';
 import { CostsComponent } from './routes/add-route/costs/costs.component';
 import { SummaryComponent } from './routes/add-route/summary/summary.component';
+import {RouteSearchService} from "./routes/route-search.service";
+import {RoutesTableComponent} from "./routes/routes-table/routes-table.component";
 
-const routeCreatorComponents = [RouteComponent, TimesComponent, CostsComponent, SummaryComponent, DetailsComponent];
+const routeCreatorComponents = [
+  RouteComponent,
+  TimesComponent,
+  CostsComponent,
+  SummaryComponent,
+  DetailsComponent];
 
 @NgModule({
   imports: [
@@ -33,10 +40,10 @@ const routeCreatorComponents = [RouteComponent, TimesComponent, CostsComponent, 
   exports: [AuthorizationModule],
   declarations: [
     HomeComponent, BasicComponent,
-    ProfileComponent, RoutesComponent, AddRouteComponent,
+    ProfileComponent, RoutesComponent, AddRouteComponent, RoutesTableComponent,
     CarComponent, PhotoComponent, PartsComponent, ModificationComponent, routeCreatorComponents],
   bootstrap: [routeCreatorComponents],
-  providers: [BusInjectorService]
+  providers: [BusInjectorService, RouteSearchService]
 })
 export class MainModule {
 }

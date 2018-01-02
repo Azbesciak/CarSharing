@@ -11,7 +11,7 @@
       grid-row: 2;
       display: grid;
       grid-template-rows: 1fr 2fr 1fr 1fr;
-      app-creator /deep/ {
+      app-route-search /deep/ {
         grid-row: 2;
         .creator-form {
           display: grid;

@@ -2,18 +2,30 @@ package com.witkups.carsharing.users.routes
 
 import com.witkups.carsharing.users.application.Route
 import com.witkups.carsharing.users.user.AppUserService
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
+import java.time.Duration
+import java.time.temporal.ChronoUnit
 
-@RestController()
+@RestController
 @RequestMapping("routes")
 class RoutesController(
   private val routeRepository: RouteRepository,
   private val appUserService: AppUserService,
   private val locationRepository: LocationRepository
 ) {
+
+  @GetMapping("/direct")
+  fun getDirectRoute(params: RoutesSearchParam) {
+    params.apply {
+      departureDate =departureDate?.truncatedTo(ChronoUnit.DAYS)
+      endOfTheDay = departureDate?.plus(Duration.ofDays(1))
+    }
+
+    print(params)
+    val findRoutes = routeRepository.findRoutes(params)
+    print(findRoutes)
+  }
+
   @PostMapping("add")
   fun addRoute(@RequestBody route: Route) {
     val currentUser = appUserService.getCurrentAppUser()

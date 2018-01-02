@@ -1,6 +1,9 @@
 package com.witkups.carsharing.security
 
 import com.witkups.carsharing.users.application.Car
+import com.witkups.carsharing.users.application.Location
+import com.witkups.carsharing.users.application.Route
+import com.witkups.carsharing.users.application.RoutePart
 import com.witkups.carsharing.users.authorization.Role
 import com.witkups.carsharing.users.authorization.User
 import com.witkups.carsharing.users.authorization.UserRepository
@@ -30,13 +33,22 @@ class Starter(
     userRepository.save(user3)
     userRepository.save(user4)
     userRepository.save(user5)
-    appUserRepository.save(ApplicationUser(user = user1, cars = mutableSetOf(
-      Car(manufacturer = "merc", seatCount = 4, model = "sls500",
-        type = Car.Type.SEDAN, yearOfProduction = 2007, fuelUsage = 4.5)),
-      lastName = "borek", firstName = "lamka"))
+    val drivingCar = Car(manufacturer = "merc", seatCount = 4, model = "sls500",
+      type = Car.Type.SEDAN, yearOfProduction = 2007, fuelUsage = 4.5)
+    val driver = ApplicationUser(user = user1, cars = mutableSetOf(
+      drivingCar),
+      lastName = "borek", firstName = "lamka")
+    appUserRepository.save(driver)
     appUserRepository.save(ApplicationUser(user = user2, lastName = "borek", firstName = "lamka"))
     appUserRepository.save(ApplicationUser(user = user3, lastName = "borek", firstName = "lamka"))
     appUserRepository.save(ApplicationUser(user = user4, lastName = "borek", firstName = "lamka"))
     appUserRepository.save(ApplicationUser(user = user5, lastName = "borek", firstName = "lamka"))
+
+
+//    Route(driver = driver, car = drivingCar, )
+  }
+
+  fun routeParts() {
+//    Location("someLoc", 14.0, latitude = 15.0, label = "Warsaw, Poland", country = )
   }
 }

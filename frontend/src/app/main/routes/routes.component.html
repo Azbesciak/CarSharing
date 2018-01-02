@@ -1,1 +1,3 @@
-<app-creator></app-creator>
+<app-route-search [routeEventBus]="routeEventBus" [onSubmit]="submitFun"
+             [dateInputs]="dateInputs" [locInputs]="locInputs" [submitLabel]="'Search'"></app-route-search>
+<app-routes-table [routes]="routes"></app-routes-table>

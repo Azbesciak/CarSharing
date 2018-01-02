@@ -1,8 +1,8 @@
 <div *ngIf="routeEventBus" class="home-container">
   <mat-card>
     <div class="search">Find a way...</div>
-    <app-creator [routeEventBus]="routeEventBus" *ngIf="locInputs" [locInputs]="locInputs"
-                 [dateInputs]="dateInputs" [submitLabel]="'Search'"></app-creator>
+    <app-route-search [routeEventBus]="routeEventBus" *ngIf="locInputs" [locInputs]="locInputs"
+                 [dateInputs]="dateInputs" [submitLabel]="'Search'" [onSubmit]="submitFun"></app-route-search>
     <div class="add-route">... or ...</div>
     <a mat-button (click)="goToAddRoute()" color="primary">Add your own!</a>
   </mat-card>

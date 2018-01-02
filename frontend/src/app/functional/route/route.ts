@@ -24,7 +24,6 @@ export class Route {
     locations = Location.copyAll(locations);
     this.update(locations);
     this.createRouteParts();
-    console.log(this.routeParts)
   }
 
   private _locations: Location[];
@@ -45,6 +44,10 @@ export class Route {
     this.destination = this._locations[this._locations.length - 1];
     this.origin = this._locations[0];
     Object.freeze(this._locations);
+  }
+
+  copy() {
+    return this.withDepartureDate(this.departureDate);
   }
 
   withLocations(locations: Location[]): Route {
@@ -145,7 +148,6 @@ export class Route {
       return this.departureDate
     }
   }
-
 
   wereLocationsChanged(locations: Location[]) {
     if (locations.length != this.locations.length) {

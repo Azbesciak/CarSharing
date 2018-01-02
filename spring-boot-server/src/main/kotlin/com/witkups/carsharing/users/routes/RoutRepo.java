@@ -17,8 +17,8 @@ public interface RoutRepo extends JpaRepository<Route, Long> {
 //      " where r1.")
   @Query("Select r from Route r, RoutePart rp1, RoutePart rp2" +
     " where rp1 member of r.routeParts and rp2 member of r.routeParts and " +
-    "rp1.origin.location.label like :#{origin} and rp2.destination.location.label like :#{dest} " +
-    "and rp1.order < rp2.order")
+    "rp1.origin.location.label like :origin and rp2.destination.location.label like :dest " +
+    "and rp1.order < rp2.order and rp1.origin.date between :departureDate and :departureDate + 1")
   List<Route> findRoutes(
     @Param("origin") String origin,
     @Param("dest") String destination,
