@@ -12,3 +12,30 @@
 .mat-header-cell.mat-sort-header-sorted {
   color: black;
 }
+.elevated-list-item {
+  height: 100px !important;
+}
+.item-container {
+  font-size: 14px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 2fr 4fr 140px 128px;
+  grid-column-gap: 20px;
+  .route {
+
+  }
+  .route-details {
+    display: grid;
+    grid-template: "cost seats" "depart depart";
+    div {
+      display: flex;
+      align-items: center;
+      .label {
+        font-weight: 500;
+      }
+    }
+    .departure-date {
+      grid-area: depart;
+    }
+  }
+}

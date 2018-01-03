@@ -3,27 +3,33 @@ package com.witkups.carsharing.users.routes
 import com.witkups.carsharing.users.application.Route
 import com.witkups.carsharing.users.user.AppUserService
 import org.springframework.web.bind.annotation.*
-import java.time.Duration
-import java.time.temporal.ChronoUnit
+import java.time.*
 
 @RestController
 @RequestMapping("routes")
 class RoutesController(
   private val routeRepository: RouteRepository,
   private val appUserService: AppUserService,
-  private val locationRepository: LocationRepository
+  private val locationRepository: LocationRepository,
+  private val routesResultMapper: RoutesResultMapper
 ) {
 
   @GetMapping("/direct")
-  fun getDirectRoute(params: RoutesSearchParam) {
+  fun getDirectRoute(params: RoutesSearchParam): List<SimpleRouteResult> {
     params.apply {
-      departureDate =departureDate?.truncatedTo(ChronoUnit.DAYS)
-      endOfTheDay = departureDate?.plus(Duration.ofDays(1))
+      departureDate = getSearchDateStart()
     }
 
-    print(params)
     val findRoutes = routeRepository.findRoutes(params)
-    print(findRoutes)
+    return findRoutes.map { routesResultMapper.mapFromRoute(it, params) }
+
+  }
+
+  private fun RoutesSearchParam.getSearchDateStart(): Instant {
+    val now = Instant.now()
+    return if (departureDate == null || departureDate!!.isBefore(now))
+      now
+    else departureDate!!
   }
 
   @PostMapping("add")
@@ -36,7 +42,7 @@ class RoutesController(
 
   private fun persistLocations(route: Route) {
     val distinctLocations = route.routeParts
-      .flatMap { setOf(it.destination?.location, it.origin?.location) }.toSet()
+      .flatMap { setOf(it.destination!!.location, it.origin!!.location) }.toSet()
     val locationsWithAlreadyExisting = locationRepository
       .findAllById(distinctLocations
         .map { it!!.placeId })

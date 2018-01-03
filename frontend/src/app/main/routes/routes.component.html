@@ -1,3 +1,5 @@
-<app-route-search [routeEventBus]="routeEventBus" [onSubmit]="submitFun"
-             [dateInputs]="dateInputs" [locInputs]="locInputs" [submitLabel]="'Search'"></app-route-search>
-<app-routes-table [routes]="routes"></app-routes-table>
+<mat-card class="search-card">
+  <app-route-search [routeEventBus]="routeEventBus" [onSubmit]="submitFun"
+               [dateInputs]="dateInputs" [locInputs]="locInputs" [submitLabel]="'Search'"></app-route-search>
+</mat-card>
+<app-routes-table [routes]="routes" *ngIf="routes && wasCalled"></app-routes-table>

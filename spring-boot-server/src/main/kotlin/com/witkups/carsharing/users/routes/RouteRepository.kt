@@ -10,8 +10,7 @@ interface RouteRepository: JpaRepository<Route, Long> {
     where rp1 member of r.routeParts and rp2 member of r.routeParts and
     rp1.origin.location.label like :#{#params.origin} and rp2.destination.location.label
     like :#{#params.destination}
-    and rp1.order <= rp2.order and rp1.origin.date between
-    :#{#params.departureDate} and :#{#params.endOfTheDay}""")
+    and rp1.order <= rp2.order and rp1.origin.date > :#{#params.departureDate}""")
   fun findRoutes(
     @Param("params") params: RoutesSearchParam
   ): List<Route>

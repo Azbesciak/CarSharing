@@ -1,10 +1,10 @@
 import { TimeDateInput } from "./time-date-input";
 
-export function originDateInput(type: string = 'date'): TimeDateInput {
+export function originDateInput(type: string = 'datetime'): TimeDateInput {
   return new TimeDateInput(
     (comp) => comp.route = comp.route.withDepartureDate(comp.timeDateInp.date),
     (route, ref) => ref.date = route.departureDate,
-    "Date of the departure", type, true)
+    "Departure after", type, false)
 }
 
 export function destinationDateInput(): TimeDateInput {

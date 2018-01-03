@@ -5,6 +5,5 @@ import java.time.Instant
 data class RoutesSearchParam(
   var origin: String? = null,
   var destination: String? = null,
-  var departureDate: Instant? = null,
-  var endOfTheDay: Instant? = null
+  var departureDate: Instant? = null
 )

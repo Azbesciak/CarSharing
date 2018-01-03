@@ -22,10 +22,11 @@ export class RoutesComponent extends RouteWatcher implements OnInit {
   submitFun: (route: RouteSearchParams) => void;
 
   routes: RouteSearchResult[];
+  wasCalled: boolean;
 
-  constructor(
-    private searchService: RouteSearchService,
-    private changeDetector: ChangeDetectorRef) {super()}
+  constructor(private searchService: RouteSearchService) {
+    super()
+  }
 
   ngOnInit() {
     this.route = new Route();
@@ -42,7 +43,11 @@ export class RoutesComponent extends RouteWatcher implements OnInit {
         this.push()
       }, 100)
     });
-    this.searchService.subscribeOnSearchResult(res => this.routes = res);
+    this.searchService.subscribeOnSearchResult(res => {
+      console.log(res);
+      this.wasCalled = true;
+      this.routes = res
+    });
     this.locInputs = [originInput(), destInput()];
     this.dateInputs = [originDateInput()];
     this.submitFun = (route: RouteSearchParams) => {

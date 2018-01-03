@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Route} from "../../../functional/route/route";
-import {MatTableDataSource} from "@angular/material";
+import {RouteSearchResult} from "../../../functional/route/route-search/route-search-result";
 
 @Component({
   selector: 'app-routes-table',
@@ -10,17 +9,25 @@ import {MatTableDataSource} from "@angular/material";
 export class RoutesTableComponent implements OnInit {
 
   @Input()
-  routes: Route[];
+  routes: RouteSearchResult[];
 
-  displayedColumns = ['origin', 'destination', 'car'];
-  dataSource;
 
   constructor() {
   }
 
   ngOnInit() {
-    this.dataSource = new MatTableDataSource<Route>(this.routes);
   }
 
 
+  onJoinClick(route: RouteSearchResult) {
+
+  }
+
+  onOpinionsClick(route: RouteSearchResult) {
+
+  }
+
+  onRouteDetailsClick(route: RouteSearchResult) {
+
+  }
 }

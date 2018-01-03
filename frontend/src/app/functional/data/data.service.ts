@@ -49,6 +49,7 @@ export class DataService {
   }
 
   searchRoute(route: RouteSearchParams): Promise<any> {
+    console.log("REQUEST!");
     let params = new HttpParams()
       .append("origin", route.origin.label)
       .append("destination", route.destination.label)

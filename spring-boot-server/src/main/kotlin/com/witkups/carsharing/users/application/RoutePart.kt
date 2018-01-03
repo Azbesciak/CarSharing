@@ -23,8 +23,7 @@ data class RoutePart(
   )
   @AssociationOverride(
     name = "location", joinColumns = [
-    JoinColumn(name = "origin_id", nullable = false,
-//      insertable = false, updatable = false,
+    JoinColumn(name = "origin_id", nullable = false, updatable = false,
       foreignKey = ForeignKey(name = "FK_ROUTE_PARTS_ORIGIN_ID"))
   ])
   var origin: RouteSnapshot? = null,
@@ -36,8 +35,7 @@ data class RoutePart(
   )
   @AssociationOverride(
     name = "location", joinColumns = [
-    JoinColumn(name = "destination_id", nullable = false,
-//      insertable = false, updatable = false,
+    JoinColumn(name = "destination_id", nullable = false, updatable = false,
       foreignKey = ForeignKey(name = "FK_ROUTE_PARTS_DESTINATION_ID"))
   ])
   var destination: RouteSnapshot? = null,

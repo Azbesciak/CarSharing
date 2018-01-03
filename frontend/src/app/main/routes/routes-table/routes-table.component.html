@@ -1,25 +1,35 @@
-<div class="example-container mat-elevation-z8" *ngIf="routes">
-  <mat-table #table [dataSource]="dataSource" matSort >
-
-    <!-- Position Column -->
-    <ng-container matColumnDef="origin">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>
-      <mat-cell *matCellDef="let route"> {{route.origin}} </mat-cell>
-    </ng-container>
-
-    <!-- Name Column -->
-    <ng-container matColumnDef="destination">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-      <mat-cell *matCellDef="let route"> {{route.destination}} </mat-cell>
-    </ng-container>
-
-    <!-- Weight Column -->
-    <ng-container matColumnDef="car">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Weight </mat-header-cell>
-      <mat-cell *matCellDef="let route"> {{route.car}} </mat-cell>
-    </ng-container>
-
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </mat-table>
-</div>
+<mat-list class="example-container mat-elevation-z8" *ngIf="routes">
+  <mat-list-item mat-line class="elevated-list-item" *ngFor="let route of routes">
+    <div class="item-container">
+      <div class="driver-info">
+        <div class="driver">{{route.driverName}}</div>
+      </div>
+      <div class="route">
+        <div class="locations">
+          <span *ngFor="let loc of route.locations">
+            {{loc}}
+          </span>
+        </div>
+      </div>
+      <div class="route-details">
+        <div class="cost">
+          <mat-icon>attach_money</mat-icon>
+          <div class="value">{{route.cost}}</div>
+        </div>
+        <div class="free-seats">
+          <mat-icon>people_outline</mat-icon>
+          <div class="value">{{route.freeSeats}}</div>
+        </div>
+        <div class="departure-date">
+          <mat-icon>flight_takeoff</mat-icon>
+          <div class="value">{{route.departureDate |date: 'short'}}</div>
+        </div>
+      </div>
+      <div class="actions">
+        <button mat-icon-button (click)="onJoinClick(route)"><mat-icon>person_add</mat-icon></button>
+        <button mat-icon-button (click)="onRouteDetailsClick(route)"><mat-icon>search</mat-icon></button>
+        <button mat-icon-button (click)="onOpinionsClick(route)"><mat-icon>message</mat-icon></button>
+      </div>
+    </div>
+  </mat-list-item>
+</mat-list>
