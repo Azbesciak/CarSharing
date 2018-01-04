@@ -1,25 +1,19 @@
-.example-container {
-  display: flex;
-  flex-direction: column;
-  min-width: 300px;
-}
-
-.mat-table {
-  overflow: auto;
-  max-height: 500px;
-}
 .list-header {
   display: grid;
   grid-template-columns: auto 140px;
   padding-top: 0;
   padding-bottom: 0;
 }
-.mat-header-cell.mat-sort-header-sorted {
-  color: black;
-}
-.elevated-list-item {
+
+.elevated-list-item:not(.no-results) {
   height: 100px !important;
 }
+.no-results {
+  text-align: center;
+  width: 100%;
+  font-size: 18px;
+}
+
 .item-container {
   font-size: 14px;
   width: 100%;

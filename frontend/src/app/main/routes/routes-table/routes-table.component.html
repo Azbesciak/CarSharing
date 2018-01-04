@@ -47,4 +47,9 @@
       </div>
     </div>
   </mat-list-item>
+  <mat-list-item mat-line class="elevated-list-item" *ngIf="routes.length == 0">
+    <div class="no-results">
+      No route matching this search
+    </div>
+  </mat-list-item>
 </mat-list>
