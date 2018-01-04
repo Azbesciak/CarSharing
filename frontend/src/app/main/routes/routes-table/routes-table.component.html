@@ -1,34 +1,49 @@
 <mat-list class="example-container mat-elevation-z8" *ngIf="routes">
-  <mat-list-item mat-line class="elevated-list-item" *ngFor="let route of routes">
+  <h3 mat-subheader class="list-header">
+    <span>Routes for route: {{route.origin.label}} &rarr; {{route.destination.label}}</span>
+    <span>
+      <span>Sort by:</span>
+      <button mat-icon-button *ngFor="let s of sortsTypes"  (click)="sortBy = s.type" [disabled]="sortBy == s.type">
+        <mat-icon >{{s.icon}}</mat-icon>
+      </button>
+    </span>
+  </h3>
+  <mat-list-item mat-line class="elevated-list-item" *ngFor="let r of routes">
     <div class="item-container">
       <div class="driver-info">
-        <div class="driver">{{route.driverName}}</div>
+        <div class="driver">{{r.driverName}}</div>
       </div>
       <div class="route">
         <div class="locations">
-          <span *ngFor="let loc of route.locations">
+          <span *ngFor="let loc of r.locations">
             {{loc}}
           </span>
         </div>
       </div>
       <div class="route-details">
-        <div class="cost">
+        <div class="cost" matTooltip="Cost per passenger">
           <mat-icon>attach_money</mat-icon>
-          <div class="value">{{route.cost}}</div>
+          <div class="value">{{r.cost}}</div>
         </div>
-        <div class="free-seats">
+        <div class="free-seats" matTooltip="Free seats">
           <mat-icon>people_outline</mat-icon>
-          <div class="value">{{route.freeSeats}}</div>
+          <div class="value">{{r.freeSeats}}</div>
         </div>
-        <div class="departure-date">
+        <div class="departure-date" [matTooltip]="'Departure from ' + route.origin.locality">
           <mat-icon>flight_takeoff</mat-icon>
-          <div class="value">{{route.departureDate |date: 'short'}}</div>
+          <div class="value">{{r.departureDate |date: 'short'}}</div>
         </div>
       </div>
       <div class="actions">
-        <button mat-icon-button (click)="onJoinClick(route)"><mat-icon>person_add</mat-icon></button>
-        <button mat-icon-button (click)="onRouteDetailsClick(route)"><mat-icon>search</mat-icon></button>
-        <button mat-icon-button (click)="onOpinionsClick(route)"><mat-icon>message</mat-icon></button>
+        <button mat-icon-button (click)="onJoinClick(r)" matTooltip="Join">
+          <mat-icon>person_add</mat-icon>
+        </button>
+        <button mat-icon-button (click)="onRouteDetailsClick(r)" matTooltip="Route details">
+          <mat-icon>search</mat-icon>
+        </button>
+        <button mat-icon-button (click)="onOpinionsClick(r)"  matTooltip="User opinions">
+          <mat-icon>message</mat-icon>
+        </button>
       </div>
     </div>
   </mat-list-item>

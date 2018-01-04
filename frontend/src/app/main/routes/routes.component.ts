@@ -44,7 +44,6 @@ export class RoutesComponent extends RouteWatcher implements OnInit {
       }, 100)
     });
     this.searchService.subscribeOnSearchResult(res => {
-      console.log(res);
       this.wasCalled = true;
       this.routes = res
     });

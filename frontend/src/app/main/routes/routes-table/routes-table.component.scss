@@ -8,7 +8,12 @@
   overflow: auto;
   max-height: 500px;
 }
-
+.list-header {
+  display: grid;
+  grid-template-columns: auto 140px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
 .mat-header-cell.mat-sort-header-sorted {
   color: black;
 }
@@ -23,6 +28,9 @@
   grid-column-gap: 20px;
   .route {
 
+  }
+  .actions {
+    align-items: center;
   }
   .route-details {
     display: grid;
