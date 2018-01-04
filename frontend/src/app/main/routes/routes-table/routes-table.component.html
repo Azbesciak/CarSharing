@@ -15,8 +15,10 @@
       </div>
       <div class="route">
         <div class="locations">
-          <span *ngFor="let loc of r.locations">
+          <span *ngFor="let loc of r.locations; let last = last"
+                [ngClass]="{'edge-loc': (loc == route.origin.locality || loc == route.destination.locality)}">
             {{loc}}
+            <span *ngIf="!last">&rarr;</span>
           </span>
         </div>
       </div>
