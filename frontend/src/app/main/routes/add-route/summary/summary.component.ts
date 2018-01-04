@@ -39,7 +39,9 @@ export class SummaryComponent extends RouteCreator implements OnInit {
         width: '250px',
         data: new InfoDialogData(InfoDialogType.SUCCESS, () => this.onClose(),
           "Success",
-          `Route ${this.route.origin.label} -> ${this.route.destination.label} was successfully added.`)
+          `Route <br>
+                  <strong>${this.route.origin.label}</strong> &rarr; <strong>${this.route.destination.label}</strong><br>
+                   was successfully added.`)
       }));
   }
 
