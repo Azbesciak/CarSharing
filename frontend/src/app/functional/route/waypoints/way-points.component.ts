@@ -27,6 +27,15 @@ export class WayPointsComponent extends RouteWatcher implements OnInit, DoCheck 
 
   protected locations: Location[];
 
+  remove(i) {
+    if (i == 0 || i == this.locations.length - 1) {
+      this.locations[i] = undefined;
+    } else {
+      this.locations.splice(i, 1);
+    }
+    this.update()
+  }
+
   ngOnInit() {
     this.subscribe();
   }

@@ -25,6 +25,14 @@
         color: #555555;
         font-size: 12px;
       }
+      .close-btn {
+        font-size: 18px;
+      }
+      /deep/ .mat-list-item-content {
+        display: grid;
+        grid-template-columns: 24px auto 24px;
+        align-content: center;
+      }
     }
   }
 

@@ -42,7 +42,7 @@ input::-webkit-inner-spin-button {
 
 .elevated-list-item {
   margin: 1px 0;
-  font-size: 14px;
+  font-size: 14px !important;
   font-weight: 500;
   -webkit-box-shadow: 0 0 10px -4px rgba(117, 117, 117, 0.98);
   -moz-box-shadow: 0 0 10px -4px rgba(117, 117, 117, 0.98);

@@ -4,12 +4,13 @@
     <mat-icon *ngIf="first" class="icon start">panorama_fish_eye</mat-icon>
     <mat-icon *ngIf="!first && !last" class="icon">more_vert</mat-icon>
     <mat-icon *ngIf="last" class="icon">place</mat-icon>
-    <span matLine *ngIf="loc; else placeholder" class="label"> {{loc.label}} </span>
+    <div matLine *ngIf="loc; else placeholder" class="label"> {{loc.label}} </div>
     <ng-template #placeholder>
       <span matLine class="placeholder">
         <span *ngIf="first">Enter your origin</span>
         <span *ngIf="last">Enter your destination</span>
       </span>
     </ng-template>
+    <a mat-icon-button *ngIf="loc" (click)="remove(i)"><mat-icon class="close-btn">close</mat-icon></a>
   </mat-list-item>
 </mat-list>
