@@ -1,7 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
-import {AppUser} from "../../user";
-import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-login-dialog',

@@ -44,7 +44,16 @@ input::-webkit-inner-spin-button {
   margin: 1px 0;
   font-size: 14px;
   font-weight: 500;
-  -webkit-box-shadow: 0 0 10px -4px rgba(117,117,117,0.98);
-  -moz-box-shadow: 0 0 10px -4px rgba(117,117,117,0.98);
-  box-shadow: 0 0 10px -4px rgba(117,117,117,0.98);
+  -webkit-box-shadow: 0 0 10px -4px rgba(117, 117, 117, 0.98);
+  -moz-box-shadow: 0 0 10px -4px rgba(117, 117, 117, 0.98);
+  box-shadow: 0 0 10px -4px rgba(117, 117, 117, 0.98);
+}
+
+.mat-dialog-title {
+  display: grid !important;
+  grid-template-columns: auto 24px;
+  width: 100%;
+  .close-button {
+    cursor: pointer;
+  }
 }

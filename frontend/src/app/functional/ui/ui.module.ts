@@ -1,14 +1,15 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {MaterialModule} from "./material/material.module";
-import { HeaderComponent } from './header/header.component';
-import { SpacerComponent } from './spacer/spacer.component';
-import { MenuPositionComponent } from './menu-position/menu-position.component';
-import { CarItemComponent } from './car-item/car-item.component';
-import { CarsListComponent } from './cars-list/cars-list.component';
+import {HeaderComponent} from './header/header.component';
+import {SpacerComponent} from './spacer/spacer.component';
+import {MenuPositionComponent} from './menu-position/menu-position.component';
+import {CarItemComponent} from './car-item/car-item.component';
+import {CarsListComponent} from './cars-list/cars-list.component';
 import {FormsModule} from "@angular/forms";
-import { SectionComponent } from './section/section.component';
+import {SectionComponent} from './section/section.component';
 import {SmallCardComponent} from "./small-card/small-card.component";
+import {InfoDialogComponent} from "./info-dialog/info-dialog.component";
 
 const components = [
   HeaderComponent,
@@ -17,7 +18,8 @@ const components = [
   CarItemComponent,
   CarsListComponent,
   SectionComponent,
-  SmallCardComponent];
+  SmallCardComponent,
+  InfoDialogComponent];
 
 @NgModule({
   imports: [
@@ -30,6 +32,8 @@ const components = [
     components,
     FormsModule
   ],
-  declarations: components
+  declarations: components,
+  entryComponents: [InfoDialogComponent]
 })
-export class UiModule { }
+export class UiModule {
+}
