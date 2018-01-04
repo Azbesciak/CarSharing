@@ -22,14 +22,12 @@
   </div>
 </app-section>
 <app-section sectionName="Selected car" *ngIf="route.car">
- <app-car-item [car]="route.car"></app-car-item>
+  <app-car-item [car]="route.car"></app-car-item>
 </app-section>
 <app-section sectionName="Description" *ngIf="route.description">
   <p class="description">
     {{route.description}}
   </p>
 </app-section>
-<button mat-raised-button color="primary" class="sub-btn"
-        [disabled]="!isValid()" (click)="addRoute()">Add route</button>
 
 

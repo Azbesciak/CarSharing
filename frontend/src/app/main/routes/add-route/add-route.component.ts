@@ -9,6 +9,7 @@ import {TimesComponent} from "./times/times.component";
 import {CostsComponent} from "./costs/costs.component";
 import {SummaryComponent} from "./summary/summary.component";
 import {DetailsComponent} from "./details/details.component";
+import {RouteAcceptComponent} from "./route-accept/route-accept.component";
 
 
 @Component({
@@ -32,7 +33,7 @@ export class AddRouteComponent extends RouteWatcher implements OnInit {
       new RouteCreator("Specify route times", TimesComponent),
       new RouteCreator("Description and car", DetailsComponent),
       new RouteCreator("Set costs", CostsComponent),
-      new RouteCreator("Summary", SummaryComponent),
+      new RouteCreator("Summary", RouteAcceptComponent),
     ];
     this.routeEventBus = new BehaviorSubject(new RouteEvent(this.route, this));
     this.busInjector.addNew(this.routeEventBus);

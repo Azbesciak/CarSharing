@@ -21,13 +21,14 @@ import { CostsComponent } from './routes/add-route/costs/costs.component';
 import { SummaryComponent } from './routes/add-route/summary/summary.component';
 import {RouteSearchService} from "./routes/route-search.service";
 import {RoutesTableComponent} from "./routes/routes-table/routes-table.component";
+import { RouteAcceptComponent } from './routes/add-route/route-accept/route-accept.component';
 
 const routeCreatorComponents = [
   RouteComponent,
   TimesComponent,
   CostsComponent,
-  SummaryComponent,
-  DetailsComponent];
+  DetailsComponent,
+  RouteAcceptComponent];
 
 @NgModule({
   imports: [
@@ -40,8 +41,8 @@ const routeCreatorComponents = [
   exports: [AuthorizationModule],
   declarations: [
     HomeComponent, BasicComponent,
-    ProfileComponent, RoutesComponent, AddRouteComponent, RoutesTableComponent,
-    CarComponent, PhotoComponent, PartsComponent, ModificationComponent, routeCreatorComponents],
+    ProfileComponent, RoutesComponent, AddRouteComponent, RoutesTableComponent, SummaryComponent,
+    CarComponent, PhotoComponent, PartsComponent, ModificationComponent, routeCreatorComponents, RouteAcceptComponent],
   bootstrap: [routeCreatorComponents],
   providers: [BusInjectorService, RouteSearchService]
 })
