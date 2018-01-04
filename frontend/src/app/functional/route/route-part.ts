@@ -6,14 +6,16 @@ export class RoutePart {
     public distance: number,
     public cost: number,
     public origin: RouteSnapshot,
-    public destination: RouteSnapshot
+    public destination: RouteSnapshot,
+    public isIncluded: boolean = false
   ) {}
 
   static copy(r: RoutePart): RoutePart {
     return new RoutePart(
       r.order, r.distance, r.cost,
       RouteSnapshot.copy(r.origin),
-      RouteSnapshot.copy(r.destination)
+      RouteSnapshot.copy(r.destination),
+      r.isIncluded
     )
   }
 

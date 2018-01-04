@@ -40,18 +40,6 @@ export class AddRouteComponent extends RouteWatcher implements OnInit {
   }
 
   protected onChange(route: Route) {}
-
-  addBusToComponent(comp: RouteWatcher) {
-    comp.routeEventBus = this.routeEventBus
-  }
-
-  onCreate($event) {
-    console.log($event)
-  }
-
-  onClisk(i) {
-    console.log(i)
-  }
 }
 class RouteCreator{
   constructor(

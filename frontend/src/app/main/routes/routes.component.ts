@@ -8,7 +8,7 @@ import {destInput, originInput} from "../../functional/route/location-input/loca
 import {LocationInput} from "../../functional/route/location-input/location-input";
 import {TimeDateInput} from "../../functional/route/visit-date/time-date-input";
 import {RouteSearchParams} from "../../functional/route/route-search/route-search-params";
-import {RouteSearchResult} from "../../functional/route/route-search/route-search-result";
+import {SimpleRouteSearchResult} from "../../functional/route/route-search/route-search-result";
 
 @Component({
   selector: 'app-routes',
@@ -21,8 +21,10 @@ export class RoutesComponent extends RouteWatcher implements OnInit {
   dateInputs: TimeDateInput[];
   submitFun: (route: RouteSearchParams) => void;
 
-  routes: RouteSearchResult[];
+  routes: SimpleRouteSearchResult[];
   wasCalled: boolean;
+
+  recentSearchParam: RouteSearchParams;
 
   constructor(private searchService: RouteSearchService) {
     super()
@@ -40,6 +42,7 @@ export class RoutesComponent extends RouteWatcher implements OnInit {
         } else {
           this.route = new Route()
         }
+        this.recentSearchParam = params;
         this.push()
       }, 100)
     });

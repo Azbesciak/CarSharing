@@ -1,22 +1,23 @@
 <mat-list class="example-container mat-elevation-z8" *ngIf="routes">
   <h3 mat-subheader class="list-header">
-    <span>Routes for route: {{route.origin.label}} &rarr; {{route.destination.label}}</span>
+    <span>Routes for route: {{routeSearchParams.origin.label}} &rarr; {{routeSearchParams.destination.label}}</span>
     <span>
       <span>Sort by:</span>
-      <button mat-icon-button *ngFor="let s of sortsTypes"  (click)="sortBy = s.type" [disabled]="sortBy == s.type">
+      <button mat-icon-button *ngFor="let s of sortsTypes" (click)="sortBy = s.type"
+              [disabled]="sortBy == s.type" [matTooltip]="s.tooltip">
         <mat-icon >{{s.icon}}</mat-icon>
       </button>
     </span>
   </h3>
-  <mat-list-item mat-line class="elevated-list-item" *ngFor="let r of routes">
+  <mat-list-item mat-line class="elevated-list-item" *ngFor="let route of routes">
     <div class="item-container">
       <div class="driver-info">
-        <div class="driver">{{r.driverName}}</div>
+        <div class="driver">{{route.driverName}}</div>
       </div>
       <div class="route">
         <div class="locations">
-          <span *ngFor="let loc of r.locations; let last = last"
-                [ngClass]="{'edge-loc': (loc == route.origin.locality || loc == route.destination.locality)}">
+          <span *ngFor="let loc of route.locations; let last = last"
+                [ngClass]="{'edge-loc': (loc == routeSearchParams.origin.locality || loc == routeSearchParams.destination.locality)}">
             {{loc}}
             <span *ngIf="!last">&rarr;</span>
           </span>
@@ -25,18 +26,18 @@
       <div class="route-details">
         <div class="cost" matTooltip="Cost per passenger">
           <mat-icon>attach_money</mat-icon>
-          <div class="value">{{r.cost}}</div>
+          <div class="value">{{route.cost}}</div>
         </div>
         <div class="free-seats" matTooltip="Free seats">
           <mat-icon>people_outline</mat-icon>
-          <div class="value">{{r.freeSeats}}</div>
+          <div class="value">{{route.freeSeats}}</div>
         </div>
-        <div class="departure-date" [matTooltip]="'Departure from ' + route.origin.locality">
+        <div class="departure-date" [matTooltip]="'Departure from ' + routeSearchParams.origin.locality">
           <mat-icon>flight_takeoff</mat-icon>
-          <div class="value">{{r.departureDate |date: 'short'}}</div>
+          <div class="value">{{route.departureDate |date: 'short'}}</div>
         </div>
       </div>
-      <app-actions [route]="r"></app-actions>
+      <app-actions [routeSearchResult]="route" [routeSearchParams]="routeSearchParams"></app-actions>
     </div>
   </mat-list-item>
   <mat-list-item mat-line class="elevated-list-item" *ngIf="routes.length == 0">

@@ -1,0 +1,40 @@
+:host {
+  app-small-card /deep/ {
+    .part-container {
+      display: grid;
+      grid-column-gap: 34px;
+      grid-template-columns: 1fr 1fr;
+      grid-row-gap: 4px;
+      justify-items: center;
+      grid-template-areas: "header header" "departure arrival" "duration cost";
+      color: #666666;
+      app-route-part {
+        grid-area: header;
+        color: black;
+        .location {
+          font-weight: 500;
+          font-size: 14px;
+        }
+      }
+
+      .departure-date {
+        grid-area: departure;
+      }
+      .arrival-date {
+        grid-area: arrival;
+      }
+      .duration {
+        grid-area: duration;
+      }
+      .cost {
+        grid-area: cost;
+      }
+      .cost, .duration {
+        text-align: center;
+        .label {
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}

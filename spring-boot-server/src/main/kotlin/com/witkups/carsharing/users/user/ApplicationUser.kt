@@ -3,13 +3,17 @@ package com.witkups.carsharing.users.user
 import com.witkups.carsharing.users.application.Car
 import com.witkups.carsharing.users.application.Image
 import com.witkups.carsharing.users.authorization.User
+import org.hibernate.annotations.Check
 import java.io.Serializable
 import java.time.LocalDate
 import javax.persistence.*
+import javax.validation.Constraint
+import javax.validation.constraints.Past
 import javax.validation.constraints.Pattern
 
 @Entity
 @Table(name = "application_users")
+@Check(constraints = "date_of_birth < getDate()")
 data class ApplicationUser(
   @Id
   @Column(name = "user_id")
@@ -24,6 +28,7 @@ data class ApplicationUser(
   var lastName: String? = null,
   @Column(nullable = false)
   var firstName: String? = null,
+  @Column(nullable = false)
   var dateOfBirth: LocalDate? = null,
 
   @OneToMany(orphanRemoval = true, fetch = FetchType.LAZY)

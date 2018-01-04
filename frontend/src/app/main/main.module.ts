@@ -23,6 +23,8 @@ import {RouteSearchService} from "./routes/route-search.service";
 import {RoutesTableComponent} from "./routes/routes-table/routes-table.component";
 import { RouteAcceptComponent } from './routes/add-route/route-accept/route-accept.component';
 import { ActionsComponent } from './routes/routes-table/actions/actions.component';
+import { RouteDetailsDialogComponent } from './routes/route-details-dialog/route-details-dialog.component';
+import {DetailedRoutePartComponent} from "./routes/add-route/summary/detailed-route-part/detailed-route-part.component";
 
 const routeCreatorComponents = [
   RouteComponent,
@@ -43,8 +45,9 @@ const routeCreatorComponents = [
   declarations: [
     HomeComponent, BasicComponent,
     ProfileComponent, RoutesComponent, AddRouteComponent, RoutesTableComponent, SummaryComponent,
-    CarComponent, PhotoComponent, PartsComponent, ModificationComponent, routeCreatorComponents, RouteAcceptComponent, ActionsComponent],
-  bootstrap: [routeCreatorComponents],
+    CarComponent, PhotoComponent, PartsComponent, ModificationComponent, routeCreatorComponents,
+    RouteAcceptComponent, ActionsComponent, RouteDetailsDialogComponent, DetailedRoutePartComponent],
+  bootstrap: [routeCreatorComponents, RouteDetailsDialogComponent],
   providers: [BusInjectorService, RouteSearchService]
 })
 export class MainModule {

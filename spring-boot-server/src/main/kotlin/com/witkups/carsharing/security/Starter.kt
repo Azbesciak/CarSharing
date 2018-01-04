@@ -12,6 +12,8 @@ import com.witkups.carsharing.users.user.ApplicationUser
 import org.springframework.boot.CommandLineRunner
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import java.time.LocalDate
+import java.time.Month
 import javax.transaction.Transactional
 
 @Configuration
@@ -35,15 +37,16 @@ class Starter(
     userRepository.save(user5)
     val drivingCar = Car(manufacturer = "merc", seatCount = 4, model = "sls500",
       type = Car.Type.SEDAN, yearOfProduction = 2007, fuelUsage = 4.5)
-    val driver = ApplicationUser(user = user1, cars = mutableSetOf(
-      drivingCar),
-      lastName = "borek", firstName = "lamka")
+    val driver = ApplicationUser(
+      user = user1, cars = mutableSetOf(drivingCar),
+      lastName = "borek", firstName = "lamka",
+      dateOfBirth = LocalDate.of(1967, Month.JULY, 2)
+    )
     appUserRepository.save(driver)
-    appUserRepository.save(ApplicationUser(user = user2, lastName = "borek", firstName = "lamka"))
-    appUserRepository.save(ApplicationUser(user = user3, lastName = "borek", firstName = "lamka"))
-    appUserRepository.save(ApplicationUser(user = user4, lastName = "borek", firstName = "lamka"))
-    appUserRepository.save(ApplicationUser(user = user5, lastName = "borek", firstName = "lamka"))
-
+    appUserRepository.save(ApplicationUser(user = user2, lastName = "borek", firstName = "lamka", dateOfBirth = LocalDate.of(1960, Month.APRIL, 13)))
+    appUserRepository.save(ApplicationUser(user = user3, lastName = "borek", firstName = "lamka", dateOfBirth = LocalDate.of(1996, Month.FEBRUARY, 1)))
+    appUserRepository.save(ApplicationUser(user = user4, lastName = "borek", firstName = "lamka", dateOfBirth = LocalDate.of(1975, Month.MARCH, 25)))
+    appUserRepository.save(ApplicationUser(user = user5, lastName = "borek", firstName = "lamka", dateOfBirth = LocalDate.of(1988, Month.SEPTEMBER, 17)))
 
 //    Route(driver = driver, car = drivingCar, )
   }

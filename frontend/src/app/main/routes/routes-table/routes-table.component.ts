@@ -1,8 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {RouteSearchResult} from "../../../functional/route/route-search/route-search-result";
-import {Route} from "../../../functional/route/route";
+import {SimpleRouteSearchResult} from "../../../functional/route/route-search/route-search-result";
 import {SessionStorage} from "ngx-webstorage";
-import {DataService} from "../../../functional/data/data.service";
+import {RouteSearchParams} from "../../../functional/route/route-search/route-search-params";
 
 @Component({
   selector: 'app-routes-table',
@@ -11,21 +10,21 @@ import {DataService} from "../../../functional/data/data.service";
 })
 export class RoutesTableComponent implements OnInit {
   @Input()
-  set routes(value: RouteSearchResult[]) {
+  set routes(value: SimpleRouteSearchResult[]) {
     value.forEach(s => s.departureDate = new Date(s.departureDate));
     const sortOrder = this.getSortOrder();
     value.sort((a, b) => sortOrder(a, b));
     this._routes = value;
   }
 
-  get routes(): RouteSearchResult[] {
+  get routes(): SimpleRouteSearchResult[] {
     return this._routes;
   }
 
-  _routes: RouteSearchResult[];
+  _routes: SimpleRouteSearchResult[];
 
   @Input()
-  route: Route;
+  routeSearchParams: RouteSearchParams;
 
   set sortBy(value: SortType) {
     this._sortBy = value;
@@ -38,9 +37,12 @@ export class RoutesTableComponent implements OnInit {
 
   @SessionStorage()
   private _sortBy: SortType;
-  sortsTypes = [{icon: "attach_money", type: SortType.COST}, {icon: "date_range", type: SortType.DATE}];
+  sortsTypes = [
+    {icon: "attach_money", type: SortType.COST, tooltip: 'Cost'},
+    {icon: "date_range", type: SortType.DATE, tooltip: 'Departure date'}
+  ];
 
-  constructor(private data: DataService) {
+  constructor() {
   }
 
   ngOnInit() {

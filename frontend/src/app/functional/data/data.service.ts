@@ -5,7 +5,7 @@ import {AppUser, User} from "../../main/authorization/user";
 import { Route } from "../route/route";
 import {RequestOptions} from "@angular/http";
 import {RouteSearchParams} from "../route/route-search/route-search-params";
-import {RouteSearchResult} from "../route/route-search/route-search-result";
+import {SimpleRouteSearchResult} from "../route/route-search/route-search-result";
 
 @Injectable()
 export class DataService {

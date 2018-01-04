@@ -14,22 +14,20 @@ class RoutesController(
   private val routesResultMapper: RoutesResultMapper
 ) {
 
-  @GetMapping("/direct")
+  @GetMapping("direct")
   fun getDirectRoute(params: RoutesSearchParam): List<SimpleRouteResult> {
     params.apply {
       departureDate = getSearchDateStart()
     }
-
-    val findRoutes = routeRepository.findRoutes(params)
-    return findRoutes.map { routesResultMapper.mapFromRoute(it, params) }
-
+    val matchingRoutes = routeRepository.findRoutes(params)
+    return matchingRoutes.map { routesResultMapper.prepareSimpleRouteResult(it, params) }
   }
 
-  private fun RoutesSearchParam.getSearchDateStart(): Instant {
-    val now = Instant.now()
-    return if (departureDate == null || departureDate!!.isBefore(now))
-      now
-    else departureDate!!
+  @GetMapping("{id}")
+  fun getRoute(@PathVariable id: Long, params: RoutesSearchParam): DetailedRouteResult {
+    val route = routeRepository.findById(id)
+      .orElseThrow { NoSuchElementException("No route with id $id") }
+    return routesResultMapper.prepareDetailedRouteResult(route, params)
   }
 
   @PostMapping("add")
@@ -58,5 +56,12 @@ class RoutesController(
         this!!.location = locationsWithAlreadyExisting.find { it!!.placeId == location!!.placeId }
       }
     }
+  }
+
+  private fun RoutesSearchParam.getSearchDateStart(): Instant {
+    val now = Instant.now()
+    return if (departureDate == null || departureDate!!.isBefore(now))
+      now
+    else departureDate!!
   }
 }

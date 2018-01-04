@@ -1,0 +1,19 @@
+<app-small-card>
+  <div class="part-container">
+    <app-route-part [routePart]="routePart"></app-route-part>
+    <div class="departure-date">
+      {{routePart.origin?.date | date: 'short'}}
+    </div>
+    <div class="arrival-date">
+      {{routePart.origin?.date | date: 'short'}}
+    </div>
+    <div class="duration">
+      <div class="label">Duration</div>
+      <div class="value">{{getRouteDuration()}}</div>
+    </div>
+    <div class="cost">
+      <div class="label">Cost/passenger</div>
+      <div class="value">{{routePart.cost}}</div>
+    </div>
+  </div>
+</app-small-card>

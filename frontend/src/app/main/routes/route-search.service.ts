@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {DataService} from "../../functional/data/data.service";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {RouteSearchParams} from "../../functional/route/route-search/route-search-params";
-import {RouteSearchResult} from "../../functional/route/route-search/route-search-result";
+import {SimpleRouteSearchResult} from "../../functional/route/route-search/route-search-result";
 import {SessionStorage} from "ngx-webstorage";
 
 @Injectable()
@@ -20,7 +20,7 @@ export class RouteSearchService {
     this.searchParams = route;
   }
 
-  subscribeOnSearchResult(f: (res: RouteSearchResult[]) => void) {
+  subscribeOnSearchResult(f: (res: SimpleRouteSearchResult[]) => void) {
     this.lastSearchParams.subscribe(
       r => r ? this.data.searchRoute(r)
         .then(res => f(res)) : null
