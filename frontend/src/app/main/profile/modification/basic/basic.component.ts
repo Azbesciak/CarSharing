@@ -30,7 +30,7 @@ export class BasicComponent extends AppUserModificator implements OnInit {
       firstName: [this.user.firstName, [Validators.required]],
       lastName: [this.user.lastName, [Validators.required]],
       phoneNumber: [this.user.phoneNumber, [Validators.required, Validators.pattern("\\d{9}")]],
-      dateOfBirth: [this.user.dateOfBirth ? new Date(this.user.dateOfBirth) : null],
+      dateOfBirth: [this.user.dateOfBirth ? new Date(this.user.dateOfBirth) : null, Validators.required],
     });
     this.matcher = new ErrorMatcher();
   }

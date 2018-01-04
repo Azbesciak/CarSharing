@@ -22,6 +22,7 @@ import { SummaryComponent } from './routes/add-route/summary/summary.component';
 import {RouteSearchService} from "./routes/route-search.service";
 import {RoutesTableComponent} from "./routes/routes-table/routes-table.component";
 import { RouteAcceptComponent } from './routes/add-route/route-accept/route-accept.component';
+import { ActionsComponent } from './routes/routes-table/actions/actions.component';
 
 const routeCreatorComponents = [
   RouteComponent,
@@ -42,7 +43,7 @@ const routeCreatorComponents = [
   declarations: [
     HomeComponent, BasicComponent,
     ProfileComponent, RoutesComponent, AddRouteComponent, RoutesTableComponent, SummaryComponent,
-    CarComponent, PhotoComponent, PartsComponent, ModificationComponent, routeCreatorComponents, RouteAcceptComponent],
+    CarComponent, PhotoComponent, PartsComponent, ModificationComponent, routeCreatorComponents, RouteAcceptComponent, ActionsComponent],
   bootstrap: [routeCreatorComponents],
   providers: [BusInjectorService, RouteSearchService]
 })
