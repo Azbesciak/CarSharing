@@ -4,6 +4,7 @@ import org.apache.tomcat.util.http.parser.Authorization
 import java.util.*
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
+import kotlin.NoSuchElementException
 
 
 inline infix fun <T> Optional<T>.or(supplier: ()-> Optional<T>) = if (isPresent) this else supplier()
@@ -15,4 +16,7 @@ inline infix fun <S> S.orElse(f: S.() -> S): S = this ?: f()
 typealias Req = HttpServletRequest
 typealias Res = HttpServletResponse
 typealias Auth = Authorization
+
+fun <T> Optional<T>.throwOnNotFound(notFound: String, id: Long): T =
+  orElseThrow { NoSuchElementException("No $notFound with id $id found")}
 

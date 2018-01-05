@@ -7,7 +7,8 @@ export class SimpleRouteSearchResult {
               public cost: number = null,
               public departureDate: Date = null,
               public locations: string[] = [],
-              public freeSeats: number = null) {
+              public freeSeats: number = null,
+              public searchedRouteIds: number[] = []) {
   }
 }
 
@@ -18,7 +19,8 @@ export class DetailedRouteSearchResult {
               public cost: number = null,
               public departureDate: Date = null,
               public freeSeats: number = null,
-              public routeParts: (RoutePart[] | ResultRoutePart[]) = []) {
+              public routeParts: (RoutePart[] | ResultRoutePart[]) = [],
+              public searchedRouteIds: number[] = []) {
   }
 }
 

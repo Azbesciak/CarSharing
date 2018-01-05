@@ -51,5 +51,5 @@ data class RoutePart(
     joinColumns = [(JoinColumn(name = "route_part_id", foreignKey = ForeignKey(name = "FK_APP_USER_ROUTE_PART")))],
     inverseJoinColumns = [(JoinColumn(name = "user_id", foreignKey = ForeignKey(name = "FK_ROUTE_PART_APP_USER")))]
   )
-  var passengers: Set<ApplicationUser> = mutableSetOf()
+  var passengers: MutableSet<ApplicationUser> = mutableSetOf()
 )

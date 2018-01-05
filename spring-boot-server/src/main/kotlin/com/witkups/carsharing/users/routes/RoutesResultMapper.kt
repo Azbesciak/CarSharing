@@ -18,7 +18,8 @@ class RoutesResultMapper {
         locations = locationsNames,
         cost = cost,
         freeSeats = freeSeats,
-        departureDate = departureDate
+        departureDate = departureDate,
+        searchedRouteIds = searchedRoute.map { it.id!! }
       )
     }
 
@@ -41,7 +42,8 @@ class RoutesResultMapper {
         freeSeats = freeSeats,
         cost = cost,
         car = route.car!!,
-        routeParts = sortedRouteParts.map { ResultRoutePart(it, searchedRoute.contains(it)) }
+        routeParts = sortedRouteParts.map { ResultRoutePart(it, searchedRoute.contains(it)) },
+        searchedRouteIds = searchedRoute.map { it.id!! }
       )
     }
 

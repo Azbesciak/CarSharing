@@ -11,7 +11,8 @@ data class SimpleRouteResult(
   val cost: Double,
   val departureDate: Instant,
   val locations: List<String>,
-  val freeSeats: Int
+  val freeSeats: Int,
+  val searchedRouteIds: List<Long>
 )
 
 data class DetailedRouteResult(
@@ -21,7 +22,8 @@ data class DetailedRouteResult(
   val cost: Double,
   val departureDate: Instant,
   val freeSeats: Int,
-  val routeParts: List<ResultRoutePart>
+  val routeParts: List<ResultRoutePart>,
+  val searchedRouteIds: List<Long>
 )
 
 data class ResultRoutePart(
