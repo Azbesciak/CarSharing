@@ -77,7 +77,7 @@ class RoutesResultMapper {
     allDestinations: List<Location>
   ): List<String> {
     val locations = listOf(sortedRouteParts.first().origin!!.location!!) + allDestinations
-    return locations.map { it.locality!! }
+    return locations.map { it.locality?: it.label!! }
   }
 
   private class RouteResultTempContainer(
