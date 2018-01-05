@@ -12,6 +12,7 @@ import com.witkups.carsharing.users.user.ApplicationUser
 import org.springframework.boot.CommandLineRunner
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import java.time.Instant
 import java.time.LocalDate
 import java.time.Month
 import javax.transaction.Transactional
@@ -25,11 +26,16 @@ class Starter(
 
   @Transactional
   override fun run(vararg args: String?) {
-    val user1 = User(roles = mutableSetOf(Role.USER), email = "lama1@com.pl", login = "lama", password = passwordEncoder.encode("123"))
-    val user2 = User(roles = mutableSetOf(Role.USER), email = "lama2@com.pl", login = "lama2", password = passwordEncoder.encode("123"))
-    val user3 = User(roles = mutableSetOf(Role.USER), email = "lama3@com.pl", login = "lama3", password = passwordEncoder.encode("123"))
-    val user4 = User(roles = mutableSetOf(Role.USER), email = "lama4@com.pl", login = "lama4", password = passwordEncoder.encode("123"))
-    val user5 = User(roles = mutableSetOf(Role.USER), email = "lama5@com.pl", login = "lama5", password = passwordEncoder.encode("123"))
+    val user1 = User(roles = mutableSetOf(Role.USER), email = "lama1@com.pl", login = "lama",
+      password = passwordEncoder.encode("123"), lastLogin = Instant.now())
+    val user2 = User(roles = mutableSetOf(Role.USER), email = "lama2@com.pl", login = "lama2",
+      password = passwordEncoder.encode("123"), lastLogin = Instant.now())
+    val user3 = User(roles = mutableSetOf(Role.USER), email = "lama3@com.pl", login = "lama3",
+      password = passwordEncoder.encode("123"), lastLogin = Instant.now())
+    val user4 = User(roles = mutableSetOf(Role.USER), email = "lama4@com.pl", login = "lama4",
+      password = passwordEncoder.encode("123"), lastLogin = Instant.now())
+    val user5 = User(roles = mutableSetOf(Role.USER), email = "lama5@com.pl", login = "lama5",
+      password = passwordEncoder.encode("123"), lastLogin = Instant.now())
     userRepository.save(user1)
     userRepository.save(user2)
     userRepository.save(user3)

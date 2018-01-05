@@ -66,9 +66,9 @@ class RoutesResultMapper {
 
   private fun getSearchedRoute(sortedRouteParts: List<RoutePart>, searchParam: RoutesSearchParam): List<RoutePart> {
     val firstPartIndex = sortedRouteParts
-      .first { it.origin?.location?.label == searchParam.origin }.order!!
+      .first { it.origin!!.location!!.label!!.contains(searchParam.origin!!) }.order!!
     val lastPartIndex = sortedRouteParts
-      .first { it.destination?.location?.label == searchParam.destination }.order!!
+      .first { it.destination!!.location!!.label!!.contains(searchParam.destination!!) }.order!!
     return sortedRouteParts.subList(firstPartIndex, lastPartIndex + 1)
   }
 
