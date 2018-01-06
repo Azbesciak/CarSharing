@@ -11,6 +11,7 @@ import {
   RouteDetailsDialogComponent,
   RouteDetailsDialogData
 } from "../../route-details-dialog/route-details-dialog.component";
+import {RouteJoinRequestService} from "../../route-join-request/route-join-request.service";
 
 @Component({
   selector: 'app-actions',
@@ -24,7 +25,9 @@ export class ActionsComponent implements OnInit {
     this._routeSearchParams = RouteSearchParams.fromRoute(route)
   }
 
-  constructor(private dialog: MatDialog) { }
+  constructor(
+    private dialog: MatDialog,
+    private routeJoinService: RouteJoinRequestService) { }
 
   @Input()
   routeSearchResult: SimpleRouteSearchResult;
@@ -36,7 +39,11 @@ export class ActionsComponent implements OnInit {
 
 
   onJoinClick() {
+    this.routeJoinService
+      .sendJoinRequest(this.routeSearchResult)
+      .then(() => {
 
+      })
   }
 
   onOpinionsClick() {

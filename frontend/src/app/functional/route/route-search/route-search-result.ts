@@ -13,20 +13,15 @@ export class SimpleRouteSearchResult {
 }
 
 export class DetailedRouteSearchResult {
-  constructor(public id: number = null,
+  constructor(public routeId: number = null,
               public driver: UserSimpleData = null,
               public car: Car = null,
               public cost: number = null,
               public departureDate: Date = null,
               public freeSeats: number = null,
-              public routeParts: (RoutePart[] | ResultRoutePart[]) = [],
+              public routeParts: RoutePart[] = [],
               public searchedRouteIds: number[] = []) {
   }
-}
-
-export class ResultRoutePart {
-  constructor(public part: RoutePart = null,
-              public isIncluded: boolean = null){}
 }
 
 export class UserSimpleData {

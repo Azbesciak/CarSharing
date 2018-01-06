@@ -1,8 +1,11 @@
 :host {
   display: grid;
+  grid-template-rows: 18px 1px auto;
+  grid-row-gap: 6px;
   hr {
     width: 100%;
     margin-top: 1px;
+    height: 0;
   }
   .title {
     color: rgb(169, 169, 169);

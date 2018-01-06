@@ -3,9 +3,8 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {environment as env} from "../../../environments/environment"
 import {AppUser, User} from "../../main/authorization/user";
 import { Route } from "../route/route";
-import {RequestOptions} from "@angular/http";
 import {RouteSearchParams} from "../route/route-search/route-search-params";
-import {SimpleRouteSearchResult} from "../route/route-search/route-search-result";
+import {RouteJoinRequest} from "../../main/routes/route-join-request/route-join-request";
 
 @Injectable()
 export class DataService {
@@ -55,6 +54,10 @@ export class DataService {
   getRouteById(routeId: number, route: RouteSearchParams): Promise<any> {
     const params = createHttpSearchParamsFromRoute(route);
     return this.http.get(toApi(`routes/${routeId}`), {params: params}).toPromise()
+  }
+
+  sendJoinRequest(routeJoinRequest: RouteJoinRequest) {
+    return this.http.post(toApi("request/join"), routeJoinRequest).toPromise()
   }
 
 }

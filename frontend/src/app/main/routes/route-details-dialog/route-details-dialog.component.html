@@ -1,6 +1,78 @@
-<div class="" *ngIf="route">
-  <app-detailed-route-part *ngFor="let part of route.routeParts" [routePart]="part.part">
+<h1 mat-dialog-title>
+  <span class="title" [innerHtml]="headerView"></span>
+  <mat-icon mat-dialog-close (click)="closeDialog()" class="close-button">clear</mat-icon>
+</h1>
+<div mat-dialog-content class="content-container" *ngIf="route">
+  <app-section class="route-view" sectionName="Route plan">
+    <div class="route">
+      <app-detailed-route-part *ngFor="let part of route.routeParts" [routePart]="part"></app-detailed-route-part>
+    </div>
+  </app-section>
+  <app-section class="driver-view" sectionName="Driver info">
+    <div class="driver sec">
+      <div class="driver-first-name">
+        <div class="label">First name</div>
+        <div class="value"> {{route.driver.firstName}}</div>
+      </div>
+      <div class="driver-last-name">
+        <div class="label">Last name</div>
+        <div class="value"> {{route.driver.lastName}}</div>
+      </div>
+      <div class="driver-age">
+        <div class="label">Age</div>
+        <div class="value"> {{driverAge}}</div>
+      </div>
+      <div class="driver-last-login">
+        <div class="label">Last login</div>
+        <div class="value"> {{route.driver.lastLoginDate |date: 'short'}}</div>
+      </div>
+    </div>
+  </app-section>
+  <app-section class="car-view" sectionName="Car">
+    <div class="car sec">
+      <div class="car-manufacturer">
+        <div class="label">Manufacturer</div>
+        <div class="value">{{route.car.manufacturer}}</div>
+      </div>
+      <div class="car-model">
+        <div class="label">Model</div>
+        <div class="value">{{route.car.model}}</div>
+      </div>
+      <div class="car-type">
+        <div class="label">Type</div>
+        <div class="value">{{route.car.type}}</div>
+      </div>
+      <div class="car-production">
+        <div class="label">Year of production</div>
+        <div class="value">{{route.car.yearOfProduction |date: 'yyyy'}}</div>
+      </div>
+      <div class="car-seats">
+        <div class="label">Seat count</div>
+        <div class="value">{{route.car.seatCount}}</div>
+      </div>
+    </div>
+  </app-section>
+  <app-section class="route-details-view" sectionName="Route fragment summary">
+    <div class="route-summary sec">
+      <div class="route-departure">
+        <div class="label">Departure</div>
+        <div class="value">{{firstPart.origin.date |date: 'short'}}</div>
+      </div>
+      <div class="route-arrival">
+        <div class="label">Arrival</div>
+        <div class="value">{{lastPart.destination.date |date: 'short'}}</div>
+      </div>
+      <div class="route-cost">
+        <div class="label">Cost</div>
+        <div class="value">{{route.cost}}</div>
+      </div>
+      <div class="route-free-seats">
+        <div class="label">Free seats</div>
+        <div class="value">{{route.freeSeats}}</div>
+      </div>
+    </div>
+  </app-section>
 
-  </app-detailed-route-part>
 
 </div>
+

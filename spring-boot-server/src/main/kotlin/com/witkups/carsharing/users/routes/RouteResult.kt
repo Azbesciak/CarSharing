@@ -16,19 +16,14 @@ data class SimpleRouteResult(
 )
 
 data class DetailedRouteResult(
-  val id: Long,
+  val routeId: Long,
   var driver: UserSimpleData,
   val car: Car,
   val cost: Double,
   val departureDate: Instant,
   val freeSeats: Int,
-  val routeParts: List<ResultRoutePart>,
+  val routeParts: List<RoutePart>,
   val searchedRouteIds: List<Long>
-)
-
-data class ResultRoutePart(
-  val part: RoutePart,
-  val isIncluded: Boolean
 )
 
 data class UserSimpleData(

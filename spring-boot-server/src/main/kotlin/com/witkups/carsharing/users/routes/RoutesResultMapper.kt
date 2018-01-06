@@ -36,13 +36,13 @@ class RoutesResultMapper {
         )
       }
       DetailedRouteResult(
-        id = route.id!!,
+        routeId = route.id!!,
         departureDate = departureDate,
         driver = driver,
         freeSeats = freeSeats,
         cost = cost,
         car = route.car!!,
-        routeParts = sortedRouteParts.map { ResultRoutePart(it, searchedRoute.contains(it)) },
+        routeParts = sortedRouteParts,
         searchedRouteIds = searchedRoute.map { it.id!! }
       )
     }

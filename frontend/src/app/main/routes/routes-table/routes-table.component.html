@@ -1,6 +1,6 @@
 <mat-list class="example-container mat-elevation-z8" *ngIf="routes">
   <h3 mat-subheader class="list-header">
-    <span>Routes for route: {{routeSearchParams.origin.label}} &rarr; {{routeSearchParams.destination.label}}</span>
+    <span>Routes for route: {{routeSearchParams?.origin?.label}} &rarr; {{routeSearchParams?.destination?.label}}</span>
     <span>
       <span>Sort by:</span>
       <button mat-icon-button *ngFor="let s of sortsTypes" (click)="sortBy = s.type"
@@ -17,7 +17,7 @@
       <div class="route">
         <div class="locations">
           <span *ngFor="let loc of route.locations; let last = last"
-                [ngClass]="{'edge-loc': (loc == routeSearchParams.origin.locality || loc == routeSearchParams.destination.locality)}">
+                [ngClass]="{'edge-loc': (loc == routeSearchParams?.origin?.locality || loc == routeSearchParams?.destination?.locality)}">
             {{loc}}
             <span *ngIf="!last">&rarr;</span>
           </span>
@@ -32,12 +32,12 @@
           <mat-icon>people_outline</mat-icon>
           <div class="value">{{route.freeSeats}}</div>
         </div>
-        <div class="departure-date" [matTooltip]="'Departure from ' + routeSearchParams.origin.locality">
+        <div class="departure-date" [matTooltip]="'Departure from ' + routeSearchParams?.origin?.locality">
           <mat-icon>flight_takeoff</mat-icon>
           <div class="value">{{route.departureDate |date: 'short'}}</div>
         </div>
       </div>
-      <app-actions [routeSearchResult]="route" [routeSearchParams]="routeSearchParams"></app-actions>
+      <app-actions [routeSearchResult]="route" [routeSearchParams]="routeSearchParams" *ngIf="route"></app-actions>
     </div>
   </mat-list-item>
   <mat-list-item mat-line class="elevated-list-item" *ngIf="routes.length == 0">
