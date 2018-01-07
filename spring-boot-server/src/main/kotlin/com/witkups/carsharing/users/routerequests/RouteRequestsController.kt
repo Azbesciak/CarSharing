@@ -28,7 +28,7 @@ class RouteRequestsController(
   @PostMapping("accept/{id}")
   fun acceptRequest(@RequestAttribute id: Long) =
     getRouteRequestById(id) mapTo {
-      val currentAppUser = appUserService.getCurrentAppUser()
+      val currentAppUser = appUserService.getCurrentAppUserReference()
       status = RouteJoinRequest.Status.ACCEPTED
       val allRequestedRouteParts = routePartRepo.findAllById(requestedRoute)
       allRequestedRouteParts.forEach { it.passengers.add(currentAppUser) }

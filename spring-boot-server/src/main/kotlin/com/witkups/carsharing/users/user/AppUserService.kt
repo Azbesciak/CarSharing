@@ -11,11 +11,20 @@ class AppUserService(
   private val appUserRepository: AppUserRepository,
   private val userRepository: UserRepository) {
 
-  fun getCurrentAppUser(): ApplicationUser {
+  fun getCurrentAppUser() = withUserId {
+    appUserRepository
+      .findById(it)
+      .orElseGet { createNewAppUserWithUserId(it) }
+  }
+
+  fun getCurrentAppUserReference() = withUserId {
+    appUserRepository.getOne(it)
+  }
+
+  private inline fun withUserId(f: (l: Long) -> ApplicationUser): ApplicationUser {
     val user = userService.getAuthUser()
     val userId = user.userId!!
-    return appUserRepository.findById(userId)
-      .orElseGet { createNewAppUserWithUserId(userId) }
+    return f(userId)
   }
 
   private fun createNewAppUserWithUserId(userId: Long): ApplicationUser {

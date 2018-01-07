@@ -27,7 +27,7 @@ data class Opinion(
     foreignKey = ForeignKey(name = "FK_OPINIONS_REVIEWED"))
   var reviewed: User? = null,
 
-  @ManyToMany(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "route_id", nullable = false,
     referencedColumnName = "route_id",
     foreignKey = ForeignKey(name = "FK_OPINIONS_ROUTE"))
