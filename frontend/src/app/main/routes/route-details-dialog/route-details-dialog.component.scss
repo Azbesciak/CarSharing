@@ -5,7 +5,9 @@
     grid-template-rows: 130px 110px 190px 40px;
     grid-gap: 10px;
     .route-view {
+      /* autoprefixer: off */
       grid-row: 1/5;
+      /* autoprefixer: off */
       height: 500px;
       .route {
         height: 468px;

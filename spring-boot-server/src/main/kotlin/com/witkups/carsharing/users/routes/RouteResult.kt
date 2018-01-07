@@ -1,9 +1,9 @@
 package com.witkups.carsharing.users.routes
 
 import com.witkups.carsharing.users.application.Car
-import com.witkups.carsharing.users.application.RoutePart
+import com.witkups.carsharing.users.routerequests.RouteJoinRequestView
+import com.witkups.carsharing.users.user.SimpleUserView
 import java.time.Instant
-import java.time.LocalDate
 
 data class SimpleRouteResult(
   val routeId: Long,
@@ -17,20 +17,19 @@ data class SimpleRouteResult(
 
 data class DetailedRouteResult(
   val routeId: Long,
-  var driver: UserSimpleData,
+  var driver: SimpleUserView,
   val car: Car,
   val cost: Double,
   val departureDate: Instant,
   val freeSeats: Int,
-  val routeParts: List<RoutePart>,
-  val searchedRouteIds: List<Long>
+  val routeParts: List<RoutePartView>,
+  val searchedRouteIds: List<Long>,
+  val description: String?
 )
 
-data class UserSimpleData(
-  val id: Long,
-  val firstName: String,
-  val lastName: String,
-  val phoneNumber: String?,
-  val dateOfBirth: LocalDate,
-  val lastLoginDate: Instant
+data class RouteView(
+  val routeId: Long,
+  val car: Car,
+  val routeParts: List<RoutePartView>,
+  val description: String?
 )

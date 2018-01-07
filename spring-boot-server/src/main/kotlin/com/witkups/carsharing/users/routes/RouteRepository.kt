@@ -14,4 +14,7 @@ interface RouteRepository: JpaRepository<Route, Long> {
   fun findRoutes(
     @Param("params") params: RoutesSearchParam
   ): List<Route>
+
+  @Query("SELECT r from Route r where r.driver.id = :driverId")
+  fun findByDriverId(@Param("driverId") driverId: Long): List<Route>
 }

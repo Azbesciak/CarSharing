@@ -21,11 +21,9 @@ class AppUserService(
     appUserRepository.getOne(it)
   }
 
-  private inline fun withUserId(f: (l: Long) -> ApplicationUser): ApplicationUser {
-    val user = userService.getAuthUser()
-    val userId = user.userId!!
-    return f(userId)
-  }
+  fun getUserId()= userService.getAuthUser().userId!!
+
+  private inline fun withUserId(f: (l: Long) -> ApplicationUser) =  f(getUserId())
 
   private fun createNewAppUserWithUserId(userId: Long): ApplicationUser {
     return ApplicationUser(

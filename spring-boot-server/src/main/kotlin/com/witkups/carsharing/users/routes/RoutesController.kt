@@ -1,5 +1,6 @@
 package com.witkups.carsharing.users.routes
 
+import com.witkups.carsharing.mapTo
 import com.witkups.carsharing.throwOnNotFound
 import com.witkups.carsharing.users.application.Route
 import com.witkups.carsharing.users.user.AppUserService
@@ -16,11 +17,17 @@ class RoutesController(
 ) {
 
   @GetMapping("direct")
-  fun getDirectRoute(params: RoutesSearchParam): List<SimpleRouteResult> {
+  fun getDirectRoutes(params: RoutesSearchParam): List<SimpleRouteResult> {
     params.departureDate = params.getSearchDateStart()
     val matchingRoutes = routeRepository.findRoutes(params)
     return matchingRoutes.map { routesResultMapper.prepareSimpleRouteResult(it, params) }
   }
+
+  @GetMapping("byDriver")
+  fun getAllUserAsDriverRoutes() =
+    appUserService.getUserId().let {
+      routeRepository.findByDriverId(it).map { routesResultMapper.getRouteView(it) }
+    }
 
   @GetMapping("{id}")
   fun getRoute(@PathVariable id: Long, params: RoutesSearchParam): DetailedRouteResult {

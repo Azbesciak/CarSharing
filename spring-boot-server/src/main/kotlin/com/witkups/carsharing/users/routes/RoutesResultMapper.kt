@@ -4,6 +4,7 @@ import com.witkups.carsharing.mapTo
 import com.witkups.carsharing.users.application.Location
 import com.witkups.carsharing.users.application.Route
 import com.witkups.carsharing.users.application.RoutePart
+import com.witkups.carsharing.users.user.SimpleUserView
 import org.springframework.stereotype.Service
 import java.time.Instant
 
@@ -26,7 +27,7 @@ class RoutesResultMapper {
   fun prepareDetailedRouteResult(route: Route, searchParam: RoutesSearchParam) =
     getBasicRouteInfo(route, searchParam) mapTo {
       val driver = route mapTo {
-        UserSimpleData(
+        SimpleUserView(
           id = driver!!.id!!,
           dateOfBirth = driver!!.dateOfBirth!!,
           firstName = driver!!.firstName!!,
@@ -42,16 +43,30 @@ class RoutesResultMapper {
         freeSeats = freeSeats,
         cost = cost,
         car = route.car!!,
-        routeParts = sortedRouteParts,
-        searchedRouteIds = searchedRoute.map { it.id!! }
+        routeParts = sortedRouteParts.map { it.toRouteView() },
+        searchedRouteIds = searchedRoute.map { it.id!! },
+        description = route.description
       )
     }
+
+  fun getAllLocations(sortedRouteParts: Iterable<RoutePart>) =
+    listOf(sortedRouteParts.first().origin!!.location!!) +
+      sortedRouteParts.map { it.destination!!.location!! }
+
+  fun getRouteView(route: Route) = route.getView()
+
+  fun Route.getView() = RouteView(
+    routeId = this.id!!,
+    car = this.car!!,
+    routeParts = this.routeParts.map { it.toRouteView() },
+    description = this.description
+  )
 
   private fun getBasicRouteInfo(route: Route, searchParam: RoutesSearchParam): RouteResultTempContainer {
     val sortedRouteParts = route.routeParts.sortedBy { it.order }
     val searchedRoute = getSearchedRoute(sortedRouteParts, searchParam)
-    val allDestinations = sortedRouteParts.map { it.destination!!.location!! }
-    val locationsNames = getOrderedVisitedLocationsNames(sortedRouteParts, allDestinations)
+
+    val locationsNames = getOrderedVisitedLocationsNames(sortedRouteParts)
     val cost = searchedRoute.sumByDouble { it.cost!! }
     val freeSeats = searchedRoute.map { it.getFreeSeatsCount(route) }.min()!!
     val departureDate = searchedRoute.first().origin!!.date!!
@@ -74,13 +89,9 @@ class RoutesResultMapper {
     return sortedRouteParts.subList(firstPartIndex, lastPartIndex + 1)
   }
 
-  private fun getOrderedVisitedLocationsNames(
-    sortedRouteParts: List<RoutePart>,
-    allDestinations: List<Location>
-  ): List<String> {
-    val locations = listOf(sortedRouteParts.first().origin!!.location!!) + allDestinations
-    return locations.map { it.locality?: it.label!! }
-  }
+  private fun getOrderedVisitedLocationsNames(sortedRouteParts: List<RoutePart>) =
+    getAllLocations(sortedRouteParts).map { it.locality?: it.label!! }
+
 
   private class RouteResultTempContainer(
     val sortedRouteParts: List<RoutePart>,
