@@ -1,6 +1,7 @@
 package com.witkups.carsharing.users.application
 
 import com.witkups.carsharing.users.authorization.User
+import org.hibernate.annotations.Check
 import org.hibernate.annotations.CreationTimestamp
 import java.time.Instant
 import javax.persistence.*
@@ -25,6 +26,12 @@ data class Opinion(
     referencedColumnName = "user_id",
     foreignKey = ForeignKey(name = "FK_OPINIONS_REVIEWED"))
   var reviewed: User? = null,
+
+  @ManyToMany(fetch = FetchType.LAZY)
+  @JoinColumn(name = "route_id", nullable = false,
+    referencedColumnName = "route_id",
+    foreignKey = ForeignKey(name = "FK_OPINIONS_ROUTE"))
+  var route: Route? = null,
 
   @CreationTimestamp
   var date: Instant? = null,

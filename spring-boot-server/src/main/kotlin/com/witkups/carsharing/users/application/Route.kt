@@ -16,7 +16,7 @@ data class Route(
   @JoinColumn(name = "driver_id", referencedColumnName = "user_id", foreignKey = ForeignKey(name = "FK_ROUTES_DRIVER"))
   var driver: ApplicationUser? = null,
 
-  @OneToMany(cascade = [CascadeType.ALL], orphanRemoval = true)
+  @OneToMany(cascade = [CascadeType.ALL], orphanRemoval = true, fetch = FetchType.LAZY)
   @JoinColumn(name = "route_id", foreignKey = ForeignKey(name = "FK_ROUTE_PART_ROUTE"))
   var routeParts: MutableSet<RoutePart> = mutableSetOf(),
 

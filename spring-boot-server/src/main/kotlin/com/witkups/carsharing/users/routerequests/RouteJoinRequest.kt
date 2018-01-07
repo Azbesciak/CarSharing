@@ -5,7 +5,10 @@ import javax.persistence.*
 
 
 @Entity
-@Table(name = "route_join_requests")
+@Table(name = "route_join_requests",
+  uniqueConstraints = [
+    UniqueConstraint(columnNames = ["route_id", "applicant_id"])
+  ])
 data class RouteJoinRequest(
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
