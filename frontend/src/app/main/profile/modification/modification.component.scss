@@ -25,12 +25,16 @@
         justify-self: center;
         align-self: flex-end;
       }
-
+      .no-cars-info {
+        padding: 0 20px;
+        font-size: 11px;
+        text-align: justify;
+        color: #a6a6a6;
+      }
     }
     .modif-view {
       justify-self: flex-end;
       grid-column: 2;
     }
   }
-
 }

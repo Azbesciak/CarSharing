@@ -12,8 +12,8 @@ import {DataService} from "../../../functional/data/data.service";
 export class ModificationComponent implements OnInit {
   private user: AppUser;
   private modif: AppUserModificator;
-
-  constructor(private auth: UserService, private data:DataService) {
+  private changed = false;
+  constructor(private auth: UserService, private data: DataService) {
   }
 
   ngOnInit() {
@@ -28,7 +28,10 @@ export class ModificationComponent implements OnInit {
 
   onModificatorChange(modif: AppUserModificator) {
     this.modif = modif;
-    this.modif.sub.subscribe(user => this.user = user);
+    this.modif.sub.subscribe(user => {
+      this.changed = true;
+      this.user = user
+    });
     this.modif.user = this.user;
   }
 
@@ -36,11 +39,11 @@ export class ModificationComponent implements OnInit {
     this.data
       .completeUserData(this.user)
       .then(async() => await this.auth.getUserData())
-      .then(e => console.log(e));
+      .then(e => this.changed = false);
   }
 
   isInvalid() {
-    return  !(this.user && this.user.cars && this.user.cars.length > 0 &&
-            this.user.firstName && this.user.lastName && this.user.phoneNumber)
+    return !(this.user && this.user.firstName && this.user.lastName && this.user.phoneNumber && this.user.dateOfBirth)
+      || !this.changed
   }
 }

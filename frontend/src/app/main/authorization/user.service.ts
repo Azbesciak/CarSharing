@@ -37,7 +37,6 @@ export class UserService {
       .then((appUser: AppUser) => {
         this.user = appUser;
         this.subject.next(this.user);
-        console.log(this.user)
         return appUser;
       })
   }

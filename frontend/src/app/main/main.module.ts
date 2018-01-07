@@ -26,6 +26,7 @@ import { ActionsComponent } from './routes/routes-table/actions/actions.componen
 import { RouteDetailsDialogComponent } from './routes/route-details-dialog/route-details-dialog.component';
 import {DetailedRoutePartComponent} from "./routes/add-route/summary/detailed-route-part/detailed-route-part.component";
 import {RouteJoinRequestService} from "./routes/route-join-request/route-join-request.service";
+import {CarsRequiredInterceptor} from "./cars-required.interceptor";
 
 const routeCreatorComponents = [
   RouteComponent,
@@ -49,7 +50,7 @@ const routeCreatorComponents = [
     CarComponent, PhotoComponent, PartsComponent, ModificationComponent, routeCreatorComponents,
     RouteAcceptComponent, ActionsComponent, RouteDetailsDialogComponent, DetailedRoutePartComponent],
   bootstrap: [routeCreatorComponents, RouteDetailsDialogComponent],
-  providers: [BusInjectorService, RouteSearchService, RouteJoinRequestService]
+  providers: [BusInjectorService, RouteSearchService, RouteJoinRequestService, CarsRequiredInterceptor]
 })
 export class MainModule {
 }

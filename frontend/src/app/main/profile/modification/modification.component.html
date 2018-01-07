@@ -1,6 +1,9 @@
 <mat-card>
   <div class="options">
     <app-parts></app-parts>
+    <div *ngIf="user.cars.length == 0" class="no-cars-info">
+      In order to add your route, you need to specify at least one car
+    </div>
     <button mat-raised-button color="primary" [disabled]="isInvalid()" (click)="onComplete()">Send</button>
   </div>
   <div class="modif-view">
