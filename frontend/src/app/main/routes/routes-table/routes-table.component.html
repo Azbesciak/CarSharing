@@ -15,13 +15,9 @@
         <div class="driver">{{route.driverName}}</div>
       </div>
       <div class="route">
-        <div class="locations">
-          <span *ngFor="let loc of route.locations; let last = last"
-                [ngClass]="{'edge-loc': (loc == routeSearchParams?.origin?.locality || loc == routeSearchParams?.destination?.locality)}">
-            {{loc}}
-            <span *ngIf="!last">&rarr;</span>
-          </span>
-        </div>
+        <app-locations [locations]="route.locations"
+                       [start]="routeSearchParams?.origin?.locality"
+                       [end]="routeSearchParams?.destination?.locality"></app-locations>
       </div>
       <div class="route-details">
         <div class="cost" matTooltip="Cost per passenger">

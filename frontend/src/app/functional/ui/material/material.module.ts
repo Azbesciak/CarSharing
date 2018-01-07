@@ -8,7 +8,7 @@ import {
   MatStepperModule, MatExpansionModule, MatTooltipModule,
 } from "@angular/material";
 import {ReactiveFormsModule} from "@angular/forms";
-import { Md2DatepickerModule, MdNativeDateModule } from "md2";
+import {MATERIAL_COMPATIBILITY_MODE, Md2DatepickerModule, Md2ToastModule, MdNativeDateModule} from "md2";
 
 const MATERIAL_MODULES = [
   BrowserAnimationsModule,
@@ -31,7 +31,8 @@ const MATERIAL_MODULES = [
   MatSelectModule,
   MatStepperModule,
   MatExpansionModule,
-  MatTooltipModule
+  MatTooltipModule,
+  Md2ToastModule
 ];
 
 @NgModule({
@@ -45,6 +46,7 @@ const MATERIAL_MODULES = [
   ],
   providers: [
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
+    {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true}
   ],
   declarations: []
 })

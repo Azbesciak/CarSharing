@@ -18,5 +18,5 @@ fun ApplicationUser.toSimpleUserView() = SimpleUserView(
   lastName = this.lastName!!,
   lastLoginDate = this.user!!.lastLogin!!,
   dateOfBirth = this.dateOfBirth!!,
-  phoneNumber = this.phoneNumber!!
+  phoneNumber = this.phoneNumber
 )

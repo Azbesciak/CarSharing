@@ -6,7 +6,7 @@ import {BasicComponent} from "./profile/modification/basic/basic.component";
 import {UiModule} from "../functional/ui/ui.module";
 import {ProfileComponent} from "./profile/profile.component";
 import {RouteModule} from "../functional/route/route.module";
-import {RoutesComponent} from "./routes/routes.component";
+import {RoutesSearchComponent} from "./routes/routes-search.component";
 import {AddRouteComponent} from './add-route/add-route.component';
 import {CarComponent} from './profile/modification/car/car.component';
 import {PhotoComponent} from './profile/modification/photo/photo.component';
@@ -27,6 +27,9 @@ import { RouteDetailsDialogComponent } from './routes/route-details-dialog/route
 import {DetailedRoutePartComponent} from "./add-route/summary/detailed-route-part/detailed-route-part.component";
 import {RouteJoinRequestService} from "./routes/route-join-request/route-join-request.service";
 import {CarsRequiredInterceptor} from "./cars-required.interceptor";
+import { UserRoutesComponent } from './user-routes/user-routes.component';
+import { RouteItemComponent } from './user-routes/route-item/route-item.component';
+import { LocationsComponent } from './routes/routes-table/locations/locations.component';
 
 const routeCreatorComponents = [
   RouteComponent,
@@ -46,9 +49,9 @@ const routeCreatorComponents = [
   exports: [AuthorizationModule],
   declarations: [
     HomeComponent, BasicComponent,
-    ProfileComponent, RoutesComponent, AddRouteComponent, RoutesTableComponent, SummaryComponent,
+    ProfileComponent, RoutesSearchComponent, AddRouteComponent, RoutesTableComponent, SummaryComponent,
     CarComponent, PhotoComponent, PartsComponent, ModificationComponent, routeCreatorComponents,
-    RouteAcceptComponent, ActionsComponent, RouteDetailsDialogComponent, DetailedRoutePartComponent],
+    RouteAcceptComponent, ActionsComponent, RouteDetailsDialogComponent, DetailedRoutePartComponent, UserRoutesComponent, RouteItemComponent, LocationsComponent],
   bootstrap: [routeCreatorComponents, RouteDetailsDialogComponent],
   providers: [BusInjectorService, RouteSearchService, RouteJoinRequestService, CarsRequiredInterceptor]
 })

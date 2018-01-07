@@ -13,6 +13,7 @@ export class RouteJoinRequestService {
 
   sendJoinRequest(route: DetailedRouteSearchResult | SimpleRouteSearchResult) {
     const routeJoinRequest = new RouteJoinRequest(null, null, route.routeId, route.searchedRouteIds);
+    console.log(routeJoinRequest, route)
     return this.dataService.sendJoinRequest(routeJoinRequest)
   }
 

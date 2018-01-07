@@ -1,7 +1,7 @@
 package com.witkups.carsharing.users.routes
 
 import com.witkups.carsharing.users.application.Car
-import com.witkups.carsharing.users.routerequests.RouteJoinRequestView
+import com.witkups.carsharing.users.application.Location
 import com.witkups.carsharing.users.user.SimpleUserView
 import java.time.Instant
 
@@ -31,5 +31,6 @@ data class RouteView(
   val routeId: Long,
   val car: Car,
   val routeParts: List<RoutePartView>,
-  val description: String?
+  val description: String?,
+  val locations: List<String>
 )

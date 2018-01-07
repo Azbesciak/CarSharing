@@ -77,3 +77,11 @@ input::-webkit-inner-spin-button {
     }
   }
 }
+mat-expansion-panel-header /deep/ {
+  .mat-expansion-panel-header {
+    max-height: fit-content;
+    min-height: 48px;
+    height: auto;
+  }
+
+}

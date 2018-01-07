@@ -1,0 +1,8 @@
+@import "../../../styles";
+:host {
+  @include search-wrapper();
+  .example-container {
+    grid-column: 2;
+    grid-row: 3;
+  }
+}

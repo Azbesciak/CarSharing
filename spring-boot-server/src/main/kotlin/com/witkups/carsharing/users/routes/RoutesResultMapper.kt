@@ -1,7 +1,6 @@
 package com.witkups.carsharing.users.routes
 
 import com.witkups.carsharing.mapTo
-import com.witkups.carsharing.users.application.Location
 import com.witkups.carsharing.users.application.Route
 import com.witkups.carsharing.users.application.RoutePart
 import com.witkups.carsharing.users.user.SimpleUserView
@@ -55,15 +54,19 @@ class RoutesResultMapper {
 
   fun getRouteView(route: Route) = route.getView()
 
-  fun Route.getView() = RouteView(
-    routeId = this.id!!,
-    car = this.car!!,
-    routeParts = this.routeParts.map { it.toRouteView() },
-    description = this.description
-  )
+  fun Route.getView(): RouteView {
+    val sortedParts = sortRouteParts(routeParts)
+    return RouteView(
+      routeId = this.id!!,
+      car = this.car!!,
+      routeParts = sortedParts.map { it.toRouteView() },
+      description = this.description,
+      locations = getOrderedVisitedLocationsNames(sortedParts)
+    )
+  }
 
   private fun getBasicRouteInfo(route: Route, searchParam: RoutesSearchParam): RouteResultTempContainer {
-    val sortedRouteParts = route.routeParts.sortedBy { it.order }
+    val sortedRouteParts = sortRouteParts(route.routeParts)
     val searchedRoute = getSearchedRoute(sortedRouteParts, searchParam)
 
     val locationsNames = getOrderedVisitedLocationsNames(sortedRouteParts)
@@ -79,6 +82,8 @@ class RoutesResultMapper {
       departureDate = departureDate)
   }
 
+  private fun sortRouteParts(parts: Set<RoutePart>) = parts.sortedBy { it.order }
+
   private fun RoutePart.getFreeSeatsCount(route: Route) = route.car!!.seatCount!! - 1 - passengers.size
 
   private fun getSearchedRoute(sortedRouteParts: List<RoutePart>, searchParam: RoutesSearchParam): List<RoutePart> {
@@ -89,7 +94,7 @@ class RoutesResultMapper {
     return sortedRouteParts.subList(firstPartIndex, lastPartIndex + 1)
   }
 
-  private fun getOrderedVisitedLocationsNames(sortedRouteParts: List<RoutePart>) =
+  fun getOrderedVisitedLocationsNames(sortedRouteParts: List<RoutePart>) =
     getAllLocations(sortedRouteParts).map { it.locality?: it.label!! }
 
 

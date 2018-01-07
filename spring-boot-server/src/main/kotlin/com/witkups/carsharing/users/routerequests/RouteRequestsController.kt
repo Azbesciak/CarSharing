@@ -21,23 +21,45 @@ class RouteRequestsController(
   private val routeRepository: RouteRepository) {
 
   @PostMapping("join")
-  fun joinToRoute(routeJoinRequest: RouteJoinRequest) =
-    routeJoinRequest.apply {
-      applicantId = asAuthUser().userId
-      routeJoinRequestsRepo.save(this)
-    }
+  fun joinToRoute(@RequestBody routeJoinRequest: RouteJoinRequestJson) =
+    routeJoinRequest.mapTo {
+      routeJoinRequestsRepo.save(RouteJoinRequest(
+        applicant = appUserService.getCurrentAppUserReference(),
+        status = RouteJoinRequest.Status.AWAITING,
+        route = routeRepository.getOne(this.routeId!!),
+        requestedRoute = this.requestedRoute.map { routePartRepo.getOne(it) }.toMutableSet()
+      ))
+    }.toView()
 
   @PostMapping("accept/{requestId}")
-  fun acceptRequest(@RequestAttribute requestId: Long) =
-    getRouteRequestById(requestId) mapTo {
-      val currentAppUser = appUserService.getCurrentAppUserReference()
+  fun acceptRequest(@PathVariable requestId: Long) =
+    withRouteRequest(requestId) {
       status = RouteJoinRequest.Status.ACCEPTED
-      val allRequestedRouteParts = routePartRepo.findAllById(requestedRoute)
-      allRequestedRouteParts.forEach { it.passengers.add(currentAppUser) }
+      requestedRoute.forEach { it.passengers.add(applicant!!) }
     }
 
+  @PostMapping("reject/{requestId}")
+  fun rejectRequest(@PathVariable requestId: Long) =
+    withRouteRequest(requestId) {
+      status = RouteJoinRequest.Status.REJECTED
+    }
+
+  private inline fun withRouteRequest(requestId: Long, f: RouteJoinRequest.() -> Unit) {
+    val routeJoinRequest = getRouteRequestById(requestId)
+    asAuthUser() mapTo {
+      val requestedRoute = getRouteRequestById(requestId)
+      if (requestedRoute.route!!.driver!!.id == userId) {
+        f(routeJoinRequest)
+      } else {
+        throw IllegalAccessException("You can't reject not your route's join requests")
+      }
+    }
+
+    routeJoinRequestsRepo.save(routeJoinRequest)
+  }
+
   @GetMapping("route/{routeId}")
-  fun getAllRouteRequests(@RequestAttribute routeId: Long): List<RouteJoinRequestView> {
+  fun getAllRouteRequests(@PathVariable routeId: Long): List<RouteJoinRequestView> {
     val route = routeRepository.findById(routeId)
       .throwOnNotFound("route", routeId)
     asAuthUser().let {
@@ -50,35 +72,21 @@ class RouteRequestsController(
   @GetMapping("all/asDriver")
   fun getAllRequestsAsDriver() =
     asAuthUser() mapTo {
-      routeJoinRequestsRepo.findAllByDriverId(userId!!)
+      routeJoinRequestsRepo.findAllByDriverId(userId!!).map { it.toView() }
     }
 
   @GetMapping("all/asPassenger")
   fun getAllRequestsAsPassenger() =
     asAuthUser() mapTo {
-      routeJoinRequestsRepo.findAllByApplicantId(userId!!)
-    }
-
-  @PostMapping("reject/{requestId}")
-  fun rejectRequest(@RequestAttribute requestId: Long) =
-    asAuthUser() mapTo {
-      val requestedRoute = getRouteRequestById(requestId)
-      val route = routeRepository
-        .findById(requestedRoute.routeId!!)
-        .throwOnNotFound("route", requestedRoute.routeId!!)
-      if (route.driver!!.id == userId) {
-        requestedRoute.status = RouteJoinRequest.Status.REJECTED
-      } else {
-        throw IllegalAccessException("You can't reject not your route's join requests")
-      }
+      routeJoinRequestsRepo.findAllByApplicantId(userId!!).map { it.toView() }
     }
 
   @PostMapping("cancel/{requestId}")
-  fun cancelRequest(@RequestAttribute requestId: Long) =
+  fun cancelRequest(@PathVariable requestId: Long) =
     asAuthUser() mapTo {
       val requestedRoute = getRouteRequestById(requestId)
 
-      if (requestedRoute.applicantId == userId) {
+      if (requestedRoute.applicant!!.id == userId) {
         requestedRoute.status = RouteJoinRequest.Status.CANCELED
       } else {
         throw IllegalAccessException("You can't reject not your route's join requests")
@@ -94,21 +102,21 @@ class RouteRequestsController(
 
   private fun RouteJoinRequest.toView(): RouteJoinRequestView {
     val currentAppUser = appUserService.getCurrentAppUser()
-    val requestedParts = routePartRepo.findAllById(requestedRoute).sortedBy { it.order!! }
+    val requestedParts = requestedRoute.sortedBy { it.order!! }
     return RouteJoinRequestView(
       requestId = this.joinRequestId!!,
       user = currentAppUser.mapTo {
         SimpleUserView(
-          id = user!!.userId!!,
+          id = id!!,
           firstName = firstName!!,
           lastName = lastName!!,
           dateOfBirth = dateOfBirth!!,
-          phoneNumber = phoneNumber!!,
+          phoneNumber = phoneNumber,
           lastLoginDate = user!!.lastLogin!!
         )
       },
       cost = requestedParts.sumByDouble { it.cost!! },
-      locations = routesResultMapper.getAllLocations(requestedParts)
+      locations = routesResultMapper.getOrderedVisitedLocationsNames(requestedParts)
     )
   }
 

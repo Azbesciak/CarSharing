@@ -1,0 +1,21 @@
+<mat-card class="search-card">
+  <app-route-search [routeEventBus]="routeEventBus" [onSubmit]="submitFun"
+                    [dateInputs]="dateInputs" [locInputs]="locInputs" [submitLabel]="'Search'"></app-route-search>
+</mat-card>
+<mat-list class="example-container mat-elevation-z8" *ngIf="routes">
+  <h3 mat-subheader class="list-header">
+    <span *ngIf="routeSearchParams?.origin || routeSearchParams?.destination; else anyRoute">
+      Routes for route: {{routeSearchParams?.origin?.label}} &rarr; {{routeSearchParams?.destination?.label}}</span>
+    <ng-template #anyRoute>
+      All routes
+    </ng-template>
+  </h3>
+  <mat-accordion>
+    <app-route-item *ngFor="let route of routes" [route]="route"></app-route-item>
+  </mat-accordion>
+  <mat-list-item mat-line class="elevated-list-item" *ngIf="routes.length == 0">
+    <div class="no-results">
+      No route matching this search
+    </div>
+  </mat-list-item>
+</mat-list>

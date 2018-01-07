@@ -12,6 +12,7 @@ import {
   RouteDetailsDialogData
 } from "../../route-details-dialog/route-details-dialog.component";
 import {RouteJoinRequestService} from "../../route-join-request/route-join-request.service";
+import {Md2Toast} from "md2";
 
 @Component({
   selector: 'app-actions',
@@ -27,12 +28,14 @@ export class ActionsComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
-    private routeJoinService: RouteJoinRequestService) { }
+    private routeJoinService: RouteJoinRequestService,
+    private toast: Md2Toast) { }
 
   @Input()
   routeSearchResult: SimpleRouteSearchResult;
 
   private _routeSearchParams: RouteSearchParams;
+  joinDisabled: boolean;
 
   ngOnInit() {
   }
@@ -41,9 +44,8 @@ export class ActionsComponent implements OnInit {
   onJoinClick() {
     this.routeJoinService
       .sendJoinRequest(this.routeSearchResult)
-      .then(() => {
-
-      })
+      .then(() => this.joinDisabled = true)
+      .then(() => this.toast.show("Request successfully sent", 5000))
   }
 
   onOpinionsClick() {

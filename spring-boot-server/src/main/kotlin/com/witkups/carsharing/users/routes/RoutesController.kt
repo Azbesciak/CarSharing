@@ -1,6 +1,5 @@
 package com.witkups.carsharing.users.routes
 
-import com.witkups.carsharing.mapTo
 import com.witkups.carsharing.throwOnNotFound
 import com.witkups.carsharing.users.application.Route
 import com.witkups.carsharing.users.user.AppUserService
@@ -24,9 +23,9 @@ class RoutesController(
   }
 
   @GetMapping("byDriver")
-  fun getAllUserAsDriverRoutes() =
+  fun getAllUserAsDriverRoutes(params: RoutesSearchParam) =
     appUserService.getUserId().let {
-      routeRepository.findByDriverId(it).map { routesResultMapper.getRouteView(it) }
+      routeRepository.findByDriverId(it, params).map { routesResultMapper.getRouteView(it) }
     }
 
   @GetMapping("{id}")

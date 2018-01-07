@@ -8,9 +8,9 @@ export class RoutingConstants {
   static PROFILE_MODIFICATION_BASIC_PAGE = "basic";
   static PROFILE_MODIFICATION_CARS_PAGE = "cars";
   static PROFILE_MODIFICATION_PHOTOS_PAGE = "photos";
-  static ROUTES_PATH = 'routes';
+  static ROUTES_SEARCH_PATH = 'search';
   static ADD_ROUTE_PATH = "addRoute";
-
+  static ROUTES_PATH = "routes";
 
   static getProfileModificationPage() {
     return this.getProfileSubPage(this.PROFILE_MODIFICATION_PAGE);

@@ -33,7 +33,7 @@ export class HomeComponent extends RouteWatcher implements OnInit {
     this.dateInputs = [originDateInput()];
     this.submitFun = params => {
       this.searchService.updateSearchParams(params);
-      this.router.navigate([RoutingConstants.ROUTES_PATH])
+      this.router.navigate([RoutingConstants.ROUTES_SEARCH_PATH])
     }
 
   }

@@ -29,13 +29,12 @@ export class RouteDetailsDialogComponent implements OnInit {
         this.setStartAndLastPart(interestedRoute);
         this.prepareHeader(interestedRoute);
         this.prepareDriverAge(r);
-        console.log(r);
         this.route = r
       })
   }
   prepareInterestedRoute(route: DetailedRouteSearchResult) {
     return route.routeParts
-      .filter((r: any) => route.searchedRouteIds.indexOf(r.id) >= 0);
+      .filter((r: any) => route.searchedRouteIds.indexOf(r.routePartId) >= 0);
   }
 
   setStartAndLastPart(interestedRoute){

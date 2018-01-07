@@ -5,6 +5,7 @@ import {AppUser, User} from "../../main/authorization/user";
 import { Route } from "../route/route";
 import {RouteSearchParams} from "../route/route-search/route-search-params";
 import {RouteJoinRequest} from "../../main/routes/route-join-request/route-join-request";
+import {RouteJoinRequestView, RouteView} from "../../main/user-routes/route-view";
 
 @Injectable()
 export class DataService {
@@ -60,13 +61,37 @@ export class DataService {
     return this.http.post(toApi("request/join"), routeJoinRequest).toPromise()
   }
 
+  getUserRoutes(route: RouteSearchParams): Promise<any> {
+    const params = createHttpSearchParamsFromRoute(route);
+    return this.http.get(toApi("routes/byDriver"), {params: params}).toPromise()
+  }
+
+  getRouteRequests(route: RouteView): Promise<any> {
+    return this.http.get(toApi(`request/route/${route.routeId}`)).toPromise()
+  }
+
+  acceptRouteRequest(req: RouteJoinRequestView) {
+    return this.http.post(toApi(`request/accept/${req.requestId}`), {}).toPromise()
+  }
+
+  rejectRouteRequest(req: RouteJoinRequestView) {
+    return this.http.post(toApi(`request/reject/${req.requestId}`), {}).toPromise()
+  }
+
 }
 function toApi(url: string): string {
   return `${env.apiRoot}/${url}`
 }
 function createHttpSearchParamsFromRoute(route: RouteSearchParams) {
-  return new HttpParams()
-    .append("origin", route.origin.label)
-    .append("destination", route.destination.label)
-    .append("departureDate", new Date(route.departureDateNum).toISOString());
+  let params = new HttpParams();
+  if (route.origin) {
+    params = params.append("origin", route.origin.label);
+  }
+  if (route.destination) {
+    params = params.append("destination", route.destination.label);
+  }
+  if (route.departureDateNum) {
+    params = params.append("departureDate", new Date(route.departureDateNum).toISOString());
+  }
+  return params
 }

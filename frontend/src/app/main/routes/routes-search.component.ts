@@ -11,11 +11,11 @@ import {RouteSearchParams} from "../../functional/route/route-search/route-searc
 import {SimpleRouteSearchResult} from "../../functional/route/route-search/route-search-result";
 
 @Component({
-  selector: 'app-routes',
-  templateUrl: './routes.component.html',
-  styleUrls: ['./routes.component.scss']
+  selector: 'app-routes-search',
+  templateUrl: './routes-search.component.html',
+  styleUrls: ['./routes-search.component.scss']
 })
-export class RoutesComponent extends RouteWatcher implements OnInit {
+export class RoutesSearchComponent extends RouteWatcher implements OnInit {
 
   locInputs: LocationInput[];
   dateInputs: TimeDateInput[];

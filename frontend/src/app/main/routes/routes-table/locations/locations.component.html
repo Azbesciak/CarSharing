@@ -1,0 +1,7 @@
+<div class="locations">
+          <span *ngFor="let loc of locations; let last = last"
+                [ngClass]="{'edge-loc': (loc == start || loc == end)}">
+            {{loc}}
+            <span *ngIf="!last">&rarr;</span>
+          </span>
+</div>
