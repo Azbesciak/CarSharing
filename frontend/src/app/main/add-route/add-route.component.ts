@@ -1,13 +1,12 @@
-import {Component, Injectable, Injector, OnInit, ReflectiveInjector} from '@angular/core';
-import {RouteEvent, RouteWatcher} from "../../../functional/route/route-watcher";
-import {Route} from "../../../functional/route/route";
+import {Component, OnInit} from '@angular/core';
+import {RouteEvent, RouteWatcher} from "../../functional/route/route-watcher";
+import {Route} from "../../functional/route/route";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
-import {AppUser} from "../../authorization/user";
+import {AppUser} from "../authorization/user";
 import {RouteComponent} from "./route/route.component";
 import {BusInjectorService} from "./bus-injector.service";
 import {TimesComponent} from "./times/times.component";
 import {CostsComponent} from "./costs/costs.component";
-import {SummaryComponent} from "./summary/summary.component";
 import {DetailsComponent} from "./details/details.component";
 import {RouteAcceptComponent} from "./route-accept/route-accept.component";
 

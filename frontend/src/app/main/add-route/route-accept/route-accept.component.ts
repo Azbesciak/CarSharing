@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {RouteWatcher} from "../../../../functional/route/route-watcher";
-import {Route} from "../../../../functional/route/route";
+import {Route} from "../../../functional/route/route";
 import {
   InfoDialogComponent, InfoDialogData,
   InfoDialogType
-} from "../../../../functional/ui/info-dialog/info-dialog.component";
-import {RoutingConstants} from "../../../../functional/routing/routing.constants";
+} from "../../../functional/ui/info-dialog/info-dialog.component";
+import {RoutingConstants} from "../../../functional/routing/routing.constants";
 import {Router} from "@angular/router";
-import {DataService} from "../../../../functional/data/data.service";
+import {DataService} from "../../../functional/data/data.service";
 import {BusInjectorService} from "../bus-injector.service";
 import {MatDialog} from "@angular/material";
 import {RouteCreator} from "../route-creator";

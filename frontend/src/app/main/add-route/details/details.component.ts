@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {RouteCreator} from "../route-creator";
-import {Route} from "../../../../functional/route/route";
+import {Route} from "../../../functional/route/route";
 import {BusInjectorService} from "../bus-injector.service";
-import {Car} from "../../../../functional/route/car";
-import {UserService} from "../../../authorization/user.service";
-import {AppUser} from "../../../authorization/user";
+import {Car} from "../../../functional/route/car";
+import {UserService} from "../../authorization/user.service";
+import {AppUser} from "../../authorization/user";
 
 @Component({
   selector: 'app-details',

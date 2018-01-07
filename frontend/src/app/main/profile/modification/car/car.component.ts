@@ -76,6 +76,7 @@ export class CarComponent extends AppUserModificator implements OnInit {
     if (this.selectedCarIndex == i) {
       this.selectedCarIndex = -1;
     }
+    this.sub.next(this.user)
   }
 
   onCompleted({value, valid}: { value: Car, valid: boolean }) {

@@ -8,7 +8,7 @@ import {RoutingConstants} from "./routing.constants"
 import {BasicComponent} from "../../main/profile/modification/basic/basic.component";
 import {AuthGuardService} from "../../main/authorization/auth-guard.service";
 import { RoutesComponent } from "../../main/routes/routes.component";
-import { AddRouteComponent } from "../../main/routes/add-route/add-route.component";
+import { AddRouteComponent } from "../../main/add-route/add-route.component";
 import {ProfileComponent} from "../../main/profile/profile.component";
 import {CarComponent} from "../../main/profile/modification/car/car.component";
 import {PhotoComponent} from "../../main/profile/modification/photo/photo.component";

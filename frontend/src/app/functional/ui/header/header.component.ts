@@ -28,8 +28,9 @@ export class HeaderComponent implements OnInit {
     this.loginServ.subscribeOnUserData(user => this.user = user);
     this.menuItems = [
       new MenuPosition("Car Sharing", () => this.router.navigate([RoutingConstants.HOME_PAGE]), "directions_car"),
+      new MenuPosition("Search", () => this.router.navigate([RoutingConstants.ROUTES_PATH])),
       new MenuPosition("Add Route", () => this.router.navigate([RoutingConstants.ADD_ROUTE_PATH])),
-      new MenuPosition("Search", () => this.router.navigate([RoutingConstants.ROUTES_PATH]))
+      new MenuPosition("Your Routes", () => this.router.navigate([RoutingConstants.ADD_ROUTE_PATH])),
     ]
   }
 

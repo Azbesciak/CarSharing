@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {RoutePart} from "../../../../../functional/route/route-part";
+import {RoutePart} from "../../../../functional/route/route-part";
 
 @Component({
   selector: 'app-detailed-route-part',

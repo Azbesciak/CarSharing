@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {LocationInput} from "../../../../functional/route/location-input/location-input";
-import {RouteWatcher} from "../../../../functional/route/route-watcher";
-import {Route} from "../../../../functional/route/route";
-import {destInput, originInput, wayPointInput} from "../../../../functional/route/location-input/location-input-utils";
+import {LocationInput} from "../../../functional/route/location-input/location-input";
+import {Route} from "../../../functional/route/route";
+import {destInput, originInput, wayPointInput} from "../../../functional/route/location-input/location-input-utils";
 import {BusInjectorService} from "../bus-injector.service";
 import {RouteCreator} from "../route-creator";
 

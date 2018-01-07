@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {RouteEvent, RouteWatcher} from "../../functional/route/route-watcher";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {Route} from "../../functional/route/route";

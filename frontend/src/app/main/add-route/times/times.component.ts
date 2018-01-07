@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {Route} from "../../../../functional/route/route";
+import {Route} from "../../../functional/route/route";
 import {BusInjectorService} from "../bus-injector.service";
 import {RouteCreator} from "../route-creator";
-import {TimeDateInput} from "../../../../functional/route/visit-date/time-date-input";
+import {TimeDateInput} from "../../../functional/route/visit-date/time-date-input";
 import {
   destinationDateInput, getModifier,
   originDateInput
-} from "../../../../functional/route/visit-date/time-date-input-utils";
+} from "../../../functional/route/visit-date/time-date-input-utils";
 
 @Component({
   selector: 'app-times',
