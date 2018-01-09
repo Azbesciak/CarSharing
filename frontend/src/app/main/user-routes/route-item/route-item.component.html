@@ -7,16 +7,9 @@
       Departure: {{route.routeParts[0].origin.date | date: 'short'}}
     </mat-panel-description>
   </mat-expansion-panel-header>
-    <div *ngFor="let req of requests">
-        <app-locations [locations]="req.locations"></app-locations>
-        <div class="user">
-          <div class="user-first-name">{{req.user.firstName}}</div>
-          <div class="user-last-name">{{req.user.lastName}}</div>
-          <div class="user-year">{{req.user.dateOfBirth}}</div>
-        </div>
-        <div class="cost">{{req.cost}}</div>
-      <button mat-icon-button matTooltip="Accept" (click)="accept(req)"><mat-icon>check</mat-icon></button>
-      <button mat-icon-button matTooltip="Reject" (click)="reject(req)"><mat-icon>delete_forever</mat-icon></button>
+    <app-route-request *ngFor="let req of requests; let i = index"
+                       [request]="req" (onRejected)="removeRequest($event, i)"></app-route-request>
+    <div *ngIf="requests && requests.length == 0" class="no-requests">
+      No join requests for this route
     </div>
-
 </mat-expansion-panel>

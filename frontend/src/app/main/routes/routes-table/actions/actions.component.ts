@@ -54,9 +54,9 @@ export class ActionsComponent implements OnInit {
 
   onRouteDetailsClick() {
     this.dialog.open(RouteDetailsDialogComponent, {
-      minWidth: '900px',
-      maxWidth: '900px',
-      height: '600px',
+      minWidth: '750px',
+      maxWidth: '750px',
+      height: '500px',
       data: new RouteDetailsDialogData(this._routeSearchParams, this.routeSearchResult.routeId)
     })
 

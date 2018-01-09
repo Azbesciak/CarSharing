@@ -1,0 +1,14 @@
+<app-locations [locations]="request.locations"></app-locations>
+<app-user-view [user]="request.user"></app-user-view>
+<div class="cost">
+  <div class="label">Cost</div>
+  <div class="value">{{request.cost}}</div>
+</div>
+<div class="buttons">
+  <button mat-icon-button matTooltip="Accept" (click)="accept()">
+    <mat-icon>check</mat-icon>
+  </button>
+  <button mat-icon-button matTooltip="Reject" (click)="reject()">
+    <mat-icon>delete_forever</mat-icon>
+  </button>
+</div>

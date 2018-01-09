@@ -1,9 +1,10 @@
 :host {
   .content-container {
     display: grid;
-    grid-template-columns: 280px 200px 330px;
-    grid-template-rows: 130px 110px 190px 40px;
+    grid-template-columns: 280px 200px 230px;
+    grid-template-rows: 130px 110px 40px 40px;
     grid-gap: 10px;
+    overflow: hidden;
     .route-view {
       /* autoprefixer: off */
       grid-row: 1/5;
@@ -12,22 +13,22 @@
       .route {
         height: 468px;
         overflow-y: auto;
-        padding: 0 20px;
+        padding: 5px 15px 0 5px;
       }
     }
     .car-view {
       grid-row: 1
     }
-    .driver-view {
-      grid-row: 2
+    app-user-view {
+      grid-row: 2;
     }
-    .sec {
-      >div {
+    .sec, app-user-view {
+      >div, /deep/ >div {
         display: flex;
         margin: 5px;
       }
     }
-    .label {
+    .label, app-user-view /deep/ .label {
       font-weight: 700;
       margin-right: 3px;
       &:after {

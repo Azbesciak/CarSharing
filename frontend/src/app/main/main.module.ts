@@ -30,6 +30,8 @@ import {CarsRequiredInterceptor} from "./cars-required.interceptor";
 import { UserRoutesComponent } from './user-routes/user-routes.component';
 import { RouteItemComponent } from './user-routes/route-item/route-item.component';
 import { LocationsComponent } from './routes/routes-table/locations/locations.component';
+import { RouteRequestComponent } from './user-routes/route-request/route-request.component';
+import { UserViewComponent } from './routes/user-view/user-view.component';
 
 const routeCreatorComponents = [
   RouteComponent,
@@ -51,7 +53,7 @@ const routeCreatorComponents = [
     HomeComponent, BasicComponent,
     ProfileComponent, RoutesSearchComponent, AddRouteComponent, RoutesTableComponent, SummaryComponent,
     CarComponent, PhotoComponent, PartsComponent, ModificationComponent, routeCreatorComponents,
-    RouteAcceptComponent, ActionsComponent, RouteDetailsDialogComponent, DetailedRoutePartComponent, UserRoutesComponent, RouteItemComponent, LocationsComponent],
+    RouteAcceptComponent, ActionsComponent, RouteDetailsDialogComponent, DetailedRoutePartComponent, UserRoutesComponent, RouteItemComponent, LocationsComponent, RouteRequestComponent, UserViewComponent],
   bootstrap: [routeCreatorComponents, RouteDetailsDialogComponent],
   providers: [BusInjectorService, RouteSearchService, RouteJoinRequestService, CarsRequiredInterceptor]
 })

@@ -14,10 +14,7 @@ export class RouteItemComponent implements OnInit {
 
   requests: RouteJoinRequestView[] = [];
 
-  constructor(
-    private dataService: DataService,
-    private changeDetec: ChangeDetectorRef
-  ) { }
+  constructor(private dataService: DataService) { }
 
   ngOnInit() {
 
@@ -32,11 +29,7 @@ export class RouteItemComponent implements OnInit {
     }
   }
 
-  accept(req: RouteJoinRequestView) {
-    this.dataService.acceptRouteRequest(req)
-  }
-
-  reject(req: RouteJoinRequestView) {
-    this.dataService.rejectRouteRequest(req)
+  removeRequest(req: RouteJoinRequestView, index: number) {
+    this.requests.splice(index, 1)
   }
 }

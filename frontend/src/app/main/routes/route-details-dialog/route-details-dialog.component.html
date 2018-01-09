@@ -9,24 +9,7 @@
     </div>
   </app-section>
   <app-section class="driver-view" sectionName="Driver info">
-    <div class="driver sec">
-      <div class="driver-first-name">
-        <div class="label">First name</div>
-        <div class="value"> {{route.driver.firstName}}</div>
-      </div>
-      <div class="driver-last-name">
-        <div class="label">Last name</div>
-        <div class="value"> {{route.driver.lastName}}</div>
-      </div>
-      <div class="driver-age">
-        <div class="label">Age</div>
-        <div class="value"> {{driverAge}}</div>
-      </div>
-      <div class="driver-last-login">
-        <div class="label">Last login</div>
-        <div class="value"> {{route.driver.lastLoginDate |date: 'short'}}</div>
-      </div>
-    </div>
+    <app-user-view [user]="route.driver"></app-user-view>
   </app-section>
   <app-section class="car-view" sectionName="Car">
     <div class="car sec">
