@@ -35,17 +35,19 @@ export class ActionsComponent implements OnInit {
   routeSearchResult: SimpleRouteSearchResult;
 
   private _routeSearchParams: RouteSearchParams;
-  joinDisabled: boolean;
 
   ngOnInit() {
   }
 
-
   onJoinClick() {
     this.routeJoinService
       .sendJoinRequest(this.routeSearchResult)
-      .then(() => this.joinDisabled = true)
-      .then(() => this.toast.show("Request successfully sent", 5000))
+      .then(res => {
+        if (res) {
+          this.routeSearchResult.canJoin = false;
+          this.toast.show("Request successfully sent", 5000);
+        }
+      })
   }
 
   onOpinionsClick() {

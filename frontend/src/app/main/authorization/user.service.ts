@@ -32,6 +32,10 @@ export class UserService {
       });
   }
 
+  goToLoginPage() {
+    this.router.navigate([RoutingConstants.LOGIN_PAGE]);
+  };
+
   getUserData() {
     return this.data.getLoggedInUserData()
       .then((appUser: AppUser) => {
@@ -54,9 +58,7 @@ export class UserService {
       .then(() => this.user = null)
       .then(() => this.subject.next(null))
       .then(() => {
-        if (this.location.path().startsWith(RoutingConstants.getProfilePage())) {
-          this.router.navigate([RoutingConstants.HOME_PAGE])
-        }
+        this.router.navigate([RoutingConstants.HOME_PAGE])
       })
   }
 

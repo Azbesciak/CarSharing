@@ -23,11 +23,16 @@ class RouteRequestsController(
   @PostMapping("join")
   fun joinToRoute(@RequestBody routeJoinRequest: RouteJoinRequestJson) =
     routeJoinRequest.mapTo {
+      val route = routeRepository.getOne(routeId!!)
+      val applicant = appUserService.getCurrentAppUserReference()
+      if (!routesResultMapper.canJoinToRoute(route, applicant)) {
+        throw IllegalStateException("Cannot join to route")
+      }
       routeJoinRequestsRepo.save(RouteJoinRequest(
-        applicant = appUserService.getCurrentAppUserReference(),
+        applicant = applicant,
         status = RouteJoinRequest.Status.AWAITING,
-        route = routeRepository.getOne(this.routeId!!),
-        requestedRoute = this.requestedRoute.map { routePartRepo.getOne(it) }.toMutableSet()
+        route = route,
+        requestedRoute = requestedRoute.map { routePartRepo.getOne(it) }.toMutableSet()
       ))
     }.toView()
 
@@ -104,7 +109,7 @@ class RouteRequestsController(
     val currentAppUser = appUserService.getCurrentAppUser()
     val requestedParts = requestedRoute.sortedBy { it.order!! }
     return RouteJoinRequestView(
-      requestId = this.joinRequestId!!,
+      requestId = joinRequestId!!,
       user = currentAppUser.mapTo {
         SimpleUserView(
           id = id!!,
@@ -116,7 +121,8 @@ class RouteRequestsController(
         )
       },
       cost = requestedParts.sumByDouble { it.cost!! },
-      locations = routesResultMapper.getOrderedVisitedLocationsNames(requestedParts)
+      locations = routesResultMapper.getOrderedVisitedLocationsNames(requestedParts),
+      canJoin = routesResultMapper.canJoinToRoute(route!!, currentAppUser)
     )
   }
 

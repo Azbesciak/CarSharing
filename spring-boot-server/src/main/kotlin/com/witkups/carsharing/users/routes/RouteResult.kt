@@ -12,7 +12,8 @@ data class SimpleRouteResult(
   val departureDate: Instant,
   val locations: List<String>,
   val freeSeats: Int,
-  val searchedRouteIds: List<Long>
+  val searchedRouteIds: List<Long>,
+  val canJoin: Boolean
 )
 
 data class DetailedRouteResult(
@@ -24,7 +25,8 @@ data class DetailedRouteResult(
   val freeSeats: Int,
   val routeParts: List<RoutePartView>,
   val searchedRouteIds: List<Long>,
-  val description: String?
+  val description: String?,
+  val canJoin: Boolean
 )
 
 data class RouteView(
@@ -32,5 +34,6 @@ data class RouteView(
   val car: Car,
   val routeParts: List<RoutePartView>,
   val description: String?,
-  val locations: List<String>
+  val locations: List<String>,
+  val canJoin: Boolean
 )

@@ -11,6 +11,9 @@ class AppUserService(
   private val appUserRepository: AppUserRepository,
   private val userRepository: UserRepository) {
 
+  fun getCurrentAppUserIfPresent() =
+    if (userService.isAuthorized()) getCurrentAppUserReference() else null
+
   fun getCurrentAppUser() = withUserId {
     appUserRepository
       .findById(it)
@@ -25,10 +28,8 @@ class AppUserService(
 
   private inline fun withUserId(f: (l: Long) -> ApplicationUser) =  f(getUserId())
 
-  private fun createNewAppUserWithUserId(userId: Long): ApplicationUser {
-    return ApplicationUser(
+  private fun createNewAppUserWithUserId(userId: Long) =
+    ApplicationUser(
       user = userRepository.findById(userId)
         .orElseThrow { UserPrincipalNotFoundException("No user with id $userId") })
-  }
-
 }

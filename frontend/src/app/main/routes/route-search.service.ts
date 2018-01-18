@@ -7,6 +7,7 @@ import {SessionStorage} from "ngx-webstorage";
 
 @Injectable()
 export class RouteSearchService {
+  private tiemout: any;
 
   constructor(private data: DataService) { }
 
@@ -16,8 +17,11 @@ export class RouteSearchService {
   lastSearchParams = new BehaviorSubject<RouteSearchParams>(this.searchParams);
 
   updateSearchParams(route: RouteSearchParams) {
-    this.lastSearchParams.next(route);
-    this.searchParams = route;
+    clearTimeout(this.tiemout);
+    this.tiemout = setTimeout(() => {
+      this.lastSearchParams.next(route);
+      this.searchParams = route;
+    }, 100);
   }
 
   subscribeOnSearchResult(f: (res: SimpleRouteSearchResult[]) => void) {

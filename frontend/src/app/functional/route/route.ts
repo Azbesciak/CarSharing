@@ -164,4 +164,14 @@ export class Route {
     }
     return false;
   }
+
+  wereDistancesChanged(distances: number[]) {
+    if (distances.length != this.distances.length) return true;
+    for (let i = 0; i < this.distances.length; i++) {
+      if (distances[i] != this.distances[i]) {
+        return true;
+      }
+    }
+    return false;
+  }
 }

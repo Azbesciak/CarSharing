@@ -15,6 +15,7 @@ export class DetailsComponent extends RouteCreator implements OnInit {
 
   description;
   car: Car;
+  selectedCarIndex: number = -1;
   private user: AppUser;
 
   protected onChange(route: Route) {
@@ -26,13 +27,19 @@ export class DetailsComponent extends RouteCreator implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.subscribeOnUserData(user => this.user = user)
+    this.userService.subscribeOnUserData(user => {
+      this.user = user;
+      if (this.user && this.user.cars.length == 1) {
+        this.updateRoute({car:this.user.cars[0], i: 0})
+      }
+    })
   }
 
   updateRoute(carEv: { car: Car, i: number } = null) {
     this.route.description = this.description;
     if (carEv) {
       this.car = carEv.car;
+      this.selectedCarIndex = carEv.i;
       this.route.car = this.car;
     }
     this.push()

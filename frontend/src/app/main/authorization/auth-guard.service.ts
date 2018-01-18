@@ -13,7 +13,7 @@ export class AuthGuardService implements CanActivate, CanDeactivate<BasicCompone
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     if (!this.auth.getAuthorizedUser()) {
-      this.router.navigate([RoutingConstants.LOGIN_PAGE]);
+      this.auth.goToLoginPage();
       return false;
     } else if (!this.auth.isCompletedUser() && state.url != AuthGuardService.profileCompletionPage) {
       this.router.navigate([AuthGuardService.profileCompletionPage]);

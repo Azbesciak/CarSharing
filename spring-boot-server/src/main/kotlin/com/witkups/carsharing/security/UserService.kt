@@ -11,6 +11,10 @@ class UserService {
     (getUserTokenAuth().principal as CustomUserDetails)
       .user { password = null }
 
+  fun isAuthorized() = getPrincipal() is UsernamePasswordAuthenticationToken
+
   private fun getUserTokenAuth() =
-    SecurityContextHolder.getContext().authentication.principal as UsernamePasswordAuthenticationToken
+    getPrincipal() as UsernamePasswordAuthenticationToken
+
+  private fun getPrincipal() = SecurityContextHolder.getContext().authentication.principal
 }

@@ -15,14 +15,19 @@ export class CostsComponent extends RouteCreator implements OnInit {
   costs: number[] = [];
   private car: Car;
   private locations: Location[] = [];
+  private distances: number[] = [];
 
   protected onChange(route: Route) {
     const car = this.route.car;
-    if (car && (Car.areDifferent(car, this.car) || route.wereLocationsChanged(this.locations))) {
+
+    if (car && (Car.areDifferent(car, this.car) ||
+        route.wereLocationsChanged(this.locations)) ||
+        route.wereDistancesChanged(this.distances)) {
       this.costs = this.route.distances
         .map(dist => Math.round(dist * car.fuelUsage / 100 / car.seatCount));
       this.locations = Location.copyAll(this.route.locations);
       this.car = car;
+      this.distances = this.route.distances.slice();
       this.onCostChange();
     }
   }

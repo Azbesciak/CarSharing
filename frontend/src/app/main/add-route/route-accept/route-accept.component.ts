@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Route} from "../../../functional/route/route";
 import {
   InfoDialogComponent, InfoDialogData,
@@ -18,17 +18,20 @@ import {RouteCreator} from "../route-creator";
 })
 export class RouteAcceptComponent extends RouteCreator implements OnInit {
   protected onChange(route: Route) {
+    this.checkValidity()
   }
 
   constructor(private data: DataService,
               private dialog: MatDialog,
               private router: Router,
+              private changesDet: ChangeDetectorRef,
               busInjector: BusInjectorService) {
     super(busInjector)
   }
 
-  errors: string[] = [];
+  errors: string[];
   ngOnInit() {
+    this.checkValidity()
   }
 
   addRoute() {
@@ -44,9 +47,9 @@ export class RouteAcceptComponent extends RouteCreator implements OnInit {
   }
 
 
-  isValid() {
+  checkValidity() {
     this.errors = [];
-    if (!this.route) return false;
+    if (!this.route) return;
     check(this.route.car, "No car selected", this.errors);
     check(this.route.origin, "Origin not set", this.errors);
     check(this.route.destination, "Destination not set", this.errors);
@@ -58,7 +61,6 @@ export class RouteAcceptComponent extends RouteCreator implements OnInit {
     } else {
       check(false, "Route not specified", this.errors);
     }
-    return this.errors.length == 0
   }
 
 

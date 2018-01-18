@@ -4,5 +4,5 @@
   <mat-hint align="end">{{input.value?.length || 0}}/255</mat-hint>
 </mat-form-field>
 <app-section sectionName="Select car">
-  <app-cars-list [cars]="user?.cars" (carSelected)="updateRoute($event)"></app-cars-list>
+  <app-cars-list [cars]="user?.cars" (carSelected)="updateRoute($event)" [selectedCar]="selectedCarIndex"></app-cars-list>
 </app-section>

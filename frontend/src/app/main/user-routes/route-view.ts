@@ -8,7 +8,8 @@ export class RouteView {
               public car: Car = null,
               public routeParts: RoutePartView[] = [],
               public description: string = null,
-              public locations: string[]) {
+              public locations: string[],
+              public canJoin: boolean = true) {
   }
 }
 
@@ -17,7 +18,8 @@ export class RoutePartView {
               public origin: RouteSnapshot = null,
               public destination: RouteSnapshot = null,
               public cost: number = null,
-              public passengers: Iterable<UserSimpleData>) {
+              public passengers: UserSimpleData[] = [],
+              public canJoin: boolean = true) {
   }
 }
 

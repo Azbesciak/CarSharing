@@ -3,6 +3,7 @@ package com.witkups.carsharing.users.routes
 import com.witkups.carsharing.mapTo
 import com.witkups.carsharing.users.application.Route
 import com.witkups.carsharing.users.application.RoutePart
+import com.witkups.carsharing.users.user.ApplicationUser
 import com.witkups.carsharing.users.user.SimpleUserView
 import org.springframework.stereotype.Service
 import java.time.Instant
@@ -10,8 +11,8 @@ import java.time.Instant
 @Service
 class RoutesResultMapper {
 
-  fun prepareSimpleRouteResult(route: Route, searchParam: RoutesSearchParam) =
-    getBasicRouteInfo(route, searchParam).mapTo {
+  fun prepareSimpleRouteResult(route: Route, searchParam: RoutesSearchParam, appUser: ApplicationUser?) =
+    getBasicRouteInfo(route, searchParam, appUser).mapTo {
       SimpleRouteResult(
         routeId = route.id!!,
         driverName = route.driver!!.firstName!!,
@@ -19,12 +20,13 @@ class RoutesResultMapper {
         cost = cost,
         freeSeats = freeSeats,
         departureDate = departureDate,
-        searchedRouteIds = searchedRoute.map { it.id!! }
+        searchedRouteIds = searchedRoute.map { it.id!! },
+        canJoin = canJoin
       )
     }
 
-  fun prepareDetailedRouteResult(route: Route, searchParam: RoutesSearchParam) =
-    getBasicRouteInfo(route, searchParam) mapTo {
+  fun prepareDetailedRouteResult(route: Route, searchParam: RoutesSearchParam, appUser: ApplicationUser?) =
+    getBasicRouteInfo(route, searchParam, appUser) mapTo {
       val driver = route mapTo {
         SimpleUserView(
           id = driver!!.id!!,
@@ -44,7 +46,8 @@ class RoutesResultMapper {
         car = route.car!!,
         routeParts = sortedRouteParts.map { it.toRouteView() },
         searchedRouteIds = searchedRoute.map { it.id!! },
-        description = route.description
+        description = route.description,
+        canJoin = canJoin
       )
     }
 
@@ -52,20 +55,24 @@ class RoutesResultMapper {
     listOf(sortedRouteParts.first().origin!!.location!!) +
       sortedRouteParts.map { it.destination!!.location!! }
 
-  fun getRouteView(route: Route) = route.getView()
+  fun getRouteView(route: Route, appUser: ApplicationUser) = route.getView(appUser)
 
-  fun Route.getView(): RouteView {
+  fun Route.getView(appUser: ApplicationUser): RouteView {
     val sortedParts = sortRouteParts(routeParts)
     return RouteView(
-      routeId = this.id!!,
-      car = this.car!!,
+      routeId = id!!,
+      car = car!!,
       routeParts = sortedParts.map { it.toRouteView() },
-      description = this.description,
-      locations = getOrderedVisitedLocationsNames(sortedParts)
+      description = description,
+      locations = getOrderedVisitedLocationsNames(sortedParts),
+      canJoin = canJoinToRoute(this, appUser)
     )
   }
 
-  private fun getBasicRouteInfo(route: Route, searchParam: RoutesSearchParam): RouteResultTempContainer {
+  private fun getBasicRouteInfo(route: Route,
+                                searchParam: RoutesSearchParam,
+                                appUser: ApplicationUser?
+  ): RouteResultTempContainer {
     val sortedRouteParts = sortRouteParts(route.routeParts)
     val searchedRoute = getSearchedRoute(sortedRouteParts, searchParam)
 
@@ -79,7 +86,8 @@ class RoutesResultMapper {
       locationsNames = locationsNames,
       cost = cost,
       freeSeats = freeSeats,
-      departureDate = departureDate)
+      departureDate = departureDate,
+      canJoin = canJoinToRoute(route, appUser))
   }
 
   private fun sortRouteParts(parts: Set<RoutePart>) = parts.sortedBy { it.order }
@@ -95,7 +103,12 @@ class RoutesResultMapper {
   }
 
   fun getOrderedVisitedLocationsNames(sortedRouteParts: List<RoutePart>) =
-    getAllLocations(sortedRouteParts).map { it.locality?: it.label!! }
+    getAllLocations(sortedRouteParts).map { it.locality ?: it.label!! }
+
+  fun canJoinToRoute(route: Route, currentAppUser: ApplicationUser?) =
+    currentAppUser != null &&
+      currentAppUser.id != route.driver!!.id &&
+      route.routeParts.minBy { it.order!! }!!.origin!!.date!!.isBefore(Instant.now())
 
 
   private class RouteResultTempContainer(
@@ -104,5 +117,6 @@ class RoutesResultMapper {
     val locationsNames: List<String>,
     val cost: Double,
     val freeSeats: Int,
-    val departureDate: Instant)
+    val departureDate: Instant,
+    val canJoin: Boolean)
 }

@@ -2,13 +2,14 @@ import {Car} from "../car";
 import {RoutePart} from "../route-part";
 
 export class SimpleRouteSearchResult {
-  constructor(public routeId: number = null,
+    constructor(public routeId: number = null,
               public driverName: String = null,
               public cost: number = null,
               public departureDate: Date = null,
               public locations: string[] = [],
               public freeSeats: number = null,
-              public searchedRouteIds: number[] = []) {
+              public searchedRouteIds: number[] = [],
+              public canJoin: boolean) {
   }
 }
 
@@ -20,7 +21,8 @@ export class DetailedRouteSearchResult {
               public departureDate: Date = null,
               public freeSeats: number = null,
               public routeParts: RoutePart[] = [],
-              public searchedRouteIds: number[] = []) {
+              public searchedRouteIds: number[] = [],
+              public canJoin: boolean) {
   }
 }
 

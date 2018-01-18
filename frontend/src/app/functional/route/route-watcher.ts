@@ -6,17 +6,13 @@ export abstract class RouteWatcher {
   @Input()
   routeEventBus: BehaviorSubject<RouteEvent>;
   route: Route;
+  token: number;
 
-  timeout;
   subscribe() {
     this.routeEventBus.subscribe(e => {
-      if (e.source !== this) {
-        if (!this.route) {
-          this.setNewRoute(e)
-        } else {
-          clearTimeout(this.timeout);
-          this.timeout = setTimeout(() => this.setNewRoute(e), 10)
-        }
+      if (e.source !== this && (!this.token || e.tokenVal > this.token || e.tokenVal < 0)) {
+        this.token = e.tokenVal;
+        this.setNewRoute(e);
       }
     })
   }
@@ -28,10 +24,10 @@ export abstract class RouteWatcher {
 
   protected abstract onChange(route: Route);
   protected push(route: Route = this.route) {
-    this.routeEventBus.next(new RouteEvent(route, this))
+    this.routeEventBus.next(new RouteEvent(route, this, ++this.token))
   }
 }
 
 export class RouteEvent {
-  constructor(public route: Route, public source: any) {}
+  constructor(public route: Route, public source: any, public tokenVal: number = 0) {}
 }

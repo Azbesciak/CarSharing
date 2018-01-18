@@ -19,28 +19,32 @@ class RoutesController(
   fun getDirectRoutes(params: RoutesSearchParam): List<SimpleRouteResult> {
     params.departureDate = params.getSearchDateStart()
     val matchingRoutes = routeRepository.findRoutes(params)
-    return matchingRoutes.map { routesResultMapper.prepareSimpleRouteResult(it, params) }
+    return matchingRoutes.map { routesResultMapper.prepareSimpleRouteResult(it, params, optionallyGetAppUser()) }
   }
 
   @GetMapping("byDriver")
   fun getAllUserAsDriverRoutes(params: RoutesSearchParam) =
-    appUserService.getUserId().let {
-      routeRepository.findByDriverId(it, params).map { routesResultMapper.getRouteView(it) }
+    getAppUserRef().let { appUser ->
+      routeRepository
+        .findByDriverId(appUser.id!!, params)
+        .map { routesResultMapper.getRouteView(it, appUser) }
     }
 
   @GetMapping("{id}")
   fun getRoute(@PathVariable id: Long, params: RoutesSearchParam): DetailedRouteResult {
     val route = routeRepository.findById(id).throwOnNotFound("route", id)
-    return routesResultMapper.prepareDetailedRouteResult(route, params)
+    return routesResultMapper.prepareDetailedRouteResult(route, params, optionallyGetAppUser())
   }
 
   @PostMapping("add")
   fun addRoute(@RequestBody route: Route) {
-    val currentUser = appUserService.getCurrentAppUserReference()
+    val currentUser = getAppUserRef()
     route.driver = currentUser
     persistLocations(route)
     routeRepository.save(route)
   }
+  private fun optionallyGetAppUser() = appUserService.getCurrentAppUserIfPresent()
+  private fun getAppUserRef() = appUserService.getCurrentAppUserReference()
 
   private fun persistLocations(route: Route) {
     val distinctLocations = route.routeParts
