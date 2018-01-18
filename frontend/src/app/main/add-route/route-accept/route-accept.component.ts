@@ -42,8 +42,15 @@ export class RouteAcceptComponent extends RouteCreator implements OnInit {
       }));
   }
 
+
   isValid() {
-    return true;
+    return this.route &&
+      this.route.car &&
+      this.route.origin &&
+      this.route.destination &&
+      this.route.routeParts.length >= 1 &&
+      this.route.routeParts.every(p => p.cost >= 0) &&
+      this.route.routeParts.every(p => !!p.destination.date && !!p.origin.date)
   }
 
   onClose() {
