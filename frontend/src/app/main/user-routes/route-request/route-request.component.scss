@@ -38,8 +38,10 @@
 
   .buttons {
     grid-column: 4;
+    /* autoprefixer: off */
     grid-row-start: 1;
     grid-row-end: 3;
+    /* autoprefixer: on */
     align-items: flex-end;
     justify-content: flex-end;
     button {
