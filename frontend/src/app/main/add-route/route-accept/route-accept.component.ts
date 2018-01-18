@@ -27,6 +27,7 @@ export class RouteAcceptComponent extends RouteCreator implements OnInit {
     super(busInjector)
   }
 
+  errors: string[] = [];
   ngOnInit() {
   }
 
@@ -44,17 +45,31 @@ export class RouteAcceptComponent extends RouteCreator implements OnInit {
 
 
   isValid() {
-    return this.route &&
-      this.route.car &&
-      this.route.origin &&
-      this.route.destination &&
-      this.route.routeParts.length >= 1 &&
-      this.route.routeParts.every(p => p.cost >= 0) &&
-      this.route.routeParts.every(p => !!p.destination.date && !!p.origin.date)
+    this.errors = [];
+    if (!this.route) return false;
+    check(this.route.car, "No car selected", this.errors);
+    check(this.route.origin, "Origin not set", this.errors);
+    check(this.route.destination, "Destination not set", this.errors);
+    if (this.route.routeParts.length >= 1) {
+      check(this.route.routeParts.every(p => p.cost >= 0),
+        "Cost not set at some part", this.errors);
+      check(this.route.routeParts.every(p => !!p.destination.date && !!p.origin.date),
+        "Missing origin or departure date", this.errors);
+    } else {
+      check(false, "Route not specified", this.errors);
+    }
+    return this.errors.length == 0
   }
+
+
 
   onClose() {
     this.router.navigate([RoutingConstants.HOME_PAGE])
   }
 
+}
+function check(truly, message, errors ) {
+  if (!truly) {
+    errors.push(message)
+  }
 }

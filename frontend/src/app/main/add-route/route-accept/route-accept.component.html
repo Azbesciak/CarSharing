@@ -1,4 +1,9 @@
 <app-summary [routeEventBus]="routeEventBus" *ngIf="route && routeEventBus"></app-summary>
+<div class="errors" *ngIf="errors.length > 0">
+  <div class="error" *ngFor="let error of errors">
+    {{error}}
+  </div>
+</div>
 <button mat-raised-button color="primary" class="sub-btn"
         [disabled]="!isValid()" (click)="addRoute()">Add route</button>
 

@@ -1,8 +1,13 @@
 <div *ngIf="routeEventBus" class="add-route-container">
   <div class="route-creator">
-    <mat-vertical-stepper>
-      <mat-step *ngFor="let comp of routeComponents" [label]="comp.label">
+    <mat-vertical-stepper [linear]="true">
+      <mat-step *ngFor="let comp of routeComponents; let last = last; let first = first"
+                [label]="comp.label" [completed]="false" optional="false">
           <ng-container *ngComponentOutlet="comp.comp"></ng-container>
+        <div class="stepper-button">
+          <button mat-button matStepperPrevious *ngIf="!first">Back</button>
+          <button mat-button matStepperNext  *ngIf="!last">Next</button>
+        </div>
       </mat-step>
     </mat-vertical-stepper>
   </div>
