@@ -22,18 +22,15 @@ export class TimesComponent extends RouteCreator implements OnInit {
     const partsLength = this.route.routeParts.length;
     if (partsLength != this.oldLength) {
       this.partsDateInputs = Array.from({length: partsLength}, (v, k) => k + 1)
-        .map((i:number) => getModifier(i - 1));
+        .map((i:number) => getModifier(i - 1, true));
       this.oldLength = partsLength;
     }
-
   }
 
   constructor(busInjector: BusInjectorService) { super(busInjector)}
 
   ngOnInit() {
-    this.dateInputs = [originDateInput('datetime'), destinationDateInput()];
-    console.log(this.route)
-
+    this.dateInputs = [originDateInput(true, 'datetime'), destinationDateInput(true)];
   }
 
 }

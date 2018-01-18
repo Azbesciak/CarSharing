@@ -9,6 +9,7 @@ export class TimeDateInput implements Verifiable{
               public type: string = 'datetime',
               public required: boolean = false,
               public disabled: boolean = false,
+              public minDate: Date = null,
               public date: Date = null) {}
 
   isValid() {

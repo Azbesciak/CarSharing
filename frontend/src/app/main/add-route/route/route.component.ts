@@ -24,12 +24,5 @@ export class RouteComponent extends RouteCreator implements OnInit {
     return this.locInputs.every(l => l.isValid())
   }
 
-  onCarSelect(car) {
-    console.log(car);
-  }
   protected onChange(route: Route) {}
-
-  goToDetails() {
-
-  }
 }

@@ -1,9 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { RouteWatcher } from "../route-watcher";
 import { Route } from "../route";
-import { RouteSnapshot } from "../route-snapshot";
 import { TimeDateInput } from "./time-date-input";
-import {Location} from "../location";
 
 @Component({
   selector: 'app-visit-date',
