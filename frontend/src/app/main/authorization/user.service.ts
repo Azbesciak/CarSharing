@@ -7,6 +7,8 @@ import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {Router} from "@angular/router";
 import {RoutingConstants} from "../../functional/routing/routing.constants";
 import {Location} from "@angular/common";
+import {MatDialog} from "@angular/material";
+import {LoginDialogComponent} from "./login/login-dialog/login-dialog.component";
 
 @Injectable()
 export class UserService {
@@ -15,8 +17,10 @@ export class UserService {
   private user: AppUser;
   private subject: BehaviorSubject<AppUser>;
 
-  constructor(private data: DataService, private auth: AuthService,
-              private router: Router, private location: Location) {
+  constructor(private data: DataService,
+              private auth: AuthService,
+              private router: Router,
+              private dialog: MatDialog) {
     this.subject = new BehaviorSubject<AppUser>(this.user);
   }
 
@@ -30,6 +34,13 @@ export class UserService {
         }
         return user;
       });
+  }
+
+  showLoginModal() {
+    this.dialog.open(LoginDialogComponent, {
+      width: '250px',
+      data: {},
+    });
   }
 
   goToLoginPage() {

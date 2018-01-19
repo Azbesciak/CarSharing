@@ -17,7 +17,6 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private router: Router,
-    public dialog: MatDialog,
     private location: Location,
     private loginServ: UserService) {}
 
@@ -35,10 +34,7 @@ export class HeaderComponent implements OnInit {
   }
 
   openLoginDialog(): void {
-    this.dialog.open(LoginDialogComponent, {
-      width: '250px',
-      data: {},
-    });
+    this.loginServ.showLoginModal()
   }
 
   register() {
