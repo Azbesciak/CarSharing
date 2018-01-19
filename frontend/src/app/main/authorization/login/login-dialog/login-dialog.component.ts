@@ -1,5 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
+import {AppUser} from "../../user";
 
 @Component({
   selector: 'app-login-dialog',
@@ -21,7 +22,7 @@ export class LoginDialogComponent implements OnInit {
   onAuthResult(event) {
     if (event && event.user) {
       this.closeDialog(event);
-      this.data.callback()
+      this.data.callback(event.user)
     }
   }
 }
@@ -29,6 +30,6 @@ export class LoginDialogComponent implements OnInit {
 export class LoginDialogData {
   constructor(public message: string = null,
               public headerStyle: any = null,
-              public callback: () => void = () => {}
+              public callback: (appUser:AppUser) => void = () => {}
               ){}
 }

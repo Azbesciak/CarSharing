@@ -10,6 +10,7 @@ import {FormsModule} from "@angular/forms";
 import {SectionComponent} from './section/section.component';
 import {SmallCardComponent} from "./small-card/small-card.component";
 import {InfoDialogComponent} from "./info-dialog/info-dialog.component";
+import {ModalService} from "./modal/modal.service";
 
 const components = [
   HeaderComponent,
@@ -32,6 +33,7 @@ const components = [
     components,
     FormsModule
   ],
+  providers: [ModalService],
   declarations: components,
   entryComponents: [InfoDialogComponent]
 })
