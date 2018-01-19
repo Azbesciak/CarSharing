@@ -1,5 +1,5 @@
 <h1 mat-dialog-title>
-  Sign in
+  <span [ngStyle]="data.headerStyle">{{data.message || 'Sign in'}}</span>
   <mat-icon mat-dialog-action mat-dialog-close (click)="closeDialog()" class="close-button">clear</mat-icon>
 </h1>
 <div  mat-dialog-content>

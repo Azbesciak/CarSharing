@@ -1,12 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {SimpleRouteSearchResult} from "../../../../functional/route/route-search/route-search-result";
-import {DataService} from "../../../../functional/data/data.service";
 import {RouteSearchParams} from "../../../../functional/route/route-search/route-search-params";
 import {MatDialog} from "@angular/material";
-import {
-  InfoDialogComponent, InfoDialogData,
-  InfoDialogType
-} from "../../../../functional/ui/info-dialog/info-dialog.component";
 import {
   RouteDetailsDialogComponent,
   RouteDetailsDialogData

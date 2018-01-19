@@ -3,7 +3,13 @@ import {ActivatedRouteSnapshot, CanActivate, CanDeactivate, Router, RouterStateS
 import {UserService} from "./user.service";
 import {RoutingConstants} from "../../functional/routing/routing.constants";
 import {BasicComponent} from "../profile/modification/basic/basic.component";
+import {LoginDialogData} from "./login/login-dialog/login-dialog.component";
 
+const headerStyle = {
+  'color': '#ff406f',
+  'font-size': '17px',
+  'transform': 'translateY(-3px)'
+};
 @Injectable()
 export class AuthGuardService implements CanActivate, CanDeactivate<BasicComponent> {
 
@@ -13,7 +19,8 @@ export class AuthGuardService implements CanActivate, CanDeactivate<BasicCompone
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     if (!this.auth.getAuthorizedUser()) {
-      this.auth.goToLoginPage();
+      this.auth.showLoginModal(
+        new LoginDialogData("You need to be logged", headerStyle,() => this.router.navigate([state.url])));
       return false;
     } else if (!this.auth.isCompletedUser() && state.url != AuthGuardService.profileCompletionPage) {
       this.router.navigate([AuthGuardService.profileCompletionPage]);

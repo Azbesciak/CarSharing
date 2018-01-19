@@ -8,7 +8,7 @@ import {Router} from "@angular/router";
 import {RoutingConstants} from "../../functional/routing/routing.constants";
 import {Location} from "@angular/common";
 import {MatDialog} from "@angular/material";
-import {LoginDialogComponent} from "./login/login-dialog/login-dialog.component";
+import {LoginDialogComponent, LoginDialogData} from "./login/login-dialog/login-dialog.component";
 
 @Injectable()
 export class UserService {
@@ -36,10 +36,10 @@ export class UserService {
       });
   }
 
-  showLoginModal() {
+  showLoginModal(data: LoginDialogData = new LoginDialogData()) {
     this.dialog.open(LoginDialogComponent, {
       width: '250px',
-      data: {},
+      data: data,
     });
   }
 
