@@ -1,6 +1,6 @@
 import { LocationInput } from "./location-input";
 
-export function originInput(): LocationInput {
+export function originInput(required: boolean = true): LocationInput {
   return new LocationInput("Origin",
     (loc, locs) => {
       locs[0] = loc
@@ -8,16 +8,16 @@ export function originInput(): LocationInput {
     (route, inp) => {
       inp.value = route.origin ? route.origin.label : undefined
     },
-    true,
+    required,
     (loc, locs) => locs[0] = loc);
 }
 
-export function destInput(): LocationInput {
+export function destInput(required: boolean = true): LocationInput {
   return new LocationInput("Destination", (loc, locs) => {
     locs[locs.length - 1] = loc
   }, (route, inp) => {
     inp.value = route.destination ? route.destination.label : undefined
-  }, true,
+  }, required,
     (loc, locs) => locs[locs.length - 1] = loc)
 }
 

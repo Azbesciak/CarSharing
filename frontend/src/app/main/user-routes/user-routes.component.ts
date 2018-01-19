@@ -33,7 +33,7 @@ export class UserRoutesComponent extends RouteWatcher implements OnInit {
     this.route = new Route();
     this.routeEventBus = new BehaviorSubject(new RouteEvent(this.route, this));
 
-    this.locInputs = [originInput(), destInput()];
+    this.locInputs = [originInput(false), destInput(false)];
     this.dateInputs = [originDateInput()];
     this.routeSearchParams = new RouteSearchParams();
     this.submitFun = (route: RouteSearchParams) => {
