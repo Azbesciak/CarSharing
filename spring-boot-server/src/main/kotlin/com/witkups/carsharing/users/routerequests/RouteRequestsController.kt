@@ -3,6 +3,7 @@ package com.witkups.carsharing.users.routerequests
 import com.witkups.carsharing.throwOnNotFound
 import com.witkups.carsharing.mapTo
 import com.witkups.carsharing.security.UserService
+import com.witkups.carsharing.users.routerequests.RouteJoinRequest.Status.*
 import com.witkups.carsharing.users.routes.RoutePartsRepo
 import com.witkups.carsharing.users.routes.RouteRepository
 import com.witkups.carsharing.users.routes.RoutesResultMapper
@@ -31,7 +32,7 @@ class RouteRequestsController(
       }
       routeJoinRequestsRepo.save(RouteJoinRequest(
         applicant = applicant,
-        status = RouteJoinRequest.Status.AWAITING,
+        status = AWAITING,
         route = route,
         requestedRoute = requestedRoute.map { routePartRepo.getOne(it) }.toMutableSet()
       ))
@@ -40,14 +41,14 @@ class RouteRequestsController(
   @PostMapping("accept/{requestId}")
   fun acceptRequest(@PathVariable requestId: Long) =
     withRouteRequest(requestId) {
-      status = RouteJoinRequest.Status.ACCEPTED
+      status = ACCEPTED
       requestedRoute.forEach { it.passengers.add(applicant!!) }
     }
 
   @PostMapping("reject/{requestId}")
   fun rejectRequest(@PathVariable requestId: Long) =
     withRouteRequest(requestId) {
-      status = RouteJoinRequest.Status.REJECTED
+      status = REJECTED
     }
 
   private inline fun withRouteRequest(requestId: Long, f: RouteJoinRequest.() -> Unit) {
@@ -72,7 +73,7 @@ class RouteRequestsController(
       if (it.userId != route.driver!!.id)
         throw IllegalStateException("Route $routeId does not belongs to user ${it.login}")
     }
-    return routeJoinRequestsRepo.findAllByDriverIdWithStatus(routeId).map { it.toView() }
+    return routeJoinRequestsRepo.findAllByRouteIdAndStatus(routeId, AWAITING).map { it.toView() }
   }
 
   @GetMapping("all/asDriver")
@@ -93,7 +94,7 @@ class RouteRequestsController(
       val requestedRoute = getRouteRequestById(requestId)
 
       if (requestedRoute.applicant!!.id == userId) {
-        requestedRoute.status = RouteJoinRequest.Status.CANCELED
+        requestedRoute.status = CANCELED
       } else {
         throw IllegalAccessException("You can't reject not your route's join requests")
       }
@@ -107,11 +108,10 @@ class RouteRequestsController(
       .throwOnNotFound("route join request", requestId)
 
   private fun RouteJoinRequest.toView(): RouteJoinRequestView {
-    val currentAppUser = appUserService.getCurrentAppUser()
     val requestedParts = requestedRoute.sortedBy { it.order!! }
     return RouteJoinRequestView(
       requestId = joinRequestId!!,
-      user = currentAppUser.mapTo {
+      user = applicant!!.mapTo {
         SimpleUserView(
           id = id!!,
           firstName = firstName!!,

@@ -51,8 +51,8 @@ export class RoutesTableComponent implements OnInit {
     }
   }
 
-  getSortOrder() {
-    switch (this._sortBy) {
+  getSortOrder(sortType = this._sortBy) {
+    switch (sortType) {
       case SortType.DATE:
         return (a, b) => a.departureDate.getTime() - b.departureDate.getTime();
       case SortType.COST:

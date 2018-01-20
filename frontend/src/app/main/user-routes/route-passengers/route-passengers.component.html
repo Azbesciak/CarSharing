@@ -1,3 +1,21 @@
-<p>
-  route-passengers works!
-</p>
+<div *ngIf="passengersOnRoute.length > 0 && passengersOnRoute[0].length > 0;
+            else noPassengers" class="passengers-on-route">
+  <app-locations [locations]="locations"></app-locations>
+  <div class="parts">
+    <div *ngFor="let part of passengersOnRoute"
+         class="part">
+      <div *ngFor="let passenger of part" class="passenger-container">
+        <div *ngIf="passenger" [ngStyle]="{'background': passenger.color}" class="passenger"
+             [ngClass]="{
+            'no-left-margin': !passenger.isFirst,
+            'no-right-margin': !passenger.isLast
+            }" [matTooltip]="passenger.user.firstName"
+        >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #noPassengers>
+  <div class="no-pass">No passengers for this route</div>
+</ng-template>

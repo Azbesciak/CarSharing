@@ -7,10 +7,15 @@
       Departure: {{route.routeParts[0].origin.date | date: 'short'}}
     </mat-panel-description>
   </mat-expansion-panel-header>
+  <app-section sectionName="Passengers">
+    <app-route-passengers [routeChangeBus]="routeChangeBus"></app-route-passengers>
+  </app-section>
+  <app-section sectionName="Requests">
     <app-route-request *ngFor="let req of requests; let i = index" [request]="req"
                        (onRejected)="removeRequest($event, i)"
                        (onAccept)="addToPassengers($event, i)"></app-route-request>
     <div *ngIf="requests && requests.length == 0" class="no-requests">
-      No join requests for this route
+      No awaiting join requests for this route
     </div>
+  </app-section>
 </mat-expansion-panel>

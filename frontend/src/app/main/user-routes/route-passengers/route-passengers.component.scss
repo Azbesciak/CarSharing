@@ -1,0 +1,45 @@
+:host {
+  .passengers-on-route {
+    display: grid;
+    grid-template-columns: auto max-content auto;
+    app-locations {
+      grid-column: 2;
+      text-align: center;
+      width: fit-content;
+    }
+    .parts {
+      grid-column: 2;
+      display: flex;
+      justify-self: center;
+      width: 100%;
+      .part {
+        width: 100%;
+      }
+    }
+    .passenger-container {
+      width: 100%;
+      height: 15px;
+    }
+    .passenger {
+      height: 5px;
+      border-radius: 4px;
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+    .no-left-margin {
+      margin-left: 0;
+      border-bottom-left-radius: 0;
+      border-top-left-radius: 0;
+    }
+    .no-right-margin {
+      margin-right: 0;
+      border-bottom-right-radius: 0;
+      border-top-right-radius: 0;
+    }
+  }
+  .no-pass {
+    color: #7b7b7b;
+    text-align: center;
+    font-size: 14px;
+  }
+}

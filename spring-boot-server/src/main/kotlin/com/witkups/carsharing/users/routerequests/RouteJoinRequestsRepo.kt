@@ -16,9 +16,11 @@ interface RouteJoinRequestsRepo: JpaRepository<RouteJoinRequest, Long> {
 
   @Query(SELECT_ALL_BY_DRIVER + " and rjr.status = :status")
   fun findAllByDriverIdWithStatus(
-    @Param("driverId") driverId: Long, @Param("status") status: Status = Status.AWAITING): List<RouteJoinRequest>
+    @Param("driverId") driverId: Long, @Param("status") status: Status): List<RouteJoinRequest>
 
   fun findAllByRouteId(routeId: Long): List<RouteJoinRequest>
+
+  fun findAllByRouteIdAndStatus(routeId: Long, status: Status): List<RouteJoinRequest>
 
   fun findAllByApplicantId(applicantId: Long): List<RouteJoinRequest>
 }
