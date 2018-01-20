@@ -82,7 +82,7 @@ class RoutesResultMapper(
 
     val locationsNames = getOrderedVisitedLocationsNames(sortedRouteParts)
     val cost = searchedRoute.sumByDouble { it.cost!! }
-    val freeSeats = searchedRoute.map { it.getFreeSeatsCount(route) }.min()!!
+    val freeSeats = searchedRoute.getFreeSeatsOnRequestedRoute(route)
     val departureDate = searchedRoute.first().origin!!.date!!
     return RouteResultTempContainer(
       sortedRouteParts = sortedRouteParts,
@@ -91,8 +91,12 @@ class RoutesResultMapper(
       cost = cost,
       freeSeats = freeSeats,
       departureDate = departureDate,
-      veto = canJoinToRoute(route, appUser))
+      veto = canJoinToRoute(route, appUser, freeSeats)
+    )
   }
+
+  private fun List<RoutePart>.getFreeSeatsOnRequestedRoute(route: Route) =
+    map { it.getFreeSeatsCount(route) }.min()!!
 
   private fun sortRouteParts(parts: Set<RoutePart>) = parts.sortedBy { it.order }
 
@@ -109,8 +113,13 @@ class RoutesResultMapper(
   fun getOrderedVisitedLocationsNames(sortedRouteParts: List<RoutePart>) =
     getAllLocations(sortedRouteParts).map { it.locality ?: it.label!! }
 
-  fun canJoinToRoute(route: Route, currentAppUser: ApplicationUser?) =
+  fun canJoinToRoute(route: Route, currentAppUser: ApplicationUser?, requestedParts: List<RoutePart>) =
+    canJoinToRoute(route, currentAppUser, requestedParts.getFreeSeatsOnRequestedRoute(route))
+
+
+  fun canJoinToRoute(route: Route, currentAppUser: ApplicationUser?, freeSeats: Int) =
     when {
+      freeSeats <= 0 -> NO_MORE_FREE_SEATS
       route.getDepartureDate().isBefore(Instant.now()) -> OUTDATED
       currentAppUser == null -> ANONYMOUS
       currentAppUser.id == route.driver!!.id -> DRIVER
@@ -118,6 +127,8 @@ class RoutesResultMapper(
       route.getAllApplicants().any {it.id == currentAppUser.id} -> ALREADY_REQUESTED
       else -> null
     }
+
+
 
   private fun Route.getAllApplicants() =
     routeJoinRequestsRepo.findAllByRouteId(id!!).map { it.applicant!! }

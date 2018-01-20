@@ -26,7 +26,8 @@ class RouteRequestsController(
     routeJoinRequest.mapTo {
       val route = routeRepository.getOne(routeId!!)
       val applicant = appUserService.getCurrentAppUserReference()
-      val joinVeto = routesResultMapper.canJoinToRoute(route, applicant)
+      val requestedParts = requestedRoute.map { routePartRepo.getOne(it) }
+      val joinVeto = routesResultMapper.canJoinToRoute(route, applicant, requestedParts)
       if (joinVeto != null) {
         throw RouteJoinRequestReject(joinVeto)
       }
@@ -34,7 +35,7 @@ class RouteRequestsController(
         applicant = applicant,
         status = AWAITING,
         route = route,
-        requestedRoute = requestedRoute.map { routePartRepo.getOne(it) }.toMutableSet()
+        requestedRoute = requestedParts.toMutableSet()
       ))
     }.toView()
 
