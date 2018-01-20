@@ -11,6 +11,7 @@ import {Md2Toast} from "md2";
 import {UserService} from "../../../authorization/user.service";
 import {AppUser} from "../../../authorization/user";
 import {LoginDialogData} from "../../../authorization/login/login-dialog/login-dialog.component";
+import {ToastService} from "../../../../functional/ui/toast/toast.service";
 
 @Component({
   selector: 'app-actions',
@@ -19,7 +20,8 @@ import {LoginDialogData} from "../../../authorization/login/login-dialog/login-d
 })
 export class ActionsComponent implements OnInit {
   private user: AppUser;
-  private canJoin: boolean;
+  canJoin: boolean;
+  vetoMessage?: string;
   @Input()
   set routeSearchParams(value: RouteSearchParams) {
     const route = RouteSearchParams.toRoute(value);
@@ -30,11 +32,22 @@ export class ActionsComponent implements OnInit {
     private dialog: MatDialog,
     private routeJoinService: RouteJoinRequestService,
     private userServ: UserService,
-    private toast: Md2Toast) {
+    private toast: ToastService) {
     userServ.subscribeOnUserData(user => {
       this.user = user;
-      this.canJoin = this.canJoin && this.routeSearchResult.canJoin;
+      this.canJoin = this.canJoin && this.canJoinToRoute();
+      this.setVetoMessage();
     })
+  }
+
+  private setVetoMessage() {
+    if (this.routeSearchResult)
+      this.vetoMessage = this.getVetoMessage(this.routeSearchResult.joinVeto)
+  }
+
+  private canJoinToRoute(): boolean {
+    this.setVetoMessage()
+    return this.routeSearchResult.joinVeto == (null || "ANONYMOUS");
   }
 
   @Input()
@@ -43,12 +56,14 @@ export class ActionsComponent implements OnInit {
   private _routeSearchParams: RouteSearchParams;
 
   ngOnInit() {
-    this.canJoin = !this.user || this.routeSearchResult.canJoin;
+    console.log(this.routeSearchResult);
+    this.canJoin = !this.user || this.canJoinToRoute();
+    this.setVetoMessage()
   }
 
   onJoinClick() {
     if (!this.canJoin) {
-      this.toast.show("You cannot join this route", 5000);
+      this.toast.show("You cannot join this route");
     } else if (this.user) {
       this.routeJoinService
         .sendJoinRequest(this.routeSearchResult)
@@ -57,7 +72,10 @@ export class ActionsComponent implements OnInit {
             this.disableJoinPossibility();
             this.toast.show("Request successfully sent", 5000);
           }
-        }).catch(e => this.disableJoinPossibility())
+        }).catch(e => {
+          console.log(e);
+          this.disableJoinPossibility()
+      })
     } else {
       this.userServ.showLoginModal(new LoginDialogData(
         "To make a route request, you need to log in first",
@@ -69,12 +87,26 @@ export class ActionsComponent implements OnInit {
     }
   }
 
+  private getVetoMessage(veto: string) {
+    if (veto) {
+      switch(veto) {
+        case "ALREADY_PASSENGER": return "You have already joined this route";
+        case "ALREADY_REQUESTED": return "Request was already sent";
+        case "DRIVER": return "You cannot join your route";
+        case "OUTDATED": return "Route is out of the time";
+        // case "ANONYMOUS": return "To You need to be logged in first"
+      }
+    }
+    return null;
+  }
+
   private disableJoinPossibility() {
-    this.canJoin = this.routeSearchResult.canJoin = false;
+    this.canJoin = false;
+    this.routeSearchResult.joinVeto = "DENIED";
   }
 
   onOpinionsClick() {
-
+    this.toast.show("Opinions are not supported yet")
   }
 
   onRouteDetailsClick() {

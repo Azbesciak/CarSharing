@@ -1,5 +1,5 @@
-<button mat-icon-button (click)="onJoinClick()" matTooltip="Join" [disabled]="!canJoin">
-  <mat-icon>person_add</mat-icon>
+<button mat-icon-button (click)="onJoinClick()" [disabled]="!canJoin">
+  <mat-icon [matTooltip]="vetoMessage || 'Join'">person_add</mat-icon>
 </button>
 <button mat-icon-button (click)="onRouteDetailsClick()" matTooltip="Route details">
   <mat-icon>search</mat-icon>

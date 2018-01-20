@@ -16,6 +16,10 @@ import java.sql.SQLException
 class RouteRequestErrorHandler {
   companion object : KLogging()
 
+  @ExceptionHandler(RouteJoinRequestReject::class)
+  @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
+  fun rejectHandle(e: RouteJoinRequestReject) = RouteError(e.veto.message)
+
   @ExceptionHandler(IllegalStateException::class)
   fun illegalHandler(e: IllegalStateException, res: Res): Res {
     res.status = 406

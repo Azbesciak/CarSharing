@@ -26,10 +26,10 @@ class RoutesController(
 
   @GetMapping("byDriver")
   fun getAllUserAsDriverRoutes(params: RoutesSearchParam) =
-    getAppUserRef().let { appUser ->
+    getAppUserRef().let {
       routeRepository
-        .findByDriverId(appUser.id!!, params)
-        .map { routesResultMapper.getRouteView(it, appUser) }
+        .findByDriverId(it.id!!, params)
+        .map { routesResultMapper.getRouteView(it) }
     }
 
   @GetMapping("{id}")

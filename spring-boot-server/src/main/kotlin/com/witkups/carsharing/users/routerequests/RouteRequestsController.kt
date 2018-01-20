@@ -25,8 +25,9 @@ class RouteRequestsController(
     routeJoinRequest.mapTo {
       val route = routeRepository.getOne(routeId!!)
       val applicant = appUserService.getCurrentAppUserReference()
-      if (!routesResultMapper.canJoinToRoute(route, applicant)) {
-        throw IllegalStateException("Cannot join to route")
+      val joinVeto = routesResultMapper.canJoinToRoute(route, applicant)
+      if (joinVeto != null) {
+        throw RouteJoinRequestReject(joinVeto)
       }
       routeJoinRequestsRepo.save(RouteJoinRequest(
         applicant = applicant,
@@ -71,7 +72,7 @@ class RouteRequestsController(
       if (it.userId != route.driver!!.id)
         throw IllegalStateException("Route $routeId does not belongs to user ${it.login}")
     }
-    return routeJoinRequestsRepo.findAllByRouteId(routeId).map { it.toView() }
+    return routeJoinRequestsRepo.findAllByDriverIdWithStatus(routeId).map { it.toView() }
   }
 
   @GetMapping("all/asDriver")
@@ -105,7 +106,8 @@ class RouteRequestsController(
       .findById(requestId)
       .throwOnNotFound("route join request", requestId)
 
-  private fun RouteJoinRequest.toView(): RouteJoinRequestView {
+  private fun RouteJoinRequest.toView()
+    : RouteJoinRequestView {
     val currentAppUser = appUserService.getCurrentAppUser()
     val requestedParts = requestedRoute.sortedBy { it.order!! }
     return RouteJoinRequestView(
@@ -121,8 +123,7 @@ class RouteRequestsController(
         )
       },
       cost = requestedParts.sumByDouble { it.cost!! },
-      locations = routesResultMapper.getOrderedVisitedLocationsNames(requestedParts),
-      canJoin = routesResultMapper.canJoinToRoute(route!!, currentAppUser)
+      locations = routesResultMapper.getOrderedVisitedLocationsNames(requestedParts)
     )
   }
 }

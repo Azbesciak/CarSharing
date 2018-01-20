@@ -9,7 +9,7 @@ export class SimpleRouteSearchResult {
               public locations: string[] = [],
               public freeSeats: number = null,
               public searchedRouteIds: number[] = [],
-              public canJoin: boolean) {
+              public joinVeto: string = null) {
   }
 }
 
@@ -22,7 +22,7 @@ export class DetailedRouteSearchResult {
               public freeSeats: number = null,
               public routeParts: RoutePart[] = [],
               public searchedRouteIds: number[] = [],
-              public canJoin: boolean) {
+              public joinVeto: string = null) {
   }
 }
 

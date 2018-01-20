@@ -3,13 +3,18 @@ package com.witkups.carsharing.users.routes
 import com.witkups.carsharing.mapTo
 import com.witkups.carsharing.users.application.Route
 import com.witkups.carsharing.users.application.RoutePart
+import com.witkups.carsharing.users.routerequests.RouteJoinRequestVeto
+import com.witkups.carsharing.users.routerequests.RouteJoinRequestsRepo
+import com.witkups.carsharing.users.routerequests.RouteJoinRequestVeto.*
 import com.witkups.carsharing.users.user.ApplicationUser
 import com.witkups.carsharing.users.user.SimpleUserView
 import org.springframework.stereotype.Service
 import java.time.Instant
 
 @Service
-class RoutesResultMapper {
+class RoutesResultMapper(
+  private val routeJoinRequestsRepo: RouteJoinRequestsRepo
+) {
 
   fun prepareSimpleRouteResult(route: Route, searchParam: RoutesSearchParam, appUser: ApplicationUser?) =
     getBasicRouteInfo(route, searchParam, appUser).mapTo {
@@ -21,7 +26,7 @@ class RoutesResultMapper {
         freeSeats = freeSeats,
         departureDate = departureDate,
         searchedRouteIds = searchedRoute.map { it.id!! },
-        canJoin = canJoin
+        joinVeto = veto
       )
     }
 
@@ -47,7 +52,7 @@ class RoutesResultMapper {
         routeParts = sortedRouteParts.map { it.toRouteView() },
         searchedRouteIds = searchedRoute.map { it.id!! },
         description = route.description,
-        canJoin = canJoin
+        joinVeto = veto
       )
     }
 
@@ -55,17 +60,16 @@ class RoutesResultMapper {
     listOf(sortedRouteParts.first().origin!!.location!!) +
       sortedRouteParts.map { it.destination!!.location!! }
 
-  fun getRouteView(route: Route, appUser: ApplicationUser) = route.getView(appUser)
+  fun getRouteView(route: Route) = route.getView()
 
-  fun Route.getView(appUser: ApplicationUser): RouteView {
+  fun Route.getView(): RouteView {
     val sortedParts = sortRouteParts(routeParts)
     return RouteView(
       routeId = id!!,
       car = car!!,
       routeParts = sortedParts.map { it.toRouteView() },
       description = description,
-      locations = getOrderedVisitedLocationsNames(sortedParts),
-      canJoin = canJoinToRoute(this, appUser)
+      locations = getOrderedVisitedLocationsNames(sortedParts)
     )
   }
 
@@ -87,7 +91,7 @@ class RoutesResultMapper {
       cost = cost,
       freeSeats = freeSeats,
       departureDate = departureDate,
-      canJoin = canJoinToRoute(route, appUser))
+      veto = canJoinToRoute(route, appUser))
   }
 
   private fun sortRouteParts(parts: Set<RoutePart>) = parts.sortedBy { it.order }
@@ -106,13 +110,20 @@ class RoutesResultMapper {
     getAllLocations(sortedRouteParts).map { it.locality ?: it.label!! }
 
   fun canJoinToRoute(route: Route, currentAppUser: ApplicationUser?) =
-    currentAppUser != null &&
-      currentAppUser.id != route.driver!!.id &&
-      Instant.now().isBefore(getDepartureDate(route)) &&
-      route.routeParts.flatMap { it.passengers }.toSet().none { it.id == currentAppUser.id }
+    when {
+      route.getDepartureDate().isBefore(Instant.now()) -> OUTDATED
+      currentAppUser == null -> ANONYMOUS
+      currentAppUser.id == route.driver!!.id -> DRIVER
+      route.routeParts.flatMap { it.passengers }.toSet().any { it.id == currentAppUser.id } -> ALREADY_PASSENGER
+      route.getAllApplicants().any {it.id == currentAppUser.id} -> ALREADY_REQUESTED
+      else -> null
+    }
 
-  private fun getDepartureDate(route: Route) =
-    route.routeParts.minBy { it.order!! }!!.origin!!.date!!
+  private fun Route.getAllApplicants() =
+    routeJoinRequestsRepo.findAllByRouteId(id!!).map { it.applicant!! }
+
+  private fun Route.getDepartureDate() =
+    routeParts.minBy { it.order!! }!!.origin!!.date!!
 
 
   private class RouteResultTempContainer(
@@ -122,5 +133,5 @@ class RoutesResultMapper {
     val cost: Double,
     val freeSeats: Int,
     val departureDate: Instant,
-    val canJoin: Boolean)
+    val veto: RouteJoinRequestVeto?)
 }
