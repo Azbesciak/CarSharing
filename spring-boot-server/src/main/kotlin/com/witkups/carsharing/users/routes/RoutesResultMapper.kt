@@ -108,7 +108,11 @@ class RoutesResultMapper {
   fun canJoinToRoute(route: Route, currentAppUser: ApplicationUser?) =
     currentAppUser != null &&
       currentAppUser.id != route.driver!!.id &&
-      route.routeParts.minBy { it.order!! }!!.origin!!.date!!.isBefore(Instant.now())
+      Instant.now().isBefore(getDepartureDate(route)) &&
+      route.routeParts.flatMap { it.passengers }.toSet().none { it.id == currentAppUser.id }
+
+  private fun getDepartureDate(route: Route) =
+    route.routeParts.minBy { it.order!! }!!.origin!!.date!!
 
 
   private class RouteResultTempContainer(

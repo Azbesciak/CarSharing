@@ -54,10 +54,10 @@ export class ActionsComponent implements OnInit {
         .sendJoinRequest(this.routeSearchResult)
         .then(res => {
           if (res) {
-            this.canJoin = this.routeSearchResult.canJoin = false;
+            this.disableJoinPossibility();
             this.toast.show("Request successfully sent", 5000);
           }
-        })
+        }).catch(e => this.disableJoinPossibility())
     } else {
       this.userServ.showLoginModal(new LoginDialogData(
         "To make a route request, you need to log in first",
@@ -67,6 +67,10 @@ export class ActionsComponent implements OnInit {
           }
         }))
     }
+  }
+
+  private disableJoinPossibility() {
+    this.canJoin = this.routeSearchResult.canJoin = false;
   }
 
   onOpinionsClick() {

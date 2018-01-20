@@ -1,7 +1,9 @@
 package com.witkups.carsharing.users.routes
 
 import com.witkups.carsharing.throwOnNotFound
+import com.witkups.carsharing.users.application.Location
 import com.witkups.carsharing.users.application.Route
+import com.witkups.carsharing.users.application.RouteSnapshot
 import com.witkups.carsharing.users.user.AppUserService
 import org.springframework.web.bind.annotation.*
 import java.time.*
@@ -43,6 +45,7 @@ class RoutesController(
     persistLocations(route)
     routeRepository.save(route)
   }
+
   private fun optionallyGetAppUser() = appUserService.getCurrentAppUserIfPresent()
   private fun getAppUserRef() = appUserService.getCurrentAppUserReference()
 
@@ -50,20 +53,19 @@ class RoutesController(
     val distinctLocations = route.routeParts
       .flatMap { setOf(it.destination!!.location, it.origin!!.location) }.toSet()
     val locationsWithAlreadyExisting = locationRepository
-      .findAllById(distinctLocations
-        .map { it!!.placeId })
+      .findAllById(distinctLocations.map { it!!.placeId })
       .toSet()
       .plus(distinctLocations)
     route.routeParts.forEach {
-      it.destination.apply {
-        this!!.location = locationsWithAlreadyExisting.find { it!!.placeId == location!!.placeId }
-      }
+      it.destination!!.assignExistingLocation(locationsWithAlreadyExisting)
     }
     route.routeParts.forEach {
-      it.origin.apply {
-        this!!.location = locationsWithAlreadyExisting.find { it!!.placeId == location!!.placeId }
-      }
+      it.origin!!.assignExistingLocation(locationsWithAlreadyExisting)
     }
+  }
+
+  private fun RouteSnapshot.assignExistingLocation(locationsWithAlreadyExisting: Set<Location?>) {
+    location = locationsWithAlreadyExisting.find { it!!.placeId == location!!.placeId }
   }
 
   private fun RoutesSearchParam.getSearchDateStart(): Instant {

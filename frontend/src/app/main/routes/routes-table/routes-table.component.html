@@ -33,7 +33,8 @@
           <div class="value">{{route.departureDate |date: 'short'}}</div>
         </div>
       </div>
-      <app-actions [routeSearchResult]="route" [routeSearchParams]="routeSearchParams" *ngIf="route"></app-actions>
+      <app-actions [routeSearchResult]="route" [routeSearchParams]="routeSearchParams"
+                   *ngIf="route && routeSearchParams"></app-actions>
     </div>
   </mat-list-item>
   <mat-list-item mat-line class="elevated-list-item" *ngIf="routes.length == 0">

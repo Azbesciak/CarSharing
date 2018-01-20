@@ -5,7 +5,8 @@
 <mat-list class="example-container mat-elevation-z8" *ngIf="routes">
   <h3 mat-subheader class="list-header">
     <span *ngIf="routeSearchParams?.origin || routeSearchParams?.destination; else anyRoute">
-      Routes for route: {{routeSearchParams?.origin?.label}} &rarr; {{routeSearchParams?.destination?.label}}</span>
+      Routes for route: {{routeSearchParams?.origin?.label || 'anywhere'}} &rarr;
+      {{routeSearchParams?.destination?.label || 'anywhere'}}</span>
     <ng-template #anyRoute>
       All routes
     </ng-template>

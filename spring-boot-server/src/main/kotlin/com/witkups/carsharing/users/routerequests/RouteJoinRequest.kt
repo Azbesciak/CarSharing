@@ -9,7 +9,7 @@ import javax.persistence.*
 @Entity
 @Table(name = "route_join_requests",
   uniqueConstraints = [
-    UniqueConstraint(columnNames = ["route_id", "applicant_id"])
+    UniqueConstraint(columnNames = ["route_id", "applicant_id"], name = "UK_RouteJoinRequests_RouteId_ApplicantId")
   ])
 data class RouteJoinRequest(
   @Id

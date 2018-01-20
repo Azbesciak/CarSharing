@@ -125,5 +125,4 @@ class RouteRequestsController(
       canJoin = routesResultMapper.canJoinToRoute(route!!, currentAppUser)
     )
   }
-
 }

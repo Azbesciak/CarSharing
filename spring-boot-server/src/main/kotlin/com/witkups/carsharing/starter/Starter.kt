@@ -1,9 +1,6 @@
-package com.witkups.carsharing.security
+package com.witkups.carsharing.starter
 
 import com.witkups.carsharing.users.application.Car
-import com.witkups.carsharing.users.application.Location
-import com.witkups.carsharing.users.application.Route
-import com.witkups.carsharing.users.application.RoutePart
 import com.witkups.carsharing.users.authorization.Role
 import com.witkups.carsharing.users.authorization.User
 import com.witkups.carsharing.users.authorization.UserRepository
@@ -26,6 +23,9 @@ class Starter(
 
   @Transactional
   override fun run(vararg args: String?) {
+    if (userRepository.findById(1).isPresent) {
+      return
+    }
     val user1 = User(roles = mutableSetOf(Role.USER), email = "lama1@com.pl", login = "lama",
       password = passwordEncoder.encode("123"), lastLogin = Instant.now())
     val user2 = User(roles = mutableSetOf(Role.USER), email = "lama2@com.pl", login = "lama2",
@@ -49,15 +49,14 @@ class Starter(
       dateOfBirth = LocalDate.of(1967, Month.JULY, 2)
     )
     appUserRepository.save(driver)
-    appUserRepository.save(ApplicationUser(user = user2, lastName = "borek", firstName = "lamka", dateOfBirth = LocalDate.of(1960, Month.APRIL, 13)))
-    appUserRepository.save(ApplicationUser(user = user3, lastName = "borek", firstName = "lamka", dateOfBirth = LocalDate.of(1996, Month.FEBRUARY, 1)))
-    appUserRepository.save(ApplicationUser(user = user4, lastName = "borek", firstName = "lamka", dateOfBirth = LocalDate.of(1975, Month.MARCH, 25)))
-    appUserRepository.save(ApplicationUser(user = user5, lastName = "borek", firstName = "lamka", dateOfBirth = LocalDate.of(1988, Month.SEPTEMBER, 17)))
+    appUserRepository.save(ApplicationUser(user = user2, lastName = "czesław", firstName = "oomo",
+      dateOfBirth = LocalDate.of(1960, Month.APRIL, 13)))
+    appUserRepository.save(ApplicationUser(user = user3, lastName = "zdzisiu", firstName = "ego",
+      dateOfBirth = LocalDate.of(1996, Month.FEBRUARY, 1)))
+    appUserRepository.save(ApplicationUser(user = user4, lastName = "alamdadeusz", firstName = "xyz",
+      dateOfBirth = LocalDate.of(1975, Month.MARCH, 25)))
+    appUserRepository.save(ApplicationUser(user = user5, lastName = "kot", firstName = "kotonski",
+      dateOfBirth = LocalDate.of(1988, Month.SEPTEMBER, 17)))
 
-//    Route(driver = driver, car = drivingCar, )
-  }
-
-  fun routeParts() {
-//    Location("someLoc", 14.0, latitude = 15.0, label = "Warsaw, Poland", country = )
   }
 }

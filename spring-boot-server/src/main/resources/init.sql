@@ -1,5 +1,5 @@
-INSERT INTO carScharing.dbo.[role] ([role]) VALUES ('ADMIN')
-INSERT INTO carScharing.dbo.[role] ([role]) VALUES ('USER')
+-- INSERT INTO carScharing.dbo.[role] ([role]) VALUES ('ADMIN')
+-- INSERT INTO carScharing.dbo.[role] ([role]) VALUES ('USER')
 
 
 CREATE FUNCTION dbo.RestrictNumberOfPassengers(@RoutePartId INT)

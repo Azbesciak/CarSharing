@@ -60,6 +60,7 @@ dependencies {
   compile('org.springframework.boot:spring-boot-starter-data-jpa')
   compile('org.springframework.boot:spring-boot-starter-security')
   compile('org.springframework.boot:spring-boot-starter-webflux')
+  compile 'io.github.microutils:kotlin-logging:1.4.9'
   compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
   runtime('org.springframework.boot:spring-boot-devtools')
   runtime('com.microsoft.sqlserver:mssql-jdbc')

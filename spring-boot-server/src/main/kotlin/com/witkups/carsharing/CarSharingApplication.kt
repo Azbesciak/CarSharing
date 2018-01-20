@@ -1,12 +1,5 @@
 package com.witkups.carsharing
 
-import com.witkups.carsharing.users.application.Car
-import com.witkups.carsharing.users.authorization.Role
-import com.witkups.carsharing.users.authorization.User
-import com.witkups.carsharing.users.authorization.UserRepository
-import com.witkups.carsharing.users.user.AppUserRepository
-import com.witkups.carsharing.users.user.ApplicationUser
-import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.autoconfigure.domain.EntityScan

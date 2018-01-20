@@ -11,6 +11,7 @@ import {SectionComponent} from './section/section.component';
 import {SmallCardComponent} from "./small-card/small-card.component";
 import {InfoDialogComponent} from "./info-dialog/info-dialog.component";
 import {ModalService} from "./modal/modal.service";
+import {ToastService} from "./toast/toast.service";
 
 const components = [
   HeaderComponent,
@@ -33,7 +34,7 @@ const components = [
     components,
     FormsModule
   ],
-  providers: [ModalService],
+  providers: [ModalService, ToastService],
   declarations: components,
   entryComponents: [InfoDialogComponent]
 })
