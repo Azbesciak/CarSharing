@@ -9,6 +9,7 @@ data class RoutePartView(
   val origin: RouteSnapshot,
   val destination: RouteSnapshot,
   val cost: Double,
-  val passengers: Iterable<SimpleUserView>
+  val passengers: Iterable<SimpleUserView>,
+  val order: Int
 )
 

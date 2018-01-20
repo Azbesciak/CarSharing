@@ -32,6 +32,7 @@ import { RouteItemComponent } from './user-routes/route-item/route-item.componen
 import { LocationsComponent } from './routes/routes-table/locations/locations.component';
 import { RouteRequestComponent } from './user-routes/route-request/route-request.component';
 import { UserViewComponent } from './routes/user-view/user-view.component';
+import { RoutePassengersComponent } from './user-routes/route-passengers/route-passengers.component';
 
 const routeCreatorComponents = [
   RouteComponent,
@@ -53,7 +54,7 @@ const routeCreatorComponents = [
     HomeComponent, BasicComponent,
     ProfileComponent, RoutesSearchComponent, AddRouteComponent, RoutesTableComponent, SummaryComponent,
     CarComponent, PhotoComponent, PartsComponent, ModificationComponent, routeCreatorComponents,
-    RouteAcceptComponent, ActionsComponent, RouteDetailsDialogComponent, DetailedRoutePartComponent, UserRoutesComponent, RouteItemComponent, LocationsComponent, RouteRequestComponent, UserViewComponent],
+    RouteAcceptComponent, ActionsComponent, RouteDetailsDialogComponent, DetailedRoutePartComponent, UserRoutesComponent, RouteItemComponent, LocationsComponent, RouteRequestComponent, UserViewComponent, RoutePassengersComponent],
   bootstrap: [routeCreatorComponents, RouteDetailsDialogComponent],
   providers: [BusInjectorService, RouteSearchService, RouteJoinRequestService, CarsRequiredInterceptor]
 })

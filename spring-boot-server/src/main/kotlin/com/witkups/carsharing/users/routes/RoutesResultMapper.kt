@@ -49,7 +49,7 @@ class RoutesResultMapper(
         freeSeats = freeSeats,
         cost = cost,
         car = route.car!!,
-        routeParts = sortedRouteParts.map { it.toRouteView() },
+        routeParts = sortedRouteParts.map { it.getView() },
         searchedRouteIds = searchedRoute.map { it.id!! },
         description = route.description,
         joinVeto = veto
@@ -67,7 +67,7 @@ class RoutesResultMapper(
     return RouteView(
       routeId = id!!,
       car = car!!,
-      routeParts = sortedParts.map { it.toRouteView() },
+      routeParts = sortedParts.map { it.getView() },
       description = description,
       locations = getOrderedVisitedLocationsNames(sortedParts)
     )

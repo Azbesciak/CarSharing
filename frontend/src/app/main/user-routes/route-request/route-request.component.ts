@@ -16,6 +16,9 @@ export class RouteRequestComponent implements OnInit {
   @Output()
   onRejected = new EventEmitter<RouteJoinRequestView>();
 
+  @Output()
+  onAccept = new EventEmitter<RouteJoinRequestView>();
+
   passengerAge: number;
   constructor(private dataService: DataService) { }
 
@@ -23,9 +26,9 @@ export class RouteRequestComponent implements OnInit {
     this.passengerAge = getAge(this.request.user.dateOfBirth)
   }
 
-
   accept() {
     this.dataService.acceptRouteRequest(this.request)
+      .then(() => this.onAccept.next(this.request))
   }
 
   reject() {

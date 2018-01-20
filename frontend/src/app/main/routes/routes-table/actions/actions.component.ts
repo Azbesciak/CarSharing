@@ -46,8 +46,8 @@ export class ActionsComponent implements OnInit {
   }
 
   private canJoinToRoute(): boolean {
-    this.setVetoMessage()
-    return this.routeSearchResult.joinVeto == (null || "ANONYMOUS");
+    this.setVetoMessage();
+    return this.routeSearchResult.joinVeto == null || this.routeSearchResult.joinVeto == "ANONYMOUS"
   }
 
   @Input()
@@ -58,6 +58,7 @@ export class ActionsComponent implements OnInit {
   ngOnInit() {
     console.log(this.routeSearchResult);
     this.canJoin = !this.user || this.canJoinToRoute();
+    console.log("CAN JOIN init?", this.canJoin);
     this.setVetoMessage()
   }
 

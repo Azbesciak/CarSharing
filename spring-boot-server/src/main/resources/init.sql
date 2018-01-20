@@ -20,20 +20,24 @@ CREATE FUNCTION dbo.RestrictNumberOfPassengers(@RoutePartId INT)
 
 ALTER TABLE dbo.route_part_passengers
   ADD CONSTRAINT CK_ROUTE_PARTS_PASSENGERS_MAX CHECK (dbo.RestrictNumberOfPassengers(route_part_id) > 0);
-
 CREATE FUNCTION dbo.RestrictRoutePartsToRouteId(@RoutePartId INT)
   RETURNS INT AS
   BEGIN
     RETURN (
       SELECT count(*)
-      from dbo.route_parts rp, dbo.route_join_requests rjr, dbo.requested_route_parts rrp
-      where rp.route_part_id = @RoutePartId
-            and rrp.route_part_id = @RoutePartId
-            and rrp.join_request_id = rjr.join_request_id
-            and rjr.route_id = rp.route_id
+      FROM (
+             SELECT DISTINCT
+               rp.route_id  AS rp_route_id,
+               rjr.route_id AS rjr_route_id
+             FROM dbo.route_parts rp, dbo.route_join_requests rjr, dbo.requested_route_parts rrp
+             WHERE rp.route_part_id = @RoutePartId
+                   AND rrp.route_part_id = @RoutePartId
+                   AND rrp.join_request_id = rjr.join_request_id
+           ) table_of_distinct_route_id_pairs
     )
-  END
+  END;
 
+DROP FUNCTION dbo.RestrictRoutePartsToRouteId;
 
-alter table dbo.requested_route_parts
-  add CONSTRAINT CK_ROUTE_PART_TO_ROUTE CHECK (dbo.RestrictRoutePartsToRouteId(route_part_id) = 1)
+ALTER TABLE dbo.requested_route_parts
+  ADD CONSTRAINT CK_ROUTE_PART_TO_ROUTE CHECK (dbo.RestrictRoutePartsToRouteId(route_part_id) = 1);

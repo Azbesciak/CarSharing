@@ -7,8 +7,9 @@
       Departure: {{route.routeParts[0].origin.date | date: 'short'}}
     </mat-panel-description>
   </mat-expansion-panel-header>
-    <app-route-request *ngFor="let req of requests; let i = index"
-                       [request]="req" (onRejected)="removeRequest($event, i)"></app-route-request>
+    <app-route-request *ngFor="let req of requests; let i = index" [request]="req"
+                       (onRejected)="removeRequest($event, i)"
+                       (onAccept)="addToPassengers($event, i)"></app-route-request>
     <div *ngIf="requests && requests.length == 0" class="no-requests">
       No join requests for this route
     </div>

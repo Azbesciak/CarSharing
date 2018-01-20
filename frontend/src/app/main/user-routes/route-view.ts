@@ -27,6 +27,7 @@ export class RouteJoinRequestView {
   constructor(public requestId: number = null,
               public user: UserSimpleData = null,
               public locations: Location[] = [],
-              public cost: number = null) {
+              public cost: number = null,
+              public partsIds: number[] = []) {
   }
 }

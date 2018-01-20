@@ -106,8 +106,7 @@ class RouteRequestsController(
       .findById(requestId)
       .throwOnNotFound("route join request", requestId)
 
-  private fun RouteJoinRequest.toView()
-    : RouteJoinRequestView {
+  private fun RouteJoinRequest.toView(): RouteJoinRequestView {
     val currentAppUser = appUserService.getCurrentAppUser()
     val requestedParts = requestedRoute.sortedBy { it.order!! }
     return RouteJoinRequestView(
@@ -123,7 +122,8 @@ class RouteRequestsController(
         )
       },
       cost = requestedParts.sumByDouble { it.cost!! },
-      locations = routesResultMapper.getOrderedVisitedLocationsNames(requestedParts)
+      locations = routesResultMapper.getOrderedVisitedLocationsNames(requestedParts),
+      partsIds = requestedParts.map { it.id!! }
     )
   }
 }

@@ -32,4 +32,9 @@ export class RouteItemComponent implements OnInit {
   removeRequest(req: RouteJoinRequestView, index: number) {
     this.requests.splice(index, 1)
   }
+
+  addToPassengers(req: RouteJoinRequestView, index: number) {
+    console.log(req)
+    this.removeRequest(req, index);
+  }
 }
