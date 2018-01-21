@@ -13,7 +13,8 @@ export class RoutePassengersComponent implements OnInit {
   route: RouteView;
   locations: string[];
   passengersOnRoute: Passenger[][];
-
+  private colorSeed: number;
+  private colorStep: number;
 
   @Input()
   routeChangeBus: Observable<RouteView>;
@@ -21,6 +22,9 @@ export class RoutePassengersComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.colorSeed = Math.floor(Math.random() * COLORS.length);
+    this.colorStep = Math.max(1, Math.floor(Math.random() * COLORS.length / 4));
+    console.log("seed", this.colorSeed, "step", this.colorStep)
     this.routeChangeBus.subscribe(r => {
       if (r) {
         this.locations = r.locations;
@@ -50,8 +54,12 @@ export class RoutePassengersComponent implements OnInit {
     );
     let arr = Array.from(distinctIds.values());
     const map = new Map<number, string>();
-    arr.forEach((id, index) => map.set(id, COLORS[index % COLORS.length]));
+    arr.forEach((id, index) => map.set(id, this.getColor(index)));
     return map;
+  }
+
+  private getColor(index) {
+    return COLORS[(this.colorSeed + (index * this.colorStep)) % COLORS.length];
   }
 
   setColors(passengers: Passenger[][], colors: Map<number, string>) {
@@ -124,12 +132,17 @@ const COLORS = [
   "#F44336",
   "#9C27B0",
   "#CDDC39",
+  "#E91E63",
   "#8BC34A",
   "#795548",
+  "#ffbd00",
   "#673AB7",
   "#4CAF50",
   "#03A9F4",
-  "#2196F3"
+  "#ff6721",
+  "#9E9E9E",
+  "#0063f3",
+  "#FFEE58"
 ];
 
 class Passenger {
