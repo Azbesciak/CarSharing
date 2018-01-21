@@ -1,5 +1,6 @@
 package com.witkups.carsharing.users.routerequests
 
+import com.witkups.carsharing.ErrorMessage
 import com.witkups.carsharing.Res
 import mu.KLogging
 import org.springframework.core.Ordered
@@ -18,7 +19,7 @@ class RouteRequestErrorHandler {
 
   @ExceptionHandler(RouteJoinRequestReject::class)
   @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
-  fun rejectHandle(e: RouteJoinRequestReject) = RouteError(e.veto.message)
+  fun rejectHandle(e: RouteJoinRequestReject) = ErrorMessage(e.veto.message)
 
   @ExceptionHandler(IllegalStateException::class)
   fun illegalHandler(e: IllegalStateException, res: Res): Res {
@@ -35,21 +36,17 @@ class RouteRequestErrorHandler {
 
   @ExceptionHandler(DataIntegrityViolationException::class)
   @ResponseStatus(HttpStatus.CONFLICT)
-  fun anyError(e: DataIntegrityViolationException, res: Res): RouteError {
+  fun anyError(e: DataIntegrityViolationException, res: Res): ErrorMessage {
     logger.info("RouteRequestErrHandler", e)
     return when {
         e.isCausedBy("duplicate") ->
-          RouteError("Request already exists")
+          ErrorMessage("Request already exists")
         e.isCausedBy("CK_ROUTE_PARTS_PASSENGERS_MAX") ->
-          RouteError("Max number of passengers on this route parts reached")
-        else -> RouteError("Could not process request")
+          ErrorMessage("Max number of passengers on this route parts reached")
+        else -> ErrorMessage("Could not process request")
     }
   }
 
   private fun DataIntegrityViolationException.isCausedBy(reason: String) =
     rootCause?.localizedMessage?.contains(reason) == true
-
-  data class RouteError(
-    val message: String
-  )
 }

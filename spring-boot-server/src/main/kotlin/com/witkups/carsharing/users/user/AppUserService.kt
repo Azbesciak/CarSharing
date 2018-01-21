@@ -1,8 +1,11 @@
 package com.witkups.carsharing.users.user
 
+import com.witkups.carsharing.ErrorMessage
 import com.witkups.carsharing.security.UserService
 import com.witkups.carsharing.users.authorization.UserRepository
+import org.springframework.orm.jpa.JpaObjectRetrievalFailureException
 import org.springframework.stereotype.Service
+import org.springframework.web.bind.annotation.ExceptionHandler
 import java.nio.file.attribute.UserPrincipalNotFoundException
 
 @Service
@@ -32,4 +35,5 @@ class AppUserService(
     ApplicationUser(
       user = userRepository.findById(userId)
         .orElseThrow { UserPrincipalNotFoundException("No user with id $userId") })
+
 }
