@@ -13,7 +13,9 @@ export class RoutesTableComponent implements OnInit {
   set routes(value: SimpleRouteSearchResult[]) {
     value.forEach(s => s.departureDate = new Date(s.departureDate));
     const sortOrder = this.getSortOrder();
-    value.sort((a, b) => sortOrder(a, b));
+    if (sortOrder) {
+      value.sort((a, b) => sortOrder(a, b));
+    }
     this._routes = value;
   }
 
