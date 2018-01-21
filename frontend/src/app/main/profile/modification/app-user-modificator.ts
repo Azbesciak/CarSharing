@@ -7,7 +7,6 @@ export abstract class AppUserModificator {
   constructor() {}
 
   complete({value, valid}: {value: any, valid: boolean}, event) {
-    console.log(this.user, "user")
     event.preventDefault();
     event.stopPropagation();
     return this.onCompleted({value, valid})

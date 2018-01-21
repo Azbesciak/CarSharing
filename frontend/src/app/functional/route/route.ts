@@ -166,6 +166,8 @@ export class Route {
   }
 
   wereDistancesChanged(distances: number[]) {
+    if (!distances && !this.distances) return false;
+    if (!distances || !this.distances) return true;
     if (distances.length != this.distances.length) return true;
     for (let i = 0; i < this.distances.length; i++) {
       if (distances[i] != this.distances[i]) {

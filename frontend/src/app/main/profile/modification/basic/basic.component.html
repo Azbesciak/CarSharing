@@ -15,6 +15,6 @@
     <mat-datepicker #dateOfBirth [disabled]="false" startView="year"></mat-datepicker>
   </mat-form-field>
   <div class="sbt-container">
-    <button mat-raised-button color="primary" [disabled]="basic.invalid">Save</button>
+    <button mat-raised-button color="primary" [disabled]="basic.invalid || basic.pristine">Save</button>
   </div>
 </form>
