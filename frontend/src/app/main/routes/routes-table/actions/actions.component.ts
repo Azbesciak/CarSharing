@@ -57,7 +57,7 @@ export class ActionsComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.routeSearchResult);
-    this.canJoin = !this.user || this.canJoinToRoute();
+    this.canJoin = this.canJoinToRoute();
     console.log("CAN JOIN init?", this.canJoin);
     this.setVetoMessage()
   }
@@ -95,6 +95,7 @@ export class ActionsComponent implements OnInit {
         case "ALREADY_REQUESTED": return "Request was already sent";
         case "DRIVER": return "You cannot join your route";
         case "OUTDATED": return "Route is out of the time";
+        case "NO_MORE_FREE_SEATS": return "There is no more free seats"
         // case "ANONYMOUS": return "To You need to be logged in first"
       }
     }

@@ -37,12 +37,17 @@ class RouteRequestErrorHandler {
   @ResponseStatus(HttpStatus.CONFLICT)
   fun anyError(e: DataIntegrityViolationException, res: Res): RouteError {
     logger.info("RouteRequestErrHandler", e)
-    return if (e.rootCause?.localizedMessage?.contains("duplicate") == true) {
-      RouteError("Request already exists")
-    } else {
-      RouteError("Could not process request")
+    return when {
+        e.isCausedBy("duplicate") ->
+          RouteError("Request already exists")
+        e.isCausedBy("CK_ROUTE_PARTS_PASSENGERS_MAX") ->
+          RouteError("Max number of passengers on this route parts reached")
+        else -> RouteError("Could not process request")
     }
   }
+
+  private fun DataIntegrityViolationException.isCausedBy(reason: String) =
+    rootCause?.localizedMessage?.contains(reason) == true
 
   data class RouteError(
     val message: String
