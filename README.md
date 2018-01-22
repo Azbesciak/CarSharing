@@ -1,10 +1,10 @@
 # CarSharing [![Build Status](https://travis-ci.org/Azbesciak/CarSharing.svg?branch=master)](https://travis-ci.org/Azbesciak/CarSharing)
 ### Target
-This app gives you possibility to add your route and find passengers (which can refund it in some part), or as a passenger - find most suitable route. Only thing you need is quick registration (less than one minute).
+This app gives you possibility to add your route and find passengers (which can refund it in some part), or as a passenger - find most suitable route. The only thing you need is quick registration (less than one minute).
 
 ### How to run
-You can run this app simply by typing `gradlew bootRun` in your console - however, jdk 8 is requred (tested on jdk 8 151).
-If you would like to use it in development, you can run separated server as api and as separate proces angular frontend, which works defaulty at port 4200 (start command `ng serve` in frontend directory).
+You can run this app simply by typing `gradlew bootRun` in your console - however, jdk 8 is required (tested on jdk 8 151).
+If you would like to use it in development mode, you can run separated server as api and as separate process angular frontend, which works defaulty at port 4200 (start command `ng serve` in frontend directory).
 
 ### Used technologies:
  - Kotlin (1.2.10)
