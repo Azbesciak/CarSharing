@@ -4,6 +4,8 @@ This app gives you possibility to add your route and find passengers (which can 
 
 ### How to run
 You can run this app simply by typing `gradlew bootRun` in your console - however, jdk 8 is required (tested on jdk 8 151).
+Also, you can create jar with static content with `gradlew build`.
+However, currently static is not displayed, so angular server need to be run in other way.
 If you would like to use it in development mode, you can run separated server as api and as separate process angular frontend, which works defaulty at port 4200 (start command `ng serve` in frontend directory).
 
 ### Used technologies:
