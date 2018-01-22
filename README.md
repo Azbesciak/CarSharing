@@ -34,7 +34,7 @@ Code is under Travis CI.
 
  ![Routes view][routesView]
 
-[homePage]: https://raw.githubusercontent.com/Azbesciak/CarSharing/master/screenshots/mainPage.png "Home page"
+[homePage]: https://raw.githubusercontent.com/Azbesciak/CarSharing/master/screenshots/homePage.png "Home page"
 [addRoute]: https://raw.githubusercontent.com/Azbesciak/CarSharing/master/screenshots/addRoute.png "Add route"
 [searchRoute]: https://raw.githubusercontent.com/Azbesciak/CarSharing/master/screenshots/searchRoute.png "Search route"
 [routesView]: https://raw.githubusercontent.com/Azbesciak/CarSharing/master/screenshots/routesView.png "Routes view"
