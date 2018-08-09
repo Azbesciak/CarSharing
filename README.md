@@ -1,4 +1,7 @@
 # CarSharing [![Build Status](https://travis-ci.org/Azbesciak/CarSharing.svg?branch=master)](https://travis-ci.org/Azbesciak/CarSharing)
+## Important
+Project is abandoned due to new Google payment policy (17.07.2018). Maybe later will focus on Open Street Map as a provider.
+
 ### Target
 This app gives you possibility to add your route and find passengers (which can refund it in some part), or as a passenger - find most suitable route. The only thing you need is quick registration (less than one minute).
 
